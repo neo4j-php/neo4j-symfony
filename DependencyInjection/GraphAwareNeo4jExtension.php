@@ -1,5 +1,7 @@
 <?php
 
+declare (strict_types=1);
+
 namespace GraphAware\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Neo4j\Client\Connection\Connection;
@@ -52,7 +54,7 @@ class GraphAwareNeo4jExtension extends Extension
      *
      * @return array with service ids
      */
-    private function handleClients(array &$config, ContainerBuilder $container):array
+    private function handleClients(array &$config, ContainerBuilder $container): array
     {
         if (empty($config['clients'])) {
             // Add default entity manager if none set.
@@ -172,7 +174,7 @@ class GraphAwareNeo4jExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function getConfiguration(array $config, ContainerBuilder $container)
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         return new Configuration($container->getParameter('kernel.debug'));
     }

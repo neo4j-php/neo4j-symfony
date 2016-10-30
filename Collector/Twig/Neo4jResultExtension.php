@@ -1,5 +1,7 @@
 <?php
 
+declare (strict_types=1);
+
 namespace GraphAware\Neo4jBundle\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
@@ -22,25 +24,27 @@ class Neo4jResultExtension extends \Twig_Extension
     }
 
     /**
-     * @param string $message http message
+     * @param mixed $object
+     *
+     * @return string
      */
-    public function getType($object)
+    public function getType($object):string
     {
         return $this->doGetType($object, true);
     }
 
-    public function getName()
+    public function getName():string
     {
         return 'neo4j.result';
     }
 
     /**
-     * @param $object
-     * @param $recursive
+     * @param mixed $object
+     * @param bool $recursive
      *
      * @return string
      */
-    private function doGetType($object, $recursive):string
+    private function doGetType($object, bool $recursive):string
     {
         if ($object instanceof Node) {
             return sprintf('%s: %s', $object->identity(), implode(', ', $object->labels()));

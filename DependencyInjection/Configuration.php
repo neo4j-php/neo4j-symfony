@@ -1,5 +1,7 @@
 <?php
 
+declare (strict_types=1);
+
 namespace GraphAware\Neo4jBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

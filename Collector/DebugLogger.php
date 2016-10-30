@@ -1,5 +1,7 @@
 <?php
 
+declare (strict_types=1);
+
 namespace GraphAware\Neo4jBundle\Collector;
 
 use GraphAware\Common\Cypher\StatementInterface;
