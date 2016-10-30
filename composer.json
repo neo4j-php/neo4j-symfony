@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": "^7.0",
-        "graphaware/neo4j-php-ogm": "dev-master",
+        "graphaware/neo4j-php-ogm": "^1.0",
         "symfony/framework-bundle": "^3.0"
     },
     "require-dev": {
@@ -28,5 +28,6 @@
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
-    }
+    },
+    "minimum-stability": "beta"
 }
