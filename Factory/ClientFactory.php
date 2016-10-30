@@ -11,8 +11,6 @@ use GraphAware\Neo4j\Client\Neo4jClientEvents;
 use GraphAware\Neo4jBundle\Collector\DebugLogger;
 
 /**
- *
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 final class ClientFactory
@@ -23,14 +21,12 @@ final class ClientFactory
     private $debugLogger;
 
     /**
-     *
      * @param DebugLogger|null $debugLogger
      */
     public function __construct(DebugLogger $debugLogger = null)
     {
         $this->debugLogger = $debugLogger;
     }
-
 
     /**
      * Build an Client form multiple URLs.
@@ -88,6 +84,5 @@ final class ClientFactory
                 }
             }
         );
-
     }
 }

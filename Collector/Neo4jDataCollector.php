@@ -7,8 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
- * A data collector for the debug plugin.
- *
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
 final class Neo4jDataCollector extends DataCollector

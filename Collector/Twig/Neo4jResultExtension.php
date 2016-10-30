@@ -27,7 +27,6 @@ class Neo4jResultExtension extends \Twig_Extension
     public function getType($object)
     {
         return $this->doGetType($object, true);
-
     }
 
     public function getName()

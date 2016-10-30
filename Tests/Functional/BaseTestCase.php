@@ -4,6 +4,9 @@ namespace GraphAware\Neo4jBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ */
 class BaseTestCase extends WebTestCase
 {
     protected static function getKernelClass()

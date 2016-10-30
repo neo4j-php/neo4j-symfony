@@ -2,7 +2,6 @@
 
 namespace GraphAware\Neo4jBundle\Collector;
 
-use GraphAware\Common\Cypher\Statement;
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\Result;
 use GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface;
