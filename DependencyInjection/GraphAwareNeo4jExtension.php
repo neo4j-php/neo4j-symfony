@@ -28,13 +28,9 @@ class GraphAwareNeo4jExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $connectionServiceIds = $this->handleConnections($config, $container);
+        $this->handleConnections($config, $container);
         $clientServiceIds = $this->handleClients($config, $container);
-        $entityManagerIds = $this->handleEntityMangers($config, $container, $clientServiceIds);
-
-        $container->getDefinition('neo4j.manager_registry')
-            ->replaceArgument(1, $connectionServiceIds)
-            ->replaceArgument(2, $entityManagerIds);
+        $this->handleEntityMangers($config, $container, $clientServiceIds);
 
         // add aliases for the default services
         $container->setAlias('neo4j.connection', 'neo4j.connection.default');
