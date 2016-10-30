@@ -57,6 +57,8 @@ With the minimal configuration we have services named:
 
 ```yaml
 graph_aware_neo4j:
+  profiling: 
+    enabled: true
   connections:
     default:
       schema: http #default
