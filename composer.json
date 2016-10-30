@@ -1,0 +1,32 @@
+{
+    "name": "graphaware/neo4j-bundle",
+    "description": "Symfony integration for Neo4j",
+    "type": "symfony-bundle",
+    "keywords": ["neo4j"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Nyholm",
+            "email": "tobias.nyholm@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "graphaware/neo4j-php-ogm": "dev-master",
+        "symfony/framework-bundle": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.4",
+        "symfony/symfony": "^3.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GraphAware\\Neo4jBundle\\": ""
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+    }
+}

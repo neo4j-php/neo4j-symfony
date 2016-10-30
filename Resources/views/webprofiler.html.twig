@@ -1,0 +1,105 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% if collector.statements > 0 %}
+        {% set icon %}
+            {{ include('@GraphAwareNeo4j/Icon/neo4j.svg') }}
+            <span class="sf-toolbar-value">{{ collector.statements|length }}</span>
+            <span class="sf-toolbar-label">stmt.</span>
+        {% endset %}
+
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <b>Successful requests</b>
+                <span>{{ collector.results|length }}</span>
+            </div>
+            <div class="sf-toolbar-info-piece">
+                <b>Failed requests</b>
+                <span>{{ collector.exceptions|length }}</span>
+            </div>
+
+        {% endset %}
+        {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/graphawareneo4j/style/neo4j.css') }}" />
+    <script type="text/javascript" src="{{ asset("bundles/graphawareneo4j/script/neo4j.js") }}"></script>
+    {{ parent() }}
+{% endblock %}
+
+{% block menu %}
+    {# This left-hand menu appears when using the full-screen profiler. #}
+    <span class="label {{ collector.statements|length == 0 ? 'disabled' }}">
+        <span class="icon">
+            {{ include('@GraphAwareNeo4j/Icon/neo4j.svg') }}
+        </span>
+        <strong>Neo4j</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>GraphAware Neo4j</h2>
+
+    <table class="alt queries-table">
+        <thead>
+        <tr>
+            <th class="nowrap">#</th>
+            <th class="nowrap">Status</th>
+            <th style="width: 100%;">Query</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for idx, statement in collector.statements %}
+        <tr>
+            <td class="nowrap">{{ idx }}</td>
+            <td class="nowrap">{% if collector.wasSuccessful(idx) %}OK{% else %}FAIL{% endif %}</td>
+            <td>
+                <div>
+                {{ statement.text }}
+                </div>
+                <div class="text-small font-normal">
+                    <a href="#" class="sf-toggle link-inverse" data-toggle-selector="#result-{{ idx }}" data-toggle-alt-content="Hide result" data-toggle-original-content="View result">View result</a>
+                </div>
+
+                <div id="result-{{ idx }}">
+                    {% if not collector.wasSuccessful(idx) %}
+                        {{ collector.exceptions[idx].effect }}
+                    {% else %}
+                        {% for record in collector.results[idx].records %}
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Type</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for key in record.keys %}
+                                    <tr>
+                                        <td>
+                                            {{ key }}
+                                        </td>
+                                        <td>
+                                            {{ record.get(key)|neo4jResult }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            No result returned
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+

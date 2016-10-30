@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="neo4j.collector.debug_collector" class="GraphAware\Neo4jBundle\Collector\Neo4jDataCollector" public="false">
+            <argument type="service" id="neo4j.client_logger"/>
+
+            <tag name="data_collector" template="GraphAwareNeo4jBundle::webprofiler.html.twig" priority="200" id="neo4j"/>
+        </service>
+
+        <service id="neo4j.client_logger" class="GraphAware\Neo4jBundle\Collector\DebugLogger" public="false">
+        </service>
+
+        <service id="neo4j.collector.twig.result" class="GraphAware\Neo4jBundle\Collector\Twig\Neo4jResultExtension" public="false">
+            <tag name="twig.extension" />
+        </service>
+    </services>
+</container>

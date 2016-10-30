@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="neo4j.manager_registry" class="GraphAware\Neo4jBundle\Registry\ManagerRegistry" public="false">
+            <argument>neo4j</argument>
+            <argument></argument>
+            <argument></argument>
+            <argument>default</argument>
+            <argument>default</argument>
+            <argument></argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+        <service id="neo4j.factory.client" class="GraphAware\Neo4jBundle\Registry\ClientFactory" public="false">
+            <argument></argument>
+        </service>
+
+        <service id="neo4j.client.abstract" class="GraphAware\Neo4j\Client\Client" abstract="true">
+            <factory service="neo4j.factory.client" method="create" />
+        </service>
+        <service id="neo4j.entity_manager.abstract" class="GraphAware\Neo4j\OGM\EntityManager" abstract="true">
+        </service>
+    </services>
+</container>
