@@ -1,0 +1,7 @@
+imports:
+    - { resource: framework.yml }
+    - { resource: services.yml }
+
+graph_aware_neo4j:
+  connections:
+    default: ~

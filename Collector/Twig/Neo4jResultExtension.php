@@ -54,7 +54,7 @@ class Neo4jResultExtension extends \Twig_Extension
                 $ret[] = $this->doGetType($o, false);
             }
 
-            return sprintf('[%s]', implode(',', $ret));
+            return sprintf('[%s]', implode(', ', $ret));
         }
 
         return is_object($object) ? get_class($object) : gettype($object);
