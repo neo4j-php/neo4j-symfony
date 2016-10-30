@@ -4,19 +4,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="neo4j.manager_registry" class="GraphAware\Neo4jBundle\Registry\ManagerRegistry" public="false">
-            <argument>neo4j</argument>
-            <argument></argument>
-            <argument></argument>
-            <argument>default</argument>
-            <argument>default</argument>
-            <argument></argument>
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
-
-        <service id="neo4j.factory.client" class="GraphAware\Neo4jBundle\Registry\ClientFactory" public="false">
+        <service id="neo4j.factory.client" class="GraphAware\Neo4jBundle\Factory\ClientFactory" public="false">
             <argument></argument>
         </service>
 

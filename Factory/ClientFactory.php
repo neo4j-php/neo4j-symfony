@@ -1,6 +1,6 @@
 <?php
 
-namespace GraphAware\Neo4jBundle\Registry;
+namespace GraphAware\Neo4jBundle\Factory;
 
 use GraphAware\Neo4j\Client\ClientBuilder;
 use GraphAware\Neo4j\Client\ClientInterface;
