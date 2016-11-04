@@ -5,7 +5,7 @@
 
     <services>
         <service id="neo4j.factory.client" class="GraphAware\Neo4jBundle\Factory\ClientFactory" public="false">
-            <argument></argument>
+            <argument>null</argument>
         </service>
 
         <service id="neo4j.client.abstract" class="GraphAware\Neo4j\Client\Client" abstract="true">
