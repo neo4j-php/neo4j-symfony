@@ -116,7 +116,7 @@ class GraphAwareNeo4jExtension extends Extension
                 ->setDefinition($serviceId, new DefinitionDecorator('neo4j.entity_manager.abstract'))
                 ->setArguments([
                     $container->getDefinition($clientServiceIds[$clientName]),
-                    empty($data['cache_dir']) ? sys_get_temp_dir() : $data['cache_dir'],
+                    empty($data['cache_dir']) ? $container->getParameter('kernel.cache_dir').'/neo4j' : $data['cache_dir'],
                 ]);
         }
 
