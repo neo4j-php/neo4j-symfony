@@ -81,9 +81,7 @@ final class ClientFactory
         $builder->registerEventListener(
             Neo4jClientEvents::NEO4J_ON_FAILURE,
             function (FailureEvent $event) use ($logger) {
-                foreach ($event->getException() as $ex) {
-                    $logger->addException($ex);
-                }
+                $logger->addException($event->getException());
             }
         );
     }
