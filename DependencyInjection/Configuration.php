@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Bundle\DependencyInjection;
+namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

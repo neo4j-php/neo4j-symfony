@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Neo4j\\Bundle\\": ""
+            "Neo4j\\Neo4jBundle\\": ""
         }
     },
     "scripts": {

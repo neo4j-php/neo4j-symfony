@@ -31,7 +31,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Neo4j\Bundle\Neo4jBundle(),
+        new Neo4j\Neo4jBundle\Neo4jBundle(),
     );
 }
 ```

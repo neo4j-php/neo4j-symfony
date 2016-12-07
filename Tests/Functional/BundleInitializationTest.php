@@ -1,6 +1,6 @@
 <?php
 
-namespace Neo4j\Bundle\Tests\Functional;
+namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use GraphAware\Neo4j\Client\ClientInterface;
 use GraphAware\Neo4j\Client\Connection\Connection;

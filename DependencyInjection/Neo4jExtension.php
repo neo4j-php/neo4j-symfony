@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Bundle\DependencyInjection;
+namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Neo4j\Client\Connection\Connection;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;

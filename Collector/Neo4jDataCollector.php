@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Bundle\Collector;
+namespace Neo4j\Neo4jBundle\Collector;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

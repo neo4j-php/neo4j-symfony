@@ -1,6 +1,6 @@
 <?php
 
-namespace Neo4j\Bundle\Tests\Functional;
+namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -13,7 +13,7 @@ class BaseTestCase extends WebTestCase
     {
         require_once __DIR__.'/app/AppKernel.php';
 
-        return 'Neo4j\Bundle\Tests\Functional\app\AppKernel';
+        return 'Neo4j\Neo4jBundle\Tests\Functional\app\AppKernel';
     }
 
     protected static function createKernel(array $options = [])

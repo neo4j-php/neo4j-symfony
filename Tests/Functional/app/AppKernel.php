@@ -1,8 +1,8 @@
 <?php
 
-namespace Neo4j\Bundle\Tests\Functional\app;
+namespace Neo4j\Neo4jBundle\Tests\Functional\app;
 
-use Neo4j\Bundle\Neo4jBundle;
+use Neo4j\Neo4jBundle\Neo4jBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;

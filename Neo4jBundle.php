@@ -1,8 +1,8 @@
 <?php
 
-namespace Neo4j\Bundle;
+namespace Neo4j\Neo4jBundle;
 
-use Neo4j\Bundle\DependencyInjection\Neo4jExtension;
+use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**

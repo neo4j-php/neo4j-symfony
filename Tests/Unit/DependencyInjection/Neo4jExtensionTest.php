@@ -1,8 +1,8 @@
 <?php
 
-namespace Neo4j\Bundle\Tests\Unit\DependencyInjection;
+namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
-use Neo4j\Bundle\DependencyInjection\Neo4jExtension;
+use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
@@ -22,7 +22,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.debug', true);
         $this->load();
 
-        $this->assertContainerBuilderHasService('neo4j.collector.debug_collector', 'Neo4j\Bundle\Collector\Neo4jDataCollector');
+        $this->assertContainerBuilderHasService('neo4j.collector.debug_collector', 'Neo4j\Neo4jBundle\Collector\Neo4jDataCollector');
     }
 
     public function testDataCollectorNotLoadedInNonDebug()

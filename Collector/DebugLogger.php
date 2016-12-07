@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Bundle\Collector;
+namespace Neo4j\Neo4jBundle\Collector;
 
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\Result;
