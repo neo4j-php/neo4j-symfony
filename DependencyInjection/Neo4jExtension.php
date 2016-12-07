@@ -209,7 +209,7 @@ class Neo4jExtension extends Extension
      *
      * @param array &$config
      *
-     * @return boolean true if "graphaware/neo4j-php-ogm" is installed
+     * @return bool true if "graphaware/neo4j-php-ogm" is installed
      *
      * @thorws \LogicException if EntityManagers os not installed but they are configured.
      */
