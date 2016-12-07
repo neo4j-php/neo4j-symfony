@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 
-namespace GraphAware\Neo4jBundle\DependencyInjection;
+namespace Neo4jCommunity\Neo4jBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $root = $treeBuilder->root('graph_aware_neo4j');
+        $root = $treeBuilder->root('community_neo4j');
 
         $root->children()
             ->arrayNode('profiling')

@@ -1,10 +1,10 @@
 # GraphAware Neo4j Bundle
 
-[![Latest Version](https://img.shields.io/github/release/graphaware/neo4j-bundle.svg?style=flat-square)](https://github.com/graphaware/neo4j-bundle/releases)
-[![Build Status](https://img.shields.io/travis/graphaware/neo4j-bundle.svg?style=flat-square)](https://travis-ci.org/graphaware/neo4j-bundle)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/graphaware/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/graphaware/neo4j-bundle)
-[![Quality Score](https://img.shields.io/scrutinizer/g/graphaware/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/graphaware/neo4j-bundle)
-[![Total Downloads](https://img.shields.io/packagist/dt/graphaware/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/graphaware/neo4j-bundle)
+[![Latest Version](https://img.shields.io/github/release/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://github.com/neo4j-community/neo4j-bundle/releases)
+[![Build Status](https://img.shields.io/travis/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://travis-ci.org/neo4j-community/neo4j-bundle)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/neo4j-bundle)
+[![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/neo4j-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j-community/neo4j-bundle)
 
 
 ## Install
@@ -12,7 +12,7 @@
 Via Composer
 
 ``` bash
-$ composer require graphaware/neo4j-bundle
+$ composer require neo4j-community/neo4j-bundle
 ```
 
 Enable the bundle in your kernel:
@@ -25,7 +25,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new GraphAware\Neo4jBundle\GraphAwareNeo4jBundle(),
+        new Neo4jCommunity\Neo4jBundle\GraphAwareNeo4jBundle(),
     );
 }
 ```

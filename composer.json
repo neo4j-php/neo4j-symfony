@@ -1,5 +1,5 @@
 {
-    "name": "graphaware/neo4j-bundle",
+    "name": "neo4j-community/neo4j-bundle",
     "description": "Symfony integration for Neo4j",
     "type": "symfony-bundle",
     "keywords": ["neo4j"],
@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "GraphAware\\Neo4jBundle\\": ""
+            "Neo4jCommunity\\Neo4jBundle\\": ""
         }
     },
     "scripts": {

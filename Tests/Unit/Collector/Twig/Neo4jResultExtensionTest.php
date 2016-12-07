@@ -1,9 +1,9 @@
 <?php
 
-namespace GraphAware\Neo4jBundle\Tests\Unit\Collector\Twig;
+namespace Neo4jCommunity\Neo4jBundle\Tests\Unit\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
-use GraphAware\Neo4jBundle\Collector\Twig\Neo4jResultExtension;
+use Neo4jCommunity\Neo4jBundle\Collector\Twig\Neo4jResultExtension;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

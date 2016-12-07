@@ -1,8 +1,8 @@
 <?php
 
-namespace GraphAware\Neo4jBundle\Tests\Functional\app;
+namespace Neo4jCommunity\Neo4jBundle\Tests\Functional\app;
 
-use GraphAware\Neo4jBundle\GraphAwareNeo4jBundle;
+use Neo4jCommunity\Neo4jBundle\Neo4jCommunityNeo4jBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
@@ -32,7 +32,7 @@ class AppKernel extends Kernel
     {
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new GraphAwareNeo4jBundle(),
+            new Neo4jCommunityNeo4jBundle(),
         ];
     }
 

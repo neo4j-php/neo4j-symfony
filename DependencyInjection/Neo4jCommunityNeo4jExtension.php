@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 
-namespace GraphAware\Neo4jBundle\DependencyInjection;
+namespace Neo4jCommunity\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Neo4j\Client\Connection\Connection;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class GraphAwareNeo4jExtension extends Extension
+class Neo4jCommunityNeo4jExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -178,4 +178,11 @@ class GraphAwareNeo4jExtension extends Extension
     {
         return new Configuration($container->getParameter('kernel.debug'));
     }
+
+    public function getAlias(): string
+    {
+        return 'community_neo4j';
+    }
+
+
 }

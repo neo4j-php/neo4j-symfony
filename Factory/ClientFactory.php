@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 
-namespace GraphAware\Neo4jBundle\Factory;
+namespace Neo4jCommunity\Neo4jBundle\Factory;
 
 use GraphAware\Neo4j\Client\ClientBuilder;
 use GraphAware\Neo4j\Client\ClientInterface;
@@ -10,7 +10,7 @@ use GraphAware\Neo4j\Client\Event\FailureEvent;
 use GraphAware\Neo4j\Client\Event\PostRunEvent;
 use GraphAware\Neo4j\Client\Event\PreRunEvent;
 use GraphAware\Neo4j\Client\Neo4jClientEvents;
-use GraphAware\Neo4jBundle\Collector\DebugLogger;
+use Neo4jCommunity\Neo4jBundle\Collector\DebugLogger;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
