@@ -12,6 +12,8 @@ class CommunityNeo4jExtensionTest extends AbstractExtensionTestCase
 {
     protected function getMinimalConfiguration()
     {
+        $this->setParameter('kernel.cache_dir', 'foo');
+
         return ['connections' => ['default' => ['port' => 7474]]];
     }
 

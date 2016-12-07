@@ -14,6 +14,7 @@ env:
     global:
         - TEST_COMMAND="composer test"
     matrix:
+        - SYMFONY_VERSION=3.2.*
         - SYMFONY_VERSION=3.1.*
         - SYMFONY_VERSION=3.0.*
 
@@ -24,7 +25,7 @@ branches:
 matrix:
     fast_finish: true
     include:
-        - php: 5.5
+        - php: 7.0
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true TEST_COMMAND="composer test-ci" SYMFONY_VERSION=3.0.*
 
 install:
