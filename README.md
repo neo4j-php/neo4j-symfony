@@ -15,6 +15,12 @@ Via Composer
 $ composer require neo4j-community/neo4j-bundle
 ```
 
+At the moment we have a hard dependency on GraphAware OGM. You need to install that as well
+
+```bash
+$ composer require graphaware/neo4j-php-ogm:@beta
+```
+
 Enable the bundle in your kernel:
 
 ``` php
