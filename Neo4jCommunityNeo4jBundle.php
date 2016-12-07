@@ -14,5 +14,4 @@ class Neo4jCommunityNeo4jBundle extends Bundle
     {
         return new CommunityNeo4jExtension();
     }
-
 }
