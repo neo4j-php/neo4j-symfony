@@ -25,7 +25,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Neo4jCommunity\Neo4jBundle\GraphAwareNeo4jBundle(),
+        new Neo4jCommunity\Neo4jBundle\Neo4jCommunityNeo4jBundle(),
     );
 }
 ```
@@ -43,7 +43,7 @@ The bundle is a convenient way of registering services. We register `Connections
 ### Minimal configuration
 
 ```yaml
-graph_aware_neo4j:
+community_neo4j:
   connections:
     default: ~
 ```
@@ -56,7 +56,7 @@ With the minimal configuration we have services named:
 ### Full configuration
 
 ```yaml
-graph_aware_neo4j:
+community_neo4j:
   profiling: 
     enabled: true
   connections:

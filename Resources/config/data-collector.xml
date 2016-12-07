@@ -7,7 +7,7 @@
         <service id="neo4j.collector.debug_collector" class="Neo4jCommunity\Neo4jBundle\Collector\Neo4jDataCollector" public="false">
             <argument type="service" id="neo4j.client_logger"/>
 
-            <tag name="data_collector" template="GraphAwareNeo4jBundle::webprofiler.html.twig" priority="200" id="neo4j"/>
+            <tag name="data_collector" template="Neo4jCommunityNeo4jBundle::webprofiler.html.twig" priority="200" id="neo4j"/>
         </service>
 
         <service id="neo4j.client_logger" class="Neo4jCommunity\Neo4jBundle\Collector\DebugLogger" public="false">

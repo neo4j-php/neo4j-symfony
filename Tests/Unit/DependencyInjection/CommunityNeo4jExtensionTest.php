@@ -2,13 +2,13 @@
 
 namespace Neo4jCommunity\Neo4jBundle\Tests\Unit\DependencyInjection;
 
-use Neo4jCommunity\Neo4jBundle\DependencyInjection\Neo4jCommunityNeo4jExtension;
+use Neo4jCommunity\Neo4jBundle\DependencyInjection\CommunityNeo4jExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class GraphAwareNeo4jExtensionTest extends AbstractExtensionTestCase
+class CommunityNeo4jExtensionTest extends AbstractExtensionTestCase
 {
     protected function getMinimalConfiguration()
     {
@@ -42,7 +42,7 @@ class GraphAwareNeo4jExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return [
-            new Neo4jCommunityNeo4jExtension(),
+            new CommunityNeo4jExtension(),
         ];
     }
 }

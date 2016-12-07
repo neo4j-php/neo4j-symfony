@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Neo4jCommunityNeo4jExtension extends Extension
+class CommunityNeo4jExtension extends Extension
 {
     /**
      * {@inheritdoc}

@@ -43,7 +43,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return sys_get_temp_dir().'/GraphAwareNeo4jBundle';
+        return sys_get_temp_dir().'/Neo4jCommunityNeo4jBundle';
     }
 
     public function serialize()
