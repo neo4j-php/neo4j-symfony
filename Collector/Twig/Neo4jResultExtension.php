@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4jCommunity\Neo4jBundle\Collector\Twig;
+namespace Neo4j\Bundle\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
 

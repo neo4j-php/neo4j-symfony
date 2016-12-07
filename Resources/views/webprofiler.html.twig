@@ -3,7 +3,7 @@
 {% block toolbar %}
     {% if collector.statements > 0 %}
         {% set icon %}
-            {{ include('@Neo4jCommunityNeo4j/Icon/neo4j.svg') }}
+            {{ include('@Neo4j/Icon/neo4j.svg') }}
             <span class="sf-toolbar-value">{{ collector.statements|length }}</span>
             <span class="sf-toolbar-label">stmt.</span>
         {% endset %}
@@ -33,7 +33,7 @@
     {# This left-hand menu appears when using the full-screen profiler. #}
     <span class="label {{ collector.statements|length == 0 ? 'disabled' }}">
         <span class="icon">
-            {{ include('@Neo4jCommunityNeo4j/Icon/neo4j.svg') }}
+            {{ include('@Neo4j/Icon/neo4j.svg') }}
         </span>
         <strong>Neo4j</strong>
     </span>

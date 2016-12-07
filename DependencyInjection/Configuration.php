@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4jCommunity\Neo4jBundle\DependencyInjection;
+namespace Neo4j\Bundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -40,7 +40,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $root = $treeBuilder->root('community_neo4j');
+        $root = $treeBuilder->root('neo4j');
 
         $root->children()
             ->arrayNode('profiling')

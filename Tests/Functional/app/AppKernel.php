@@ -1,8 +1,8 @@
 <?php
 
-namespace Neo4jCommunity\Neo4jBundle\Tests\Functional\app;
+namespace Neo4j\Bundle\Tests\Functional\app;
 
-use Neo4jCommunity\Neo4jBundle\Neo4jCommunityNeo4jBundle;
+use Neo4j\Bundle\Neo4jBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Kernel;
@@ -32,7 +32,7 @@ class AppKernel extends Kernel
     {
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Neo4jCommunityNeo4jBundle(),
+            new Neo4jBundle(),
         ];
     }
 
@@ -43,7 +43,7 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return sys_get_temp_dir().'/Neo4jCommunityNeo4jBundle';
+        return sys_get_temp_dir().'/Neo4jBundle';
     }
 
     public function serialize()

@@ -1,11 +1,11 @@
 <?php
 
-namespace Neo4jCommunity\Neo4jBundle\Tests\Unit\Collector;
+namespace Neo4j\Bundle\Tests\Unit\Collector;
 
 use GraphAware\Bolt\Result\Result;
 use GraphAware\Common\Cypher\Statement;
 use GraphAware\Neo4j\Client\Exception\Neo4jException;
-use Neo4jCommunity\Neo4jBundle\Collector\DebugLogger;
+use Neo4j\Bundle\Collector\DebugLogger;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
