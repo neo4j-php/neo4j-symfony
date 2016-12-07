@@ -30,6 +30,7 @@ class GraphAwareNeo4jExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderNotHasService('neo4j.collector.debug_collector');
     }
+
     public function testDataCollectorNotLoadedWhenDisabled()
     {
         $this->setParameter('kernel.debug', true);

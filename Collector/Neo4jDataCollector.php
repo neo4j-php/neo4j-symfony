@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Neo4jCommunity\Neo4jBundle\Collector;
 
@@ -56,7 +56,7 @@ final class Neo4jDataCollector extends DataCollector
      *
      * @return bool
      */
-    public function wasSuccessful(int $idx):bool
+    public function wasSuccessful(int $idx): bool
     {
         return isset($this->logger->getResults()[$idx]);
     }
