@@ -1,14 +1,14 @@
 <?php
 
-namespace Neo4jCommunity\Neo4jBundle\Tests\Unit\DependencyInjection;
+namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
-use Neo4jCommunity\Neo4jBundle\DependencyInjection\CommunityNeo4jExtension;
+use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class CommunityNeo4jExtensionTest extends AbstractExtensionTestCase
+class Neo4jExtensionTest extends AbstractExtensionTestCase
 {
     protected function getMinimalConfiguration()
     {
@@ -22,7 +22,7 @@ class CommunityNeo4jExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.debug', true);
         $this->load();
 
-        $this->assertContainerBuilderHasService('neo4j.collector.debug_collector', 'Neo4jCommunity\Neo4jBundle\Collector\Neo4jDataCollector');
+        $this->assertContainerBuilderHasService('neo4j.collector.debug_collector', 'Neo4j\Neo4jBundle\Collector\Neo4jDataCollector');
     }
 
     public function testDataCollectorNotLoadedInNonDebug()
@@ -44,7 +44,7 @@ class CommunityNeo4jExtensionTest extends AbstractExtensionTestCase
     protected function getContainerExtensions()
     {
         return [
-            new CommunityNeo4jExtension(),
+            new Neo4jExtension(),
         ];
     }
 }

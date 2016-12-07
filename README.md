@@ -1,10 +1,10 @@
 # Neo4j Symfony Bundle
 
-[![Latest Version](https://img.shields.io/github/release/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://github.com/neo4j-community/Neo4jBundle/releases)
-[![Build Status](https://img.shields.io/travis/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://travis-ci.org/neo4j-community/Neo4jBundle)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/Neo4jBundle)
-[![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/Neo4jBundle)
-[![Total Downloads](https://img.shields.io/packagist/dt/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j-community/neo4j-bundle)
+[![Latest Version](https://img.shields.io/github/release/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://github.com/neo4j-contrib/neo4j-symfony/releases)
+[![Build Status](https://img.shields.io/travis/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://travis-ci.org/neo4j-contrib/neo4j-symfony)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-contrib/neo4j-symfony)
+[![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-contrib/neo4j-symfony)
+[![Total Downloads](https://img.shields.io/packagist/dt/neo4j/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j/neo4j-bundle)
 
 
 ## Install
@@ -12,7 +12,7 @@
 Via Composer
 
 ``` bash
-$ composer require neo4j-community/neo4j-bundle
+$ composer require neo4j/neo4j-bundle
 ```
 
 At the moment we have a hard dependency on GraphAware OGM. You need to install that as well
@@ -31,7 +31,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Neo4jCommunity\Neo4jBundle\Neo4jCommunityNeo4jBundle(),
+        new Neo4j\Neo4jBundle\Neo4jBundle(),
     );
 }
 ```
@@ -49,7 +49,7 @@ The bundle is a convenient way of registering services. We register `Connections
 ### Minimal configuration
 
 ```yaml
-community_neo4j:
+neo4j:
   connections:
     default: ~
 ```
@@ -62,7 +62,7 @@ With the minimal configuration we have services named:
 ### Full configuration
 
 ```yaml
-community_neo4j:
+neo4j:
   profiling: 
     enabled: true
   connections:

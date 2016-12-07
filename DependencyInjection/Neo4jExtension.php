@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4jCommunity\Neo4jBundle\DependencyInjection;
+namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Neo4j\Client\Connection\Connection;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class CommunityNeo4jExtension extends Extension
+class Neo4jExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -181,6 +181,6 @@ class CommunityNeo4jExtension extends Extension
 
     public function getAlias(): string
     {
-        return 'community_neo4j';
+        return 'neo4j';
     }
 }
