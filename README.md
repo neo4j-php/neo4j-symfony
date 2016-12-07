@@ -1,9 +1,9 @@
-# GraphAware Neo4j Bundle
+# Neo4j Symfony Bundle
 
-[![Latest Version](https://img.shields.io/github/release/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://github.com/neo4j-community/neo4j-bundle/releases)
-[![Build Status](https://img.shields.io/travis/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://travis-ci.org/neo4j-community/neo4j-bundle)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/neo4j-bundle)
-[![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/neo4j-bundle)
+[![Latest Version](https://img.shields.io/github/release/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://github.com/neo4j-community/Neo4jBundle/releases)
+[![Build Status](https://img.shields.io/travis/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://travis-ci.org/neo4j-community/Neo4jBundle)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/Neo4jBundle)
+[![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-community/Neo4jBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-community/Neo4jBundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/neo4j-community/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j-community/neo4j-bundle)
 
 
