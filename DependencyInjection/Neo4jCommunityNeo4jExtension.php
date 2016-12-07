@@ -1,6 +1,6 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
 
 namespace Neo4jCommunity\Neo4jBundle\DependencyInjection;
 
@@ -183,6 +183,4 @@ class Neo4jCommunityNeo4jExtension extends Extension
     {
         return 'community_neo4j';
     }
-
-
 }

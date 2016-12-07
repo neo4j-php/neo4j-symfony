@@ -13,7 +13,7 @@ class Neo4jResultExtensionTest extends \PHPUnit_Framework_TestCase
     public function testEmptyArray()
     {
         $o = new Neo4jResultExtension();
-        $result = $o->getType(array());
+        $result = $o->getType([]);
 
         $this->assertEquals('Empty array', $result);
     }
@@ -41,6 +41,7 @@ class Neo4jResultExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('[integer, double]', $result);
     }
+
     public function testArrayArray()
     {
         $o = new Neo4jResultExtension();
