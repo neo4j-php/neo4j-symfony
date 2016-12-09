@@ -5,15 +5,8 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Factory;
 
 use GraphAware\Neo4j\Client\Client;
-use GraphAware\Neo4j\Client\ClientBuilder;
 use GraphAware\Neo4j\Client\ClientInterface;
 use GraphAware\Neo4j\Client\Connection\ConnectionManager;
-use GraphAware\Neo4j\Client\Event\FailureEvent;
-use GraphAware\Neo4j\Client\Event\PostRunEvent;
-use GraphAware\Neo4j\Client\Event\PreRunEvent;
-use GraphAware\Neo4j\Client\Neo4jClientEvents;
-use Neo4j\Neo4jBundle\Collector\DebugLogger;
-use Neo4j\Neo4jBundle\Collector\QueryLogger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -32,8 +25,7 @@ final class ClientFactory
     private $connectionManager;
 
     /**
-     *
-     * @param ConnectionManager $connectionManager
+     * @param ConnectionManager             $connectionManager
      * @param EventDispatcherInterface|null $eventDispatcher
      */
     public function __construct(ConnectionManager $connectionManager, EventDispatcherInterface $eventDispatcher = null)
@@ -62,5 +54,4 @@ final class ClientFactory
 
         return new Client($clientConnectionManager, $this->eventDispatcher);
     }
-
 }
