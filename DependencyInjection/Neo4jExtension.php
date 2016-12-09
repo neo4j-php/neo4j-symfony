@@ -42,9 +42,6 @@ class Neo4jExtension extends Extension
         // Configure toolbar
         if ($this->isConfigEnabled($container, $config['profiling'])) {
             $loader->load('data-collector.xml');
-
-            $container->getDefinition('neo4j.factory.client')
-                ->replaceArgument(0, new Reference('neo4j.client_logger'));
         }
     }
 
@@ -64,7 +61,6 @@ class Neo4jExtension extends Extension
         $serviceIds = [];
         foreach ($config['clients'] as $name => $data) {
             $serviceIds[$name] = $serviceId = sprintf('neo4j.client.%s', $name);
-            $urls = [];
             foreach ($data['connections'] as $connectionName) {
                 if (empty($config['connections'][$connectionName])) {
                     throw new InvalidConfigurationException(sprintf(
@@ -73,15 +69,15 @@ class Neo4jExtension extends Extension
                         $connectionName
                     ));
                 }
-                $urls[] = $this->getUrl($config['connections'][$connectionName]);
+                $connections[] = $connectionName;
             }
-            if (empty($urls)) {
-                $urls[] = $this->getUrl($config['connections']['default']);
+            if (empty($connections)) {
+                $connections[] = 'default';
             }
 
             $container
                 ->setDefinition($serviceId, new DefinitionDecorator('neo4j.client.abstract'))
-                ->setArguments([$urls]);
+                ->setArguments([$connections]);
         }
 
         return $serviceIds;
@@ -140,7 +136,7 @@ class Neo4jExtension extends Extension
             $def = new Definition(Connection::class);
             $def->addArgument($name);
             $def->addArgument($this->getUrl($data));
-            $serviceIds[] = $serviceId = 'neo4j.connection.'.$name;
+            $serviceIds[$name] = $serviceId = 'neo4j.connection.'.$name;
             $container->setDefinition($serviceId, $def);
         }
 
@@ -148,6 +144,13 @@ class Neo4jExtension extends Extension
         if ($firstName !== 'default') {
             $config['connections']['default'] = $config['connections'][$firstName];
         }
+
+        // Add connections to connection manager
+        $connectionManager = $container->getDefinition('neo4j.connection_manager');
+        foreach ($serviceIds as $name => $serviceId) {
+            $connectionManager->addMethodCall('registerExistingConnection', [$name, new Reference($serviceId)]);
+        }
+        $connectionManager->addMethodCall('setMaster', [$firstName]);
 
         return $serviceIds;
     }

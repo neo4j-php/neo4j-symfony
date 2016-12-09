@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Collector;
 
+use GraphAware\Neo4j\Client\Connection\ConnectionManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
+ * @author Xavier Coureau <xavier@pandawan-technology.com>
  */
 final class Neo4jDataCollector extends DataCollector
 {
-    private $logger;
+    /**
+     * @var QueryLogger
+     */
+    private $queryLogger;
 
-    public function __construct(DebugLogger $logger)
+    public function __construct(QueryLogger $logger)
     {
-        $this->logger = $logger;
+        $this->queryLogger = $logger;
     }
 
     /**
@@ -25,40 +29,41 @@ final class Neo4jDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
+        $this->data['nb_queries'] = count($this->queryLogger);
+        $this->data['statements'] = $this->queryLogger->getStatements();
+        $this->data['time'] = $this->queryLogger->getElapsedTime();
     }
 
     /**
-     * @return array|\GraphAware\Common\Cypher\StatementInterface[]
+     * @return int
+     */
+    public function getQueryCount()
+    {
+        return $this->data['nb_queries'];
+    }
+
+    /**
+     * @return QueryLogger
      */
     public function getStatements()
     {
-        return $this->logger->getStatements();
+        return $this->data['statements'];
     }
 
     /**
-     * @return array|\GraphAware\Common\Result\Result[]
+     * @return float
      */
-    public function getResults()
+    public function getTime()
     {
-        return $this->logger->getResults();
+        return $this->data['time'];
     }
 
     /**
-     * @return array|\GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface[]
+     * @return float
      */
-    public function getExceptions()
+    public function getTimeForQuery()
     {
-        return $this->logger->getExceptions();
-    }
-
-    /**
-     * @param int $idx
-     *
-     * @return bool
-     */
-    public function wasSuccessful(int $idx): bool
-    {
-        return isset($this->logger->getResults()[$idx]);
+        return $this->data['time'];
     }
 
     /**
@@ -67,21 +72,5 @@ final class Neo4jDataCollector extends DataCollector
     public function getName()
     {
         return 'neo4j';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize()
-    {
-        return serialize($this->logger);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function unserialize($data)
-    {
-        $this->logger = unserialize($data);
     }
 }
