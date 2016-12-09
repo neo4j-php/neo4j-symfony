@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
+use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
+use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -46,6 +48,22 @@ class Neo4jExtension extends Extension
             $container->getDefinition('neo4j.factory.client')
                 ->replaceArgument(0, new Reference('neo4j.client_logger'));
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    {
+        return new Configuration($container->getParameter('kernel.debug'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias(): string
+    {
+        return 'neo4j';
     }
 
     /**
@@ -167,20 +185,23 @@ class Neo4jExtension extends Extension
             $config['username'],
             $config['password'],
             $config['host'],
-            $config['port']
+            $this->getPort($config)
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Return the correct default port if not manually set.
+     *
+     * @param array $config
+     *
+     * @return int
      */
-    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    private function getPort(array $config)
     {
-        return new Configuration($container->getParameter('kernel.debug'));
-    }
+        if (isset($config['port'])) {
+            return $config['port'];
+        }
 
-    public function getAlias(): string
-    {
-        return 'neo4j';
+        return 'http' == $config['schema'] ? HttpDriver::DEFAULT_HTTP_PORT : BoltDriver::DEFAULT_TCP_PORT;
     }
 }
