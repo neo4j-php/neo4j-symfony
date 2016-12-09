@@ -8,13 +8,18 @@
         {
             "name": "Tobias Nyholm",
             "email": "tobias.nyholm@gmail.com"
+        },
+        {
+            "name": "Xavier Coureau",
+            "email": "xavier@pandawan-technology.com"
         }
     ],
     "require": {
         "php": "^7.0",
         "graphaware/neo4j-php-ogm": "^1.0",
-        "graphaware/neo4j-php-client": "^4.6",
-        "symfony/framework-bundle": "^3.0"
+        "graphaware/neo4j-php-client": "^4.6.4",
+        "symfony/framework-bundle": "^3.0",
+        "graphaware/neo4j-bolt": "^1.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.4",
