@@ -28,7 +28,7 @@
     },
     "suggest": {
         "graphaware/neo4j-php-ogm": "To have EntityManager support"
-    }
+    },
     "autoload": {
         "psr-4": {
             "Neo4j\\Neo4jBundle\\": ""
