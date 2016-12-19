@@ -6,6 +6,7 @@ namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
+use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
@@ -34,7 +35,10 @@ class Neo4jExtension extends Extension
 
         $this->handleConnections($config, $container);
         $clientServiceIds = $this->handleClients($config, $container);
-        $this->handleEntityMangers($config, $container, $clientServiceIds);
+        if ($this->validateEntityManagers($config)) {
+            $loader->load('entity_manager.xml');
+            $this->handleEntityMangers($config, $container, $clientServiceIds);
+        }
 
         // add aliases for the default services
         $container->setAlias('neo4j.connection', 'neo4j.connection.default');
@@ -114,11 +118,6 @@ class Neo4jExtension extends Extension
      */
     private function handleEntityMangers(array &$config, ContainerBuilder $container, array $clientServiceIds): array
     {
-        if (empty($config['entity_managers'])) {
-            // Add default entity manager if none set.
-            $config['entity_managers']['default'] = ['client' => 'default'];
-        }
-
         $serviceIds = [];
         foreach ($config['entity_managers'] as $name => $data) {
             $serviceIds[] = $serviceId = sprintf('neo4j.entity_manager.%s', $name);
@@ -203,5 +202,31 @@ class Neo4jExtension extends Extension
         }
 
         return 'http' == $config['schema'] ? HttpDriver::DEFAULT_HTTP_PORT : BoltDriver::DEFAULT_TCP_PORT;
+    }
+
+    /**
+     * Make sure the EntityManager is installed if we have configured it.
+     *
+     * @param array &$config
+     *
+     * @return bool true if "graphaware/neo4j-php-ogm" is installed
+     *
+     * @thorws \LogicException if EntityManagers os not installed but they are configured.
+     */
+    private function validateEntityManagers(array &$config): bool
+    {
+        $dependenciesInstalled = class_exists(EntityManager::class);
+        $entityManagersConfigured = !empty($config['entity_managers']);
+
+        if ($dependenciesInstalled && !$entityManagersConfigured) {
+            // Add default entity manager if none set.
+            $config['entity_managers']['default'] = ['client' => 'default'];
+        } elseif (!$dependenciesInstalled && $entityManagersConfigured) {
+            throw new \LogicException(
+                'You need to install "graphaware/neo4j-php-ogm" to be able to use the EntityManager'
+            );
+        }
+
+        return $dependenciesInstalled;
     }
 }
