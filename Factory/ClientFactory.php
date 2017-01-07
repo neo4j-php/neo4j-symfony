@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Factory;
 
-use GraphAware\Neo4j\Client\ClientBuilder;
+use GraphAware\Neo4j\Client\Client;
 use GraphAware\Neo4j\Client\ClientInterface;
-use GraphAware\Neo4j\Client\Event\FailureEvent;
-use GraphAware\Neo4j\Client\Event\PostRunEvent;
-use GraphAware\Neo4j\Client\Event\PreRunEvent;
-use GraphAware\Neo4j\Client\Neo4jClientEvents;
-use Neo4j\Neo4jBundle\Collector\DebugLogger;
+use GraphAware\Neo4j\Client\Connection\ConnectionManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -18,71 +15,43 @@ use Neo4j\Neo4jBundle\Collector\DebugLogger;
 final class ClientFactory
 {
     /**
-     * @var DebugLogger
+     * @var EventDispatcherInterface
      */
-    private $debugLogger;
+    private $eventDispatcher;
 
     /**
-     * @param DebugLogger|null $debugLogger
+     * @var ConnectionManager
      */
-    public function __construct(DebugLogger $debugLogger = null)
+    private $connectionManager;
+
+    /**
+     * @param ConnectionManager             $connectionManager
+     * @param EventDispatcherInterface|null $eventDispatcher
+     */
+    public function __construct(ConnectionManager $connectionManager, EventDispatcherInterface $eventDispatcher = null)
     {
-        $this->debugLogger = $debugLogger;
+        $this->connectionManager = $connectionManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
-     * Build an Client form multiple URLs.
+     * Build an Client form multiple connection.
      *
-     * @param array $urls
+     * @param string $names
      *
      * @return ClientInterface
      */
-    public function create(array $urls): ClientInterface
+    public function create(array $names): ClientInterface
     {
-        $defaultUrl = array_shift($urls);
-        $builder = ClientBuilder::create()
-            ->addConnection('default', $defaultUrl);
-
-        foreach ($urls as $i => $url) {
-            $builder->addConnection('url'.$i, $url);
+        // Create a new connection manager specific for this client
+        $clientConnectionManager = new ConnectionManager();
+        foreach ($names as $name) {
+            $clientConnectionManager->registerExistingConnection($name, $this->connectionManager->getConnection($name));
         }
 
-        if ($logger = $this->debugLogger) {
-            $this->registerEvents($builder);
-        }
+        $firstName = reset($names);
+        $clientConnectionManager->setMaster($firstName);
 
-        return $builder->build();
-    }
-
-    /**
-     * @param ClientBuilder $builder
-     */
-    private function registerEvents(ClientBuilder $builder)
-    {
-        $logger = $this->debugLogger;
-        $builder->registerEventListener(
-            Neo4jClientEvents::NEO4J_PRE_RUN,
-            function (PreRunEvent $event) use ($logger) {
-                foreach ($event->getStatements() as $statement) {
-                    $logger->addStatement($statement);
-                }
-            }
-        );
-
-        $builder->registerEventListener(
-            Neo4jClientEvents::NEO4J_POST_RUN,
-            function (PostRunEvent $event) use ($logger) {
-                foreach ($event->getResults() as $result) {
-                    $logger->addResult($result);
-                }
-            }
-        );
-
-        $builder->registerEventListener(
-            Neo4jClientEvents::NEO4J_ON_FAILURE,
-            function (FailureEvent $event) use ($logger) {
-                $logger->addException($event->getException());
-            }
-        );
+        return new Client($clientConnectionManager, $this->eventDispatcher);
     }
 }

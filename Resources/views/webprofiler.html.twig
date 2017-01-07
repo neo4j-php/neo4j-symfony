@@ -1,21 +1,21 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
-    {% if collector.statements > 0 %}
+    {% if collector.queryCount > 0 %}
         {% set icon %}
             {{ include('@Neo4j/Icon/neo4j.svg') }}
-            <span class="sf-toolbar-value">{{ collector.statements|length }}</span>
+            <span class="sf-toolbar-value">{{ collector.queryCount }}</span>
             <span class="sf-toolbar-label">stmt.</span>
         {% endset %}
 
         {% set text %}
             <div class="sf-toolbar-info-piece">
-                <b>Successful requests</b>
-                <span>{{ collector.results|length }}</span>
+                <b>Query count</b>
+                <span>{{ collector.queryCount }}</span>
             </div>
             <div class="sf-toolbar-info-piece">
-                <b>Failed requests</b>
-                <span>{{ collector.exceptions|length }}</span>
+                <b>Total time</b>
+                <span>{{ '%0.2f'|format(collector.time) }}ms</span>
             </div>
 
         {% endset %}
@@ -31,7 +31,7 @@
 
 {% block menu %}
     {# This left-hand menu appears when using the full-screen profiler. #}
-    <span class="label {{ collector.statements|length == 0 ? 'disabled' }}">
+    <span class="label {{ collector.queryCount == 0 ? 'disabled' }}">
         <span class="icon">
             {{ include('@Neo4j/Icon/neo4j.svg') }}
         </span>
@@ -53,53 +53,35 @@
         <tbody>
         {% for idx, statement in collector.statements %}
         <tr>
-            <td class="nowrap">{{ idx }}</td>
-            <td class="nowrap">{% if collector.wasSuccessful(idx) %}OK{% else %}FAIL{% endif %}</td>
+            {% set start_time = statement.start_time|default(null) %}
+            {% set end_time = statement.end_time|default(null) %}
+
+            <td class="nowrap">{{ idx + 1 }}</td>
+            <td class="nowrap">{% if start_time is not null and end_time is not null %}{{ '%0.2f'|format(end_time - start_time) }}ms{% endif %}</td>
             <td>
                 <div>
-                {{ statement.text }}
+                    {{ statement.query|default('') }}
                 </div>
                 <div class="text-small font-normal">
-                    <a href="#" class="sf-toggle link-inverse" data-toggle-selector="#result-{{ idx }}" data-toggle-alt-content="Hide result" data-toggle-original-content="View result">View result</a>
+                    <a href="#" class="sf-toggle link-inverse" data-toggle-selector="#neo4j-details-{{ idx }}" data-toggle-alt-content="Hide details" data-toggle-original-content="View details">View details</a>
                 </div>
 
-                <div id="result-{{ idx }}">
-                    {% if not collector.wasSuccessful(idx) %}
-                        {{ collector.exceptions[idx].effect }}
-                    {% else %}
-                        {% for record in collector.results[idx].records %}
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Key</th>
-                                    <th>Type</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for key in record.keys %}
-                                    <tr>
-                                        <td>
-                                            {{ key }}
-                                        </td>
-                                        <td>
-                                            {{ record.get(key)|neo4jResult }}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        {% else %}
-                            No result returned
-                        {% endfor %}
-
-                    {% endif %}
+                <div id="neo4j-details-{{ idx }}">
+                    <div>
+                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.parameters|default([])|yaml_encode }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">Tag</strong>: {{ statement.tag|default('N/A')|yaml_encode }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">Number of results</strong>: {{ statement.nb_results }}
+                    </div>
                 </div>
             </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
-
 
 {% endblock %}
 
