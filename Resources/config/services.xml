@@ -15,7 +15,5 @@
             <factory service="neo4j.factory.client" method="create" />
 
         </service>
-        <service id="neo4j.entity_manager.abstract" class="GraphAware\Neo4j\OGM\EntityManager" abstract="true">
-        </service>
     </services>
 </container>

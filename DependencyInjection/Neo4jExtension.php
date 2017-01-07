@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
+use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
+use GraphAware\Neo4j\OGM\EntityManager;
+use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -32,7 +35,10 @@ class Neo4jExtension extends Extension
 
         $this->handleConnections($config, $container);
         $clientServiceIds = $this->handleClients($config, $container);
-        $this->handleEntityMangers($config, $container, $clientServiceIds);
+        if ($this->validateEntityManagers($config)) {
+            $loader->load('entity_manager.xml');
+            $this->handleEntityMangers($config, $container, $clientServiceIds);
+        }
 
         // add aliases for the default services
         $container->setAlias('neo4j.connection', 'neo4j.connection.default');
@@ -43,6 +49,22 @@ class Neo4jExtension extends Extension
         if ($this->isConfigEnabled($container, $config['profiling'])) {
             $loader->load('data-collector.xml');
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    {
+        return new Configuration($container->getParameter('kernel.debug'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias(): string
+    {
+        return 'neo4j';
     }
 
     /**
@@ -92,11 +114,6 @@ class Neo4jExtension extends Extension
      */
     private function handleEntityMangers(array &$config, ContainerBuilder $container, array $clientServiceIds): array
     {
-        if (empty($config['entity_managers'])) {
-            // Add default entity manager if none set.
-            $config['entity_managers']['default'] = ['client' => 'default'];
-        }
-
         $serviceIds = [];
         foreach ($config['entity_managers'] as $name => $data) {
             $serviceIds[] = $serviceId = sprintf('neo4j.entity_manager.%s', $name);
@@ -170,20 +187,49 @@ class Neo4jExtension extends Extension
             $config['username'],
             $config['password'],
             $config['host'],
-            $config['port']
+            $this->getPort($config)
         );
     }
 
     /**
-     * {@inheritdoc}
+     * Return the correct default port if not manually set.
+     *
+     * @param array $config
+     *
+     * @return int
      */
-    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    private function getPort(array $config)
     {
-        return new Configuration($container->getParameter('kernel.debug'));
+        if (isset($config['port'])) {
+            return $config['port'];
+        }
+
+        return 'http' == $config['schema'] ? HttpDriver::DEFAULT_HTTP_PORT : BoltDriver::DEFAULT_TCP_PORT;
     }
 
-    public function getAlias(): string
+    /**
+     * Make sure the EntityManager is installed if we have configured it.
+     *
+     * @param array &$config
+     *
+     * @return bool true if "graphaware/neo4j-php-ogm" is installed
+     *
+     * @thorws \LogicException if EntityManagers os not installed but they are configured.
+     */
+    private function validateEntityManagers(array &$config): bool
     {
-        return 'neo4j';
+        $dependenciesInstalled = class_exists(EntityManager::class);
+        $entityManagersConfigured = !empty($config['entity_managers']);
+
+        if ($dependenciesInstalled && !$entityManagersConfigured) {
+            // Add default entity manager if none set.
+            $config['entity_managers']['default'] = ['client' => 'default'];
+        } elseif (!$dependenciesInstalled && $entityManagersConfigured) {
+            throw new \LogicException(
+                'You need to install "graphaware/neo4j-php-ogm" to be able to use the EntityManager'
+            );
+        }
+
+        return $dependenciesInstalled;
     }
 }

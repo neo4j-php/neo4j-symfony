@@ -15,7 +15,7 @@ Via Composer
 $ composer require neo4j/neo4j-bundle
 ```
 
-At the moment we have a hard dependency on GraphAware OGM. You need to install that as well
+If you want to use the an `EntityManager` you need to install a [GraphAware OGM](https://github.com/graphaware/neo4j-php-ogm)
 
 ```bash
 $ composer require graphaware/neo4j-php-ogm:@beta
@@ -43,7 +43,7 @@ The bundle is a convenient way of registering services. We register `Connections
 
  * neo4j.connection
  * neo4j.client
- * neo4j.entity_manager
+ * neo4j.entity_manager*
 
 
 ### Minimal configuration
@@ -57,7 +57,7 @@ neo4j:
 With the minimal configuration we have services named:
  * neo4j.connection.default
  * neo4j.client.default
- * neo4j.entity_manager.default
+ * neo4j.entity_manager.default*
 
 ### Full configuration
 
@@ -67,11 +67,11 @@ neo4j:
     enabled: true
   connections:
     default:
-      schema: http #default
-      host: localhost #default
-      port: 7474 #default
-      username: neo4j #default
-      password: neo4j #default
+      schema: bolt # default (must be either "http" or "bolt")
+      host: localhost # default
+      port: 7474 # optional, will be set to the proper driver's default port if not provided
+      username: neo4j # default
+      password: neo4j # default
     second_connection:
       username: foo
       password: bar
@@ -92,8 +92,10 @@ With the configuration above we would have services named:
  * neo4j.client.default
  * neo4j.client.other_client
  * neo4j.client.other_foobar
- * neo4j.entity_manager.default
+ * neo4j.entity_manager.default*
 
+
+\* Note: EntityManagers will only be available if `graphaware/neo4j-php-ogm` is installed. 
 
 ## Testing
 
