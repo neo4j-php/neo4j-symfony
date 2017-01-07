@@ -35,15 +35,16 @@ class Neo4jExtension extends Extension
 
         $this->handleConnections($config, $container);
         $clientServiceIds = $this->handleClients($config, $container);
+
         if ($this->validateEntityManagers($config)) {
             $loader->load('entity_manager.xml');
             $this->handleEntityMangers($config, $container, $clientServiceIds);
+            $container->setAlias('neo4j.entity_manager', 'neo4j.entity_manager.default');
         }
 
         // add aliases for the default services
         $container->setAlias('neo4j.connection', 'neo4j.connection.default');
         $container->setAlias('neo4j.client', 'neo4j.client.default');
-        $container->setAlias('neo4j.entity_manager', 'neo4j.entity_manager.default');
 
         // Configure toolbar
         if ($this->isConfigEnabled($container, $config['profiling'])) {
