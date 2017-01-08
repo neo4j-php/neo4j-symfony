@@ -23,8 +23,10 @@ class BundleInitializationTest extends BaseTestCase
         $client = $container->get('neo4j.client');
         $this->assertInstanceOf(ClientInterface::class, $client);
 
-        $this->assertTrue($container->has('neo4j.entity_manager'));
-        $client = $container->get('neo4j.entity_manager');
-        $this->assertInstanceOf(EntityManager::class, $client);
+        if (class_exists('GraphAware\Neo4j\OGM\EntityManager')) {
+            $this->assertTrue($container->has('neo4j.entity_manager'));
+            $client = $container->get('neo4j.entity_manager');
+            $this->assertInstanceOf(EntityManager::class, $client);
+        }
     }
 }
