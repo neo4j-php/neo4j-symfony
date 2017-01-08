@@ -41,7 +41,14 @@ class QueryLogger implements \Countable
         }
 
         $idx = $this->nbQueries++;
-        $this->statements[$idx]['start_time'] = microtime(true) * 1000;
+        $this->statements[$idx] = [
+            'start_time' => microtime(true) * 1000,
+            'end_time' => microtime(true) * 1000, // same
+            'nb_results' => 0,
+            'query' => $statementText,
+            'parameters' => $statementParams,
+            'tag' => $statement->getTag(),
+        ];
         $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }
 
@@ -64,13 +71,10 @@ class QueryLogger implements \Countable
             $idx = $this->statementsHash[$statementText][$encodedParameters][$tag];
         }
 
-        $this->statements[$idx] += [
+        $this->statements[$idx] = array_merge($this->statements[$idx], [
             'end_time' => microtime(true) * 1000,
-            'query' => $statementText,
-            'parameters' => $statementParams,
-            'tag' => $statement->getTag(),
             'nb_results' => $statementResult->size(),
-        ];
+        ]);
     }
 
     /**
