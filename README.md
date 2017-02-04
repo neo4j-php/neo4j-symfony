@@ -103,6 +103,10 @@ With the configuration above we would have services named:
 $ composer test
 ```
 
+## Example application
+
+See an example application at https://github.com/neo4j-examples/movies-symfony-php-bolt
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
