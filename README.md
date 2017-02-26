@@ -83,7 +83,7 @@ neo4j:
     foobar: ~ # foobar client will have the "default" connection
   entity_managers:
     default: 
-      client: other_clinet # defaults to "default"
+      client: other_client # defaults to "default"
       cache_dir: "%kernel.cache_dir%/neo4j" # defaults to system cache
 ```
 With the configuration above we would have services named:
