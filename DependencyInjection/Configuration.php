@@ -85,7 +85,7 @@ class Configuration implements ConfigurationInterface
                 ->prototype('array')
                 ->addDefaultsIfNotSet()
                 ->children()
-                    ->enumNode('schema')->values(['http', 'bolt'])->defaultValue('bolt')->end()
+                    ->enumNode('scheme')->values(['http', 'bolt'])->defaultValue('bolt')->end()
                     ->scalarNode('host')->defaultValue('localhost')->end()
                     ->integerNode('port')->end()
                     ->scalarNode('username')->defaultValue('neo4j')->end()

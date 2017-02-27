@@ -2,7 +2,11 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
-## UNRELEASED
+## 0.3.0 (Unreleased)
+
+### Fixed
+
+- Typo in configuration "schema" => "scheme". 
 
 ## 0.2.0
 
