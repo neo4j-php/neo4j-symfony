@@ -6,6 +6,7 @@ namespace Neo4j\Neo4jBundle\Collector;
 
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\StatementResult as StatementResultInterface;
+use GraphAware\Common\Result\StatementStatisticsInterface;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
@@ -48,6 +49,7 @@ class QueryLogger implements \Countable
             'query' => $statementText,
             'parameters' => $statementParams,
             'tag' => $statement->getTag(),
+            'statistics' => [],
         ];
         $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }
@@ -74,6 +76,7 @@ class QueryLogger implements \Countable
         $this->statements[$idx] = array_merge($this->statements[$idx], [
             'end_time' => microtime(true) * 1000,
             'nb_results' => $statementResult->size(),
+            'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
         ]);
     }
 
@@ -117,5 +120,25 @@ class QueryLogger implements \Countable
         }
 
         return $time;
+    }
+
+    private function statisticsToArray(StatementStatisticsInterface $statementStatistics)
+    {
+        $data = [
+            'contains_updates' => $statementStatistics->containsUpdates(),
+            'nodes_created' => $statementStatistics->nodesCreated(),
+            'nodes_deleted' => $statementStatistics->nodesDeleted(),
+            'relationships_created' => $statementStatistics->relationshipsCreated(),
+            'relationships_deleted' => $statementStatistics->relationshipsDeleted(),
+            'properties_set' => $statementStatistics->propertiesSet(),
+            'labels_added' => $statementStatistics->labelsAdded(),
+            'labels_removed' => $statementStatistics->labelsRemoved(),
+            'indexes_added' => $statementStatistics->indexesAdded(),
+            'indexes_removed' => $statementStatistics->indexesRemoved(),
+            'constraints_added' => $statementStatistics->constraintsAdded(),
+            'constraints_removed' => $statementStatistics->constraintsRemoved(),
+        ];
+        
+        return $data;
     }
 }
