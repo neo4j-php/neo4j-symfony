@@ -76,7 +76,7 @@ class QueryLogger implements \Countable
         $this->statements[$idx] = array_merge($this->statements[$idx], [
             'end_time' => microtime(true) * 1000,
             'nb_results' => $statementResult->size(),
-            'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics())
+            'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
         ]);
     }
 
@@ -136,7 +136,7 @@ class QueryLogger implements \Countable
             'indexes_added' => $statementStatistics->indexesAdded(),
             'indexes_removed' => $statementStatistics->indexesRemoved(),
             'constraints_added' => $statementStatistics->constraintsAdded(),
-            'constraints_removed' => $statementStatistics->constraintsRemoved()
+            'constraints_removed' => $statementStatistics->constraintsRemoved(),
         ];
 
         return $data;
