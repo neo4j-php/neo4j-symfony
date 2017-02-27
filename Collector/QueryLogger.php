@@ -6,7 +6,6 @@ namespace Neo4j\Neo4jBundle\Collector;
 
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\StatementResult as StatementResultInterface;
-use GraphAware\Common\Result\StatementStatistics;
 use GraphAware\Common\Result\StatementStatisticsInterface;
 
 /**
@@ -50,7 +49,7 @@ class QueryLogger implements \Countable
             'query' => $statementText,
             'parameters' => $statementParams,
             'tag' => $statement->getTag(),
-            'statistics' => []
+            'statistics' => [],
         ];
         $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }
