@@ -76,6 +76,9 @@
                     <div>
                         <strong class="font-normal text-small">Number of results</strong>: {{ statement.nb_results }}
                     </div>
+                    <div>
+                        <strong class="font-normal text-small">Statistics</strong>: {{ statement.statistics|yaml_encode }}
+                    </div>
                 </div>
             </td>
         </tr>
