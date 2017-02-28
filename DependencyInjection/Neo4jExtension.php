@@ -83,6 +83,7 @@ class Neo4jExtension extends Extension
 
         $serviceIds = [];
         foreach ($config['clients'] as $name => $data) {
+            $connections = [];
             $serviceIds[$name] = $serviceId = sprintf('neo4j.client.%s', $name);
             foreach ($data['connections'] as $connectionName) {
                 if (empty($config['connections'][$connectionName])) {
