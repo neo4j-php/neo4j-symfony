@@ -15,8 +15,6 @@ env:
         - TEST_COMMAND="composer test"
     matrix:
         - SYMFONY_VERSION=3.2.*
-        - SYMFONY_VERSION=3.1.*
-        - SYMFONY_VERSION=3.0.*
         - SYMFONY_VERSION=2.8.*
         - SYMFONY_VERSION=2.7.*
 
@@ -29,8 +27,6 @@ matrix:
     include:
         - php: 7.0
           env: SYMFONY_VERSION="3.2.* graphaware/neo4j-php-ogm:^1.0"
-        - php: 7.0
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true TEST_COMMAND="composer test-ci" SYMFONY_VERSION=3.0.*
         - php: 7.0
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true TEST_COMMAND="composer test-ci" SYMFONY_VERSION=2.7.*
 
