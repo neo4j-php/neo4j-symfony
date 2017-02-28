@@ -2,7 +2,11 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
-## 0.3.0 (Unreleased)
+## 0.3.0
+
+### Added
+
+- Show exceptions in profiler
 
 ### Fixed
 
