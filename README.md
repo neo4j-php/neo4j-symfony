@@ -1,7 +1,7 @@
 # Neo4j Symfony Bundle
 
 [![Latest Version](https://img.shields.io/github/release/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://github.com/neo4j-contrib/neo4j-symfony/releases)
-[![Build Status](https://img.shields.io/travis/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://travis-ci.org/neo4j-contrib/neo4j-symfony)
+[![Build Status](https://img.shields.io/travis/neo4j-contrib/neo4j-symfony/master.svg?style=flat-square)](https://travis-ci.org/neo4j-contrib/neo4j-symfony)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-contrib/neo4j-symfony)
 [![Quality Score](https://img.shields.io/scrutinizer/g/neo4j-contrib/neo4j-symfony.svg?style=flat-square)](https://scrutinizer-ci.com/g/neo4j-contrib/neo4j-symfony)
 [![Total Downloads](https://img.shields.io/packagist/dt/neo4j/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j/neo4j-bundle)
