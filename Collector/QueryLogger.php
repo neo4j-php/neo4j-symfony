@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Collector;
 
+use GraphAware\Bolt\Result\Result;
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\StatementResult as StatementResultInterface;
 use GraphAware\Common\Result\StatementStatisticsInterface;
+use GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
@@ -59,6 +61,11 @@ class QueryLogger implements \Countable
      */
     public function finish(StatementResultInterface $statementResult)
     {
+        $scheme = 'Http';
+        if ($statementResult instanceof Result) {
+            $scheme = 'Bolt';
+        }
+
         $statement = $statementResult->statement();
         $statementText = $statement->text();
         $statementParams = $statement->parameters();
@@ -77,7 +84,16 @@ class QueryLogger implements \Countable
             'end_time' => microtime(true) * 1000,
             'nb_results' => $statementResult->size(),
             'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
+            'scheme' => $scheme,
         ]);
+    }
+
+    /**
+     * @param Neo4jExceptionInterface $exception
+     */
+    public function logException(Neo4jExceptionInterface $exception)
+    {
+        // TODO log exceptions
     }
 
     /**
@@ -138,7 +154,7 @@ class QueryLogger implements \Countable
             'constraints_added' => $statementStatistics->constraintsAdded(),
             'constraints_removed' => $statementStatistics->constraintsRemoved(),
         ];
-        
+
         return $data;
     }
 }

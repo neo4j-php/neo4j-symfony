@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\EventSubscriber;
 
+use GraphAware\Neo4j\Client\Event\FailureEvent;
 use GraphAware\Neo4j\Client\Event\PostRunEvent;
 use GraphAware\Neo4j\Client\Event\PreRunEvent;
 use GraphAware\Neo4j\Client\Neo4jClientEvents;
@@ -33,6 +34,7 @@ class LoggerSubscriber implements EventSubscriberInterface
         return [
             Neo4jClientEvents::NEO4J_PRE_RUN => 'onPreRun',
             Neo4jClientEvents::NEO4J_POST_RUN => 'onPostRun',
+            Neo4jClientEvents::NEO4J_ON_FAILURE => 'onFailure',
         ];
     }
 
@@ -54,5 +56,13 @@ class LoggerSubscriber implements EventSubscriberInterface
         foreach ($event->getResults() as $result) {
             $this->queryLogger->finish($result);
         }
+    }
+
+    /**
+     * @param FailureEvent $event
+     */
+    public function onFailure(FailureEvent $event)
+    {
+        $this->queryLogger->logException($event->getException());
     }
 }
