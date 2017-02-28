@@ -138,7 +138,7 @@ class QueryLogger implements \Countable
             'constraints_added' => $statementStatistics->constraintsAdded(),
             'constraints_removed' => $statementStatistics->constraintsRemoved(),
         ];
-        
+
         return $data;
     }
 }

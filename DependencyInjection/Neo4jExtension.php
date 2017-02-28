@@ -184,7 +184,7 @@ class Neo4jExtension extends Extension
     {
         return sprintf(
             '%s://%s:%s@%s:%d',
-            $config['schema'],
+            $config['scheme'],
             $config['username'],
             $config['password'],
             $config['host'],
@@ -205,7 +205,7 @@ class Neo4jExtension extends Extension
             return $config['port'];
         }
 
-        return 'http' == $config['schema'] ? HttpDriver::DEFAULT_HTTP_PORT : BoltDriver::DEFAULT_TCP_PORT;
+        return 'http' == $config['scheme'] ? HttpDriver::DEFAULT_HTTP_PORT : BoltDriver::DEFAULT_TCP_PORT;
     }
 
     /**
