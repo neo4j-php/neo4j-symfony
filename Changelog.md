@@ -10,7 +10,8 @@ The change log describes what is "Added", "Removed", "Changed" or "Fixed" betwee
 
 ### Fixed
 
-- Typo in configuration "schema" => "scheme". 
+- Typo in configuration "schema" => "scheme".
+- Bug where clients accidentally could share connections.
 
 ## 0.2.0
 
