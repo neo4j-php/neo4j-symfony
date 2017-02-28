@@ -39,6 +39,7 @@ class QueryLogger implements \Countable
         $statementParams = json_encode($statement->parameters());
         $tag = $statement->getTag() ?: -1;
 
+        // Make sure we do not record the same statement twice
         if (isset($this->statementsHash[$statementText][$statementParams][$tag])) {
             return;
         }
@@ -85,6 +86,7 @@ class QueryLogger implements \Countable
             'nb_results' => $statementResult->size(),
             'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
             'scheme' => $scheme,
+            'success' => true,
         ]);
     }
 
@@ -93,7 +95,13 @@ class QueryLogger implements \Countable
      */
     public function logException(Neo4jExceptionInterface $exception)
     {
-        // TODO log exceptions
+        $idx = $this->nbQueries - 1;
+        $this->statements[$idx] = array_merge($this->statements[$idx], [
+            'end_time' => microtime(true) * 1000,
+            'exceptionCode' => method_exists($exception, 'classification') ? $exception->classification() : '',
+            'exceptionMessage' => method_exists($exception, 'getMessage') ? $exception->getMessage() : '',
+            'success' => false,
+        ]);
     }
 
     /**

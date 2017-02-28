@@ -28,9 +28,12 @@ final class Neo4jDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
+        $this->data['time'] = $this->queryLogger->getElapsedTime();
         $this->data['nb_queries'] = count($this->queryLogger);
         $this->data['statements'] = $this->queryLogger->getStatements();
-        $this->data['time'] = $this->queryLogger->getElapsedTime();
+        $this->data['failed_statements'] = array_filter($this->queryLogger->getStatements(), function ($statement) {
+            return !$statement['success'];
+        });
     }
 
     /**
@@ -42,11 +45,23 @@ final class Neo4jDataCollector extends DataCollector
     }
 
     /**
-     * @return QueryLogger
+     * Return all statements, successful and not successful.
+     *
+     * @return array
      */
     public function getStatements()
     {
         return $this->data['statements'];
+    }
+
+    /**
+     * Return not successful statements.
+     *
+     * @return array
+     */
+    public function getFailedStatements()
+    {
+        return $this->data['failed_statements'];
     }
 
     /**
