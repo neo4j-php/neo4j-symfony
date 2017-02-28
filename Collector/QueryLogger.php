@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Collector;
 
+use GraphAware\Bolt\Result\Result;
 use GraphAware\Common\Cypher\StatementInterface;
 use GraphAware\Common\Result\StatementResult as StatementResultInterface;
 use GraphAware\Common\Result\StatementStatisticsInterface;
+use GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
@@ -37,6 +39,7 @@ class QueryLogger implements \Countable
         $statementParams = json_encode($statement->parameters());
         $tag = $statement->getTag() ?: -1;
 
+        // Make sure we do not record the same statement twice
         if (isset($this->statementsHash[$statementText][$statementParams][$tag])) {
             return;
         }
@@ -59,6 +62,11 @@ class QueryLogger implements \Countable
      */
     public function finish(StatementResultInterface $statementResult)
     {
+        $scheme = 'Http';
+        if ($statementResult instanceof Result) {
+            $scheme = 'Bolt';
+        }
+
         $statement = $statementResult->statement();
         $statementText = $statement->text();
         $statementParams = $statement->parameters();
@@ -77,6 +85,22 @@ class QueryLogger implements \Countable
             'end_time' => microtime(true) * 1000,
             'nb_results' => $statementResult->size(),
             'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
+            'scheme' => $scheme,
+            'success' => true,
+        ]);
+    }
+
+    /**
+     * @param Neo4jExceptionInterface $exception
+     */
+    public function logException(Neo4jExceptionInterface $exception)
+    {
+        $idx = $this->nbQueries - 1;
+        $this->statements[$idx] = array_merge($this->statements[$idx], [
+            'end_time' => microtime(true) * 1000,
+            'exceptionCode' => method_exists($exception, 'classification') ? $exception->classification() : '',
+            'exceptionMessage' => method_exists($exception, 'getMessage') ? $exception->getMessage() : '',
+            'success' => false,
         ]);
     }
 
