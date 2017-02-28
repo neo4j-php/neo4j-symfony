@@ -18,7 +18,7 @@ $ composer require neo4j/neo4j-bundle
 If you want to use the an `EntityManager` you need to install a [GraphAware OGM](https://github.com/graphaware/neo4j-php-ogm)
 
 ```bash
-$ composer require graphaware/neo4j-php-ogm:@beta
+$ composer require graphaware/neo4j-php-ogm:@rc
 ```
 
 Enable the bundle in your kernel:
