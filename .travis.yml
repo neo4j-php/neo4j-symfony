@@ -26,9 +26,9 @@ matrix:
     fast_finish: true
     include:
         - php: 7.0
-          env: SYMFONY_VERSION="3.2.* graphaware/neo4j-php-ogm:^1.0"
+          env: SYMFONY_VERSION="3.2.* graphaware/neo4j-php-ogm:^1.0" COVERAGE=true TEST_COMMAND="composer test-ci"
         - php: 7.0
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" COVERAGE=true TEST_COMMAND="composer test-ci" SYMFONY_VERSION=2.7.*
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_VERSION=2.7.*
 
 install:
     - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
