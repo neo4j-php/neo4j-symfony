@@ -32,7 +32,7 @@ final class Neo4jDataCollector extends DataCollector
         $this->data['nb_queries'] = count($this->queryLogger);
         $this->data['statements'] = $this->queryLogger->getStatements();
         $this->data['failed_statements'] = array_filter($this->queryLogger->getStatements(), function ($statement) {
-            return !$statement['success'];
+            return !isset($statement['success']) || !$statement['success'];
         });
     }
 
