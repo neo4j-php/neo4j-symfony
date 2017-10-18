@@ -37,7 +37,7 @@ final class ClientFactory
     /**
      * Build an Client form multiple connection.
      *
-     * @param string $names
+     * @param array $names
      *
      * @return ClientInterface
      */

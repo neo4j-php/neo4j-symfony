@@ -4,6 +4,15 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="neo4j.entity_managers_registry" class="Neo4j\Neo4jBundle\Registry" public="true">
+            <argument type="service" id="service_container"/>
+            <argument>%neo4j.connections%</argument>
+            <argument>%neo4j.entity_managers%</argument>
+            <argument>%neo4j.entity_managers%</argument>
+            <argument type="service">%neo4j.connection.default%</argument>
+            <argument type="service">%neo4j.entity_manager.default%</argument>
+        </service>
+
         <service id="neo4j.entity_manager.abstract" class="GraphAware\Neo4j\OGM\EntityManager" abstract="true">
         </service>
     </services>

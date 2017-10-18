@@ -6,8 +6,8 @@ namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
-use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
+use GraphAware\Neo4j\OGM\EntityManager;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -33,12 +33,14 @@ class Neo4jExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $this->handleConnections($config, $container);
+	    $connectionServicesIds = $this->handleConnections( $config, $container );
+	    $container->setParameter( 'neo4j.connections', $connectionServicesIds );
         $clientServiceIds = $this->handleClients($config, $container);
 
         if ($this->validateEntityManagers($config)) {
             $loader->load('entity_manager.xml');
-            $this->handleEntityMangers($config, $container, $clientServiceIds);
+	        $entityManagersIds = $this->handleEntityMangers( $config, $container, $clientServiceIds );
+	        $container->setParameter( 'neo4j.entity_managers', $entityManagersIds );
             $container->setAlias('neo4j.entity_manager', 'neo4j.entity_manager.default');
         }
 
@@ -127,11 +129,13 @@ class Neo4jExtension extends Extension
                     $clientName
                 ));
             }
+	        $cacheDir = empty( $data['cache_dir'] ) ? $container->getParameter( 'kernel.cache_dir' ) . '/neo4j' : $data['cache_dir'];
+	        $container->setParameter( 'neo4j.cache_dir', $cacheDir );
             $container
                 ->setDefinition($serviceId, new DefinitionDecorator('neo4j.entity_manager.abstract'))
                 ->setArguments([
                     $container->getDefinition($clientServiceIds[$clientName]),
-                    empty($data['cache_dir']) ? $container->getParameter('kernel.cache_dir').'/neo4j' : $data['cache_dir'],
+	                $cacheDir,
                 ]);
         }
 
