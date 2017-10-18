@@ -9,8 +9,8 @@
             <argument>%neo4j.connections%</argument>
             <argument>%neo4j.entity_managers%</argument>
             <argument>%neo4j.entity_managers%</argument>
-            <argument type="service">%neo4j.connection.default%</argument>
-            <argument type="service">%neo4j.entity_manager.default%</argument>
+            <argument type="service" id="neo4j.connection.default"/>
+            <argument type="service" id="neo4j.entity_manager.default"/>
         </service>
 
         <service id="neo4j.entity_manager.abstract" class="GraphAware\Neo4j\OGM\EntityManager" abstract="true">
