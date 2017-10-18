@@ -23,34 +23,36 @@ class Neo4jBundle extends Bundle {
 	 */
 	public function boot() {
 
-		// See https://github.com/symfony/symfony/pull/3419 for usage of references
-		$container = &$this->container;
+		if ( $this->container->hasParameter( 'neo4j.cache_dir' ) ) {
+			// See https://github.com/symfony/symfony/pull/3419 for usage of references
+			$container = &$this->container;
 
-		// generates proxy classes if autoloader cant find one in cache
-		$proxyGenerator = function ( $proxyDir, $proxyPrefix, $className ) use ( &$container ) {
+			// generates proxy classes if autoloader cant find one in cache
+			$proxyGenerator = function ( $proxyDir, $proxyPrefix, $className ) use ( &$container ) {
 
-			$originalClassName = str_replace( '_', '\\', substr( $className, strlen( $proxyPrefix ) ) );
-			/** @var $registry Registry */
-			$registry = $container->get( 'neo4j.entity_managers_registry' );
+				$originalClassName = str_replace( '_', '\\', substr( $className, strlen( $proxyPrefix ) ) );
+				/** @var $registry Registry */
+				$registry = $container->get( 'neo4j.entity_managers_registry' );
 
-			// iterates through all entity managers to auto-generate desired proxy file
-			/** @var $em EntityManager */
-			foreach ( $registry->getManagers() as $em ) {
+				// iterates through all entity managers to auto-generate desired proxy file
+				/** @var $em EntityManager */
+				foreach ( $registry->getManagers() as $em ) {
 
-				/** @var AnnotationGraphEntityMetadataFactory $metadataFactory */
-				$metadataFactory = $em->getMetadataFactory();
+					/** @var AnnotationGraphEntityMetadataFactory $metadataFactory */
+					$metadataFactory = $em->getMetadataFactory();
 
-				$classMetadata = $metadataFactory->create( $originalClassName );
-				$proxyFactory  = new ProxyFactory( $em, $classMetadata );
-				//line below must be replaced with $proxyFactory->createProxy(); when createProxy() method will be public
-				$proxyFactory->fromNode( new Node( - 1 ) );
+					$classMetadata = $metadataFactory->create( $originalClassName );
+					$proxyFactory  = new ProxyFactory( $em, $classMetadata );
+					//@todo: line below must be replaced with $proxyFactory->createProxy(); when createProxy() method will be public
+					$proxyFactory->fromNode( new Node( - 1 ) );
 
-				clearstatcache( true, ProxyAutoloader::resolveFile( $em->getProxyDirectory(), $proxyPrefix, $originalClassName ) );
-				break;
-			}
-		};
+					clearstatcache( true, ProxyAutoloader::resolveFile( $em->getProxyDirectory(), $proxyPrefix, $originalClassName ) );
+					break;
+				}
+			};
 
-		$this->autoloader = ProxyAutoloader::register( $container->getParameter( 'neo4j.cache_dir' ), 'neo4j_ogm_proxy_', $proxyGenerator );
+			$this->autoloader = ProxyAutoloader::register( $container->getParameter( 'neo4j.cache_dir' ), 'neo4j_ogm_proxy_', $proxyGenerator );
+		}
 	}
 
 	/**
