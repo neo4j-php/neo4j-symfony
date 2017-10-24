@@ -18,11 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * References all OGM connections and entity managers in a given Container.
- * Used mostly to get all entity managers in bundle`s ->boot() method
+ * Used mostly to get all entity managers in bundle`s ->boot() method.
  *
  * @author Dmitrii Shargorodskii <1337.um@gmail.com>
  */
-class Registry {
+class Registry
+{
     private $container;
 
     /**
@@ -49,32 +50,31 @@ class Registry {
      * Constructor.
      *
      * @param ContainerInterface $container
-     * @param array $connections
-     * @param array $entityManagers
+     * @param array              $connections
+     * @param array              $entityManagers
      * @param $defaultConnection
      * @param $defaultManager
      */
-    public function __construct( ContainerInterface $container, $connections, $entityManagers, $defaultConnection, $defaultManager ) {
-        $this->container         = &$container;
-        $this->connections       = $connections;
-        $this->managers          = $entityManagers;
+    public function __construct(ContainerInterface $container, $connections, $entityManagers, $defaultConnection, $defaultManager)
+    {
+        $this->container = &$container;
+        $this->connections = $connections;
+        $this->managers = $entityManagers;
         $this->defaultConnection = $defaultConnection;
-        $this->defaultManager    = $defaultManager;
+        $this->defaultManager = $defaultManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getConnection( $name = null ) {
-        if ( null === $name ) {
+    public function getConnection($name = null)
+    {
+        if (null === $name) {
             $name = $this->defaultConnection;
         }
 
-        if ( ! isset( $this->connections[ $name ] ) ) {
-            throw new \InvalidArgumentException( sprintf( 'Connection named "%s" does not exist.', $name ) );
+        if (!isset($this->connections[$name])) {
+            throw new \InvalidArgumentException(sprintf('Connection named "%s" does not exist.', $name));
         }
 
-        return $this->getService( $this->connections[ $name ] );
+        return $this->getService($this->connections[$name]);
     }
 
     /**
@@ -86,24 +86,21 @@ class Registry {
      *
      * @return object The instance of the given service.
      */
-    protected function getService( $name ) {
-        return $this->container->get( $name );
+    protected function getService($name)
+    {
+        return $this->container->get($name);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getConnectionNames() {
+    public function getConnectionNames()
+    {
         return $this->connections;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getConnections() {
+    public function getConnections()
+    {
         $connections = [];
-        foreach ( $this->connections as $name => $id ) {
-            $connections[ $name ] = $this->getService( $id );
+        foreach ($this->connections as $name => $id) {
+            $connections[$name] = $this->getService($id);
         }
 
         return $connections;
@@ -114,40 +111,33 @@ class Registry {
      *
      * @return Registry
      */
-    public function setConnections( array $connections ): Registry {
+    public function setConnections(array $connections): Registry
+    {
         $this->connections = $connections;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultConnectionName() {
+    public function getDefaultConnectionName()
+    {
         return $this->defaultConnection;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultManagerName() {
+    public function getDefaultManagerName()
+    {
         return $this->defaultManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getManagerNames() {
+    public function getManagerNames()
+    {
         return $this->managers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getManagers() {
+    public function getManagers()
+    {
         $dms = [];
-        foreach ( $this->managers as $name => $id ) {
-            $dms[ $name ] = $this->getService( $id );
+        foreach ($this->managers as $name => $id) {
+            $dms[$name] = $this->getService($id);
         }
 
         return $dms;
@@ -158,53 +148,49 @@ class Registry {
      *
      * @return Registry
      */
-    public function setManagers( array $managers ): Registry {
+    public function setManagers(array $managers): Registry
+    {
         $this->managers = $managers;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRepository( $persistentObjectName, $persistentManagerName = null ) {
-        return $this->getManager( $persistentManagerName )->getRepository( $persistentObjectName );
+    public function getRepository($persistentObjectName, $persistentManagerName = null)
+    {
+        return $this->getManager($persistentManagerName)->getRepository($persistentObjectName);
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \InvalidArgumentException
      */
-    public function getManager( $name = null ) {
-        if ( null === $name ) {
+    public function getManager($name = null)
+    {
+        if (null === $name) {
             $name = $this->defaultManager;
         }
 
-        if ( ! isset( $this->managers[ $name ] ) ) {
-            throw new \InvalidArgumentException( sprintf( 'Manager named "%s" does not exist.', $name ) );
+        if (!isset($this->managers[$name])) {
+            throw new \InvalidArgumentException(sprintf('Manager named "%s" does not exist.', $name));
         }
 
-        return $this->getService( $this->managers[ $name ] );
+        return $this->getService($this->managers[$name]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function resetManager( $name = null ) {
-        if ( null === $name ) {
+    public function resetManager($name = null)
+    {
+        if (null === $name) {
             $name = $this->defaultManager;
         }
 
-        if ( ! isset( $this->managers[ $name ] ) ) {
-            throw new \InvalidArgumentException( sprintf( 'Manager named "%s" does not exist.', $name ) );
+        if (!isset($this->managers[$name])) {
+            throw new \InvalidArgumentException(sprintf('Manager named "%s" does not exist.', $name));
         }
 
         // force the creation of a new document manager
         // if the current one is closed
-        $this->resetService( $this->managers[ $name ] );
+        $this->resetService($this->managers[$name]);
 
-        return $this->getManager( $name );
+        return $this->getManager($name);
     }
 
     /**
@@ -213,10 +199,9 @@ class Registry {
      * A service in this context is connection or a manager instance.
      *
      * @param string $name The name of the service.
-     *
-     * @return void
      */
-    protected function resetService( $name ) {
+    protected function resetService($name)
+    {
         //@todo: implement service reset
     }
 
@@ -225,7 +210,8 @@ class Registry {
      *
      * @return Registry
      */
-    public function addConnection( $connection ): Registry {
+    public function addConnection($connection): Registry
+    {
         $this->connections[] = $connection;
 
         return $this;
@@ -236,7 +222,8 @@ class Registry {
      *
      * @return Registry
      */
-    public function addManager( string $manager ): Registry {
+    public function addManager(string $manager): Registry
+    {
         $this->managers = $manager;
 
         return $this;

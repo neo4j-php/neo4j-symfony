@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
@@ -10,32 +10,34 @@ namespace Neo4j\Neo4jBundle\DependencyInjection;
  * @author Dmitrii Shargorodskii <1337.um@gmail.com>
  * @author Benjamin Eberlei <kontakt@beberlei.de> - author of Doctrine (proxy) Autoloader
  */
-class ProxyAutoloader {
+class ProxyAutoloader
+{
     /**
      * Registers and returns autoloader callback for the given proxy dir and namespace.
      *
-     * @param string $proxyDir
-     * @param string $proxyNamespace
+     * @param string        $proxyDir
+     * @param string        $proxyNamespace
      * @param callable|null $notFoundCallback Invoked when the proxy file is not found.
      *
      * @return \Closure
      */
-    public static function register( $proxyDir, $proxyNamespace, $notFoundCallback = null ) {
-        $proxyNamespace = ltrim( $proxyNamespace, '\\' );
+    public static function register($proxyDir, $proxyNamespace, $notFoundCallback = null)
+    {
+        $proxyNamespace = ltrim($proxyNamespace, '\\');
 
-        $autoloader = function ( $className ) use ( $proxyDir, $proxyNamespace, $notFoundCallback ) {
-            if ( 0 === strpos( $className, $proxyNamespace ) ) {
-                $file = ProxyAutoloader::resolveFile( $proxyDir, $proxyNamespace, $className );
+        $autoloader = function ($className) use ($proxyDir, $proxyNamespace, $notFoundCallback) {
+            if (0 === strpos($className, $proxyNamespace)) {
+                $file = ProxyAutoloader::resolveFile($proxyDir, $proxyNamespace, $className);
 
-                if ( $notFoundCallback && ! file_exists( $file ) ) {
-                    call_user_func( $notFoundCallback, $proxyDir, $proxyNamespace, $className );
+                if ($notFoundCallback && !file_exists($file)) {
+                    call_user_func($notFoundCallback, $proxyDir, $proxyNamespace, $className);
                 }
 
                 require $file;
             }
         };
 
-        spl_autoload_register( $autoloader );
+        spl_autoload_register($autoloader);
 
         return $autoloader;
     }
@@ -52,12 +54,12 @@ class ProxyAutoloader {
      * @param string $className
      *
      * @return string
-     *
      */
-    public static function resolveFile( $proxyDir, $proxyPrefix, $className ) {
-        $proxyPrefix = ( strpos( $className, $proxyPrefix ) === 0 ) ? '' : $proxyPrefix;
-        $fileName    = $proxyPrefix . str_replace( '\\', '_', $className );
+    public static function resolveFile($proxyDir, $proxyPrefix, $className)
+    {
+        $proxyPrefix = (strpos($className, $proxyPrefix) === 0) ? '' : $proxyPrefix;
+        $fileName = $proxyPrefix.str_replace('\\', '_', $className);
 
-        return $proxyDir . DIRECTORY_SEPARATOR . $fileName . '.php';
+        return $proxyDir.DIRECTORY_SEPARATOR.$fileName.'.php';
     }
 }
