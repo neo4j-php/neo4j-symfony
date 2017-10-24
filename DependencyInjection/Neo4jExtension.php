@@ -63,86 +63,6 @@ class Neo4jExtension extends Extension
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getAlias(): string
-    {
-        return 'neo4j';
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     *
-     * @return array with service ids
-     */
-    private function handleClients(array &$config, ContainerBuilder $container): array
-    {
-        if (empty($config['clients'])) {
-            // Add default entity manager if none set.
-            $config['clients']['default'] = ['connections' => ['default']];
-        }
-
-        $serviceIds = [];
-        foreach ($config['clients'] as $name => $data) {
-            $connections = [];
-            $serviceIds[$name] = $serviceId = sprintf('neo4j.client.%s', $name);
-            foreach ($data['connections'] as $connectionName) {
-                if (empty($config['connections'][$connectionName])) {
-                    throw new InvalidConfigurationException(sprintf(
-                        'Client "%s" is configured to use connection named "%s" but there is no such connection',
-                        $name,
-                        $connectionName
-                    ));
-                }
-                $connections[] = $connectionName;
-            }
-            if (empty($connections)) {
-                $connections[] = 'default';
-            }
-
-            $container
-                ->setDefinition($serviceId, new DefinitionDecorator('neo4j.client.abstract'))
-                ->setArguments([$connections]);
-        }
-
-        return $serviceIds;
-    }
-
-    /**
-     * @param array            $config
-     * @param ContainerBuilder $container
-     * @param array            $clientServiceIds
-     *
-     * @return array
-     */
-    private function handleEntityMangers(array &$config, ContainerBuilder $container, array $clientServiceIds): array
-    {
-        $serviceIds = [];
-        foreach ($config['entity_managers'] as $name => $data) {
-            $serviceIds[] = $serviceId = sprintf('neo4j.entity_manager.%s', $name);
-            $clientName = $data['client'];
-            if (empty($clientServiceIds[$clientName])) {
-                throw new InvalidConfigurationException(sprintf(
-                    'EntityManager "%s" is configured to use client named "%s" but there is no such client',
-                    $name,
-                    $clientName
-                ));
-            }
-	        $cacheDir = empty( $data['cache_dir'] ) ? $container->getParameter( 'kernel.cache_dir' ) . '/neo4j' : $data['cache_dir'];
-	        $container->setParameter( 'neo4j.cache_dir', $cacheDir );
-            $container
-                ->setDefinition($serviceId, new DefinitionDecorator('neo4j.entity_manager.abstract'))
-                ->setArguments([
-                    $container->getDefinition($clientServiceIds[$clientName]),
-	                $cacheDir,
-                ]);
-        }
-
-        return $serviceIds;
-    }
-
-    /**
      * @param array            $config
      * @param ContainerBuilder $container
      *
@@ -214,6 +134,44 @@ class Neo4jExtension extends Extension
     }
 
     /**
+     * @param array $config
+     * @param ContainerBuilder $container
+     *
+     * @return array with service ids
+     */
+    private function handleClients( array &$config, ContainerBuilder $container ): array {
+        if ( empty( $config['clients'] ) ) {
+            // Add default entity manager if none set.
+            $config['clients']['default'] = [ 'connections' => [ 'default' ] ];
+        }
+
+        $serviceIds = [];
+        foreach ( $config['clients'] as $name => $data ) {
+            $connections         = [];
+            $serviceIds[ $name ] = $serviceId = sprintf( 'neo4j.client.%s', $name );
+            foreach ( $data['connections'] as $connectionName ) {
+                if ( empty( $config['connections'][ $connectionName ] ) ) {
+                    throw new InvalidConfigurationException( sprintf(
+                        'Client "%s" is configured to use connection named "%s" but there is no such connection',
+                        $name,
+                        $connectionName
+                    ) );
+                }
+                $connections[] = $connectionName;
+            }
+            if ( empty( $connections ) ) {
+                $connections[] = 'default';
+            }
+
+            $container
+                ->setDefinition( $serviceId, new DefinitionDecorator( 'neo4j.client.abstract' ) )
+                ->setArguments( [ $connections ] );
+        }
+
+        return $serviceIds;
+    }
+
+    /**
      * Make sure the EntityManager is installed if we have configured it.
      *
      * @param array &$config
@@ -237,5 +195,44 @@ class Neo4jExtension extends Extension
         }
 
         return $dependenciesInstalled;
+    }
+
+    /**
+     * @param array $config
+     * @param ContainerBuilder $container
+     * @param array $clientServiceIds
+     *
+     * @return array
+     */
+    private function handleEntityMangers( array &$config, ContainerBuilder $container, array $clientServiceIds ): array {
+        $serviceIds = [];
+        foreach ( $config['entity_managers'] as $name => $data ) {
+            $serviceIds[] = $serviceId = sprintf( 'neo4j.entity_manager.%s', $name );
+            $clientName   = $data['client'];
+            if ( empty( $clientServiceIds[ $clientName ] ) ) {
+                throw new InvalidConfigurationException( sprintf(
+                    'EntityManager "%s" is configured to use client named "%s" but there is no such client',
+                    $name,
+                    $clientName
+                ) );
+            }
+            $cacheDir = empty( $data['cache_dir'] ) ? $container->getParameter( 'kernel.cache_dir' ) . '/neo4j' : $data['cache_dir'];
+            $container->setParameter( 'neo4j.cache_dir', $cacheDir );
+            $container
+                ->setDefinition( $serviceId, new DefinitionDecorator( 'neo4j.entity_manager.abstract' ) )
+                ->setArguments( [
+                    $container->getDefinition( $clientServiceIds[ $clientName ] ),
+                    $cacheDir,
+                ] );
+        }
+
+        return $serviceIds;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAlias(): string {
+        return 'neo4j';
     }
 }
