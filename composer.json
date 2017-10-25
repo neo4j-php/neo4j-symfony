@@ -17,7 +17,7 @@
     "require": {
         "php": "^7.0",
         "graphaware/neo4j-php-client": "^4.6.4",
-        "symfony/framework-bundle": "^2.7 || ^3.0",
+        "symfony/framework-bundle": "^2.7 || ^3.0 || ^4.0",
         "graphaware/neo4j-bolt": "^1.6"
     },
     "require-dev": {
