@@ -87,4 +87,12 @@ final class Neo4jDataCollector extends DataCollector
     {
         return 'neo4j';
     }
+
+    /**
+     * This method is part of the 4.x+ branch.
+     */
+    public function reset()
+    {
+        $this->data = array();
+    }
 }
