@@ -25,7 +25,7 @@
             </div>
 
         {% endset %}
-        {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url, 'status': collector.failedStatements|length ? 'red' : '' } %}
+        {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url, 'status': collector.failedStatements|length ? 'red' : '' } %}
     {% endif %}
 {% endblock %}
 
