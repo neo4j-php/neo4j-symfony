@@ -132,8 +132,13 @@ class Neo4jExtension extends Extension
                     $clientName
                 ));
             }
+
+            $definition = class_exists(ChildDefinition::class)
+                ? new ChildDefinition('neo4j.entity_manager.abstract')
+                : new DefinitionDecorator('neo4j.entity_manager.abstract');
+
             $container
-                ->setDefinition($serviceId, new DefinitionDecorator('neo4j.entity_manager.abstract'))
+                ->setDefinition($serviceId, $definition)
                 ->setArguments([
                     $container->getDefinition($clientServiceIds[$clientName]),
                     empty($data['cache_dir']) ? $container->getParameter('kernel.cache_dir').'/neo4j' : $data['cache_dir'],
