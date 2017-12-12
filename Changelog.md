@@ -2,6 +2,17 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 0.4.0
+
+### Added
+
+- Support for Symfony 4
+
+### Fixed
+
+- Updating the twig path for symfony flex
+- Register an autoloader for proxies to avoid issues when unserializing
+
 ## 0.3.0
 
 ### Added
