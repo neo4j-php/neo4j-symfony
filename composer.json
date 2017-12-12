@@ -16,14 +16,16 @@
     ],
     "require": {
         "php": "^7.0",
+        "graphaware/neo4j-bolt": "^1.6",
         "graphaware/neo4j-php-client": "^4.6.4",
-        "symfony/framework-bundle": "^2.7 || ^3.0",
-        "graphaware/neo4j-bolt": "^1.6"
+        "symfony/dependency-injection": " ^2.8.3 || ^3.0.3 || ^4.0",
+        "symfony/framework-bundle": "^2.8.32 || ^3.0 || ^4.0",
+        "symfony/http-kernel": "^2.8 || ^3.0 || ^4.0",
+        "twig/twig": "^1.18 || ^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.4",
-        "symfony/symfony": "^2.7 || ^3.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^1.0"
+        "symfony/phpunit-bridge": "^3.3 || ^4.0",
+        "matthiasnoback/symfony-dependency-injection-test": "^2.3"
     },
     "suggest": {
         "graphaware/neo4j-php-ogm": "To have EntityManager support"
@@ -33,9 +35,11 @@
             "Neo4j\\Neo4jBundle\\": ""
         }
     },
-    "scripts": {
-        "test": "vendor/bin/phpunit",
-        "test-ci": "vendor/bin/phpunit --coverage-text --coverage-clover=build/coverage.xml"
+    "config": {
+        "sort-packages": true
     },
-    "minimum-stability": "beta"
+    "scripts": {
+        "test": "vendor/bin/simple-phpunit",
+        "test-ci": "vendor/bin/simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
+    }
 }
