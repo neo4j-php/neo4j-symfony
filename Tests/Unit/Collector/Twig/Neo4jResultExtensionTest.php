@@ -4,11 +4,12 @@ namespace Neo4j\Neo4jBundle\Tests\Unit\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
 use Neo4j\Neo4jBundle\Collector\Twig\Neo4jResultExtension;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Neo4jResultExtensionTest extends \PHPUnit_Framework_TestCase
+class Neo4jResultExtensionTest extends TestCase
 {
     public function testEmptyArray()
     {
