@@ -43,7 +43,7 @@ The bundle is a convenient way of registering services. We register `Connections
 
  * neo4j.connection
  * neo4j.client
- * neo4j.entity_manager*
+ * neo4j.entity_manager.*
 
 
 ### Minimal configuration
