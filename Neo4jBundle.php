@@ -15,12 +15,12 @@ class Neo4jBundle extends Bundle
     public function getContainerExtension()
     {
         // Register an autoloader for proxies to avoid issues when unserializing them when the OGM is used.
-        if ($this->container->has('neo4j.entity_manager')) {
+        if (null !== $this->container && $this->container->has('neo4j.entity_manager')) {
             // See https://github.com/symfony/symfony/pull/3419 for usage of references
             $container = &$this->container;
             $this->autoloader = function($class) use (&$container) {
                 if (0 === strpos($class, 'neo4j_ogm_proxy')) {
-                    $cacheDir = $container->getParameter('kernel.cache_dir') . DIRECTORY_SEPARATOR . 'neo4j';
+                    $cacheDir = $container->getParameter('kernel.cache_dir').DIRECTORY_SEPARATOR.'neo4j';
                     $file = $cacheDir.DIRECTORY_SEPARATOR.$class.'.php';
                     if (file_exists($file)) {
                         require_once $file;
