@@ -27,7 +27,7 @@ matrix:
         - php: 7.0
         - php: 7.1
         - php: 7.2
-          env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0"
+          env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0@rc"
 
           # Force some major versions of Symfony
         - php: 7.2
