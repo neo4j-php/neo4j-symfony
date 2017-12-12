@@ -149,7 +149,7 @@ class Neo4jExtension extends Extension
         $serviceIds = [];
         $firstName = null;
         foreach ($config['connections'] as $name => $data) {
-            if ($firstName === null || $name === 'default') {
+            if (null === $firstName || 'default' === $name) {
                 $firstName = $name;
             }
             $def = new Definition(Connection::class);
@@ -160,7 +160,7 @@ class Neo4jExtension extends Extension
         }
 
         // Make sure we got a 'default'
-        if ($firstName !== 'default') {
+        if ('default' !== $firstName) {
             $config['connections']['default'] = $config['connections'][$firstName];
         }
 
