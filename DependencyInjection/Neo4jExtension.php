@@ -10,6 +10,7 @@ use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
@@ -99,8 +100,12 @@ class Neo4jExtension extends Extension
                 $connections[] = 'default';
             }
 
+            $definition = class_exists(ChildDefinition::class)
+                ? new ChildDefinition('neo4j.client.abstract')
+                : new DefinitionDecorator('neo4j.client.abstract');
+
             $container
-                ->setDefinition($serviceId, new DefinitionDecorator('neo4j.client.abstract'))
+                ->setDefinition($serviceId, $definition)
                 ->setArguments([$connections]);
         }
 
