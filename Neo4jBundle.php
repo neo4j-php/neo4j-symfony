@@ -12,6 +12,11 @@ class Neo4jBundle extends Bundle
 {
     private $autoloader;
 
+    public function getContainerExtension()
+    {
+        return new Neo4jExtension();
+    }
+
     public function boot()
     {
         // Register an autoloader for proxies to avoid issues when unserializing them when the OGM is used.
