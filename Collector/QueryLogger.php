@@ -89,10 +89,7 @@ class QueryLogger implements \Countable
             'success' => true,
         ]);
     }
-
-    /**
-     * @return void
-     */
+    
     public function reset()
     {
         $this->nbQueries = 0;
