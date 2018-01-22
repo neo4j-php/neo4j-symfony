@@ -90,6 +90,13 @@ class QueryLogger implements \Countable
         ]);
     }
 
+    public function reset()
+    {
+        $this->nbQueries = 0;
+        $this->statements = [];
+        $this->statementsHash = [];
+    }
+
     /**
      * @param Neo4jExceptionInterface $exception
      */

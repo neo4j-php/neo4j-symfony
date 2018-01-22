@@ -36,6 +36,12 @@ final class Neo4jDataCollector extends DataCollector
         });
     }
 
+    public function reset()
+    {
+        $this->data = [];
+        $this->queryLogger->reset();
+    }
+
     /**
      * @return int
      */
