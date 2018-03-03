@@ -75,9 +75,11 @@ neo4j:
     second_connection:
       username: foo
       password: bar
+    third_connection:
+      dsn: 'bolt://foo:bar@localhost:7687'
   clients:
     default:
-      connections: [default, second_connection]
+      connections: [default, second_connection, third_connection]
     other_client:
       connections: [second_connection]
     foobar: ~ # foobar client will have the "default" connection

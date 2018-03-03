@@ -8,6 +8,7 @@ use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
 use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
+use Nyholm\DSN;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
@@ -193,6 +194,10 @@ class Neo4jExtension extends Extension
      */
     private function getUrl(array $config): string
     {
+        if (null !== $config['dsn']) {
+            return $config['dsn'];
+        }
+
         return sprintf(
             '%s://%s:%s@%s:%d',
             $config['scheme'],
@@ -243,5 +248,29 @@ class Neo4jExtension extends Extension
         }
 
         return $dependenciesInstalled;
+    }
+
+    /**
+     * If a DSN is configured, then let it override other database storages.
+     * @param array $config
+     *
+     * @param array
+     */
+    private function parseDsn(array $config)
+    {
+        foreach ($config as $key => $databaseConfig) {
+            if (isset($databaseConfig['dsn'])) {
+                $dsn = new DSN($databaseConfig['dsn']);
+                $config[$key]['type'] = $dsn->getProtocol();
+                $config[$key]['host'] = $dsn->getFirstHost();
+                $config[$key]['port'] = $dsn->getFirstPort();
+                $config[$key]['user'] = $dsn->getUsername();
+                $config[$key]['pass'] = $dsn->getPassword();
+                $config[$key]['database'] = $dsn->getDatabase();
+                unset($config[$key]['dsn']);
+            }
+        }
+
+        return $config;
     }
 }
