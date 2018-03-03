@@ -54,6 +54,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->load();
         $this->assertContainerBuilderHasServiceDefinitionWithArgument('neo4j.connection.default', 1, 'bolt://neo4j:neo4j@localhost:7474');
     }
+
     public function testDsn()
     {
         $this->setParameter('kernel.debug', false);
