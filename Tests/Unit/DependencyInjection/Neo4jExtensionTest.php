@@ -58,10 +58,10 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
     public function testDsn()
     {
         $this->setParameter('kernel.debug', false);
-        $config = ['connections'=>[
+        $config = ['connections' => [
             'default' => [
-                'dsn'=>'bolt://foo:bar@localhost:7687',
-            ]
+                'dsn' => 'bolt://foo:bar@localhost:7687',
+            ],
         ]];
 
         $this->load($config);
