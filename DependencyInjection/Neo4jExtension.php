@@ -8,7 +8,6 @@ use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
 use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
-use Nyholm\DSN;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
