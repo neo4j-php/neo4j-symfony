@@ -193,6 +193,10 @@ class Neo4jExtension extends Extension
      */
     private function getUrl(array $config): string
     {
+        if (null !== $config['dsn']) {
+            return $config['dsn'];
+        }
+
         return sprintf(
             '%s://%s:%s@%s:%d',
             $config['scheme'],

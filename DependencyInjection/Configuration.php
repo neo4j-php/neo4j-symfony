@@ -90,6 +90,7 @@ class Configuration implements ConfigurationInterface
                     ->integerNode('port')->end()
                     ->scalarNode('username')->defaultValue('neo4j')->end()
                     ->scalarNode('password')->defaultValue('neo4j')->end()
+                    ->scalarNode('dsn')->defaultNull()->end()
                 ->end()
             ->end()
         ->end();
