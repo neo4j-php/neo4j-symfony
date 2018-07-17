@@ -39,7 +39,7 @@ class Neo4jExtension extends Extension
 
         if ($this->validateEntityManagers($config)) {
             $loader->load('entity_manager.xml');
-            $this->handleEntityMangers($config, $container, $clientServiceIds);
+            $this->handleEntityManagers($config, $container, $clientServiceIds);
             $container->setAlias('neo4j.entity_manager', 'neo4j.entity_manager.default');
         }
 
@@ -119,7 +119,7 @@ class Neo4jExtension extends Extension
      *
      * @return array
      */
-    private function handleEntityMangers(array &$config, ContainerBuilder $container, array $clientServiceIds): array
+    private function handleEntityManagers(array &$config, ContainerBuilder $container, array $clientServiceIds): array
     {
         $serviceIds = [];
         foreach ($config['entity_managers'] as $name => $data) {
