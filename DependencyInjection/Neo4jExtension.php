@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use GraphAware\Bolt\Driver as BoltDriver;
+use GraphAware\Neo4j\Client\ClientInterface;
 use GraphAware\Neo4j\Client\Connection\Connection;
 use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
@@ -47,7 +48,9 @@ class Neo4jExtension extends Extension
 
         // add aliases for the default services
         $container->setAlias('neo4j.connection', 'neo4j.connection.default');
+        $container->setAlias(Connection::class, 'neo4j.connection.default');
         $container->setAlias('neo4j.client', 'neo4j.client.default');
+        $container->setAlias(ClientInterface::class, 'neo4j.client.default');
 
         // Configure toolbar
         if ($this->isConfigEnabled($container, $config['profiling'])) {
