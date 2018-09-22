@@ -8,6 +8,7 @@ use GraphAware\Bolt\Driver as BoltDriver;
 use GraphAware\Neo4j\Client\Connection\Connection;
 use GraphAware\Neo4j\OGM\EntityManager;
 use GraphAware\Neo4j\Client\HttpDriver\Driver as HttpDriver;
+use GraphAware\Neo4j\OGM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
@@ -41,6 +42,7 @@ class Neo4jExtension extends Extension
             $loader->load('entity_manager.xml');
             $this->handleEntityManagers($config, $container, $clientServiceIds);
             $container->setAlias('neo4j.entity_manager', 'neo4j.entity_manager.default');
+            $container->setAlias(EntityManagerInterface::class, 'neo4j.entity_manager.default');
         }
 
         // add aliases for the default services
