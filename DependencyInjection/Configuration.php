@@ -87,7 +87,7 @@ class Configuration implements ConfigurationInterface
                 ->children()
                     ->enumNode('scheme')->values(['http', 'bolt'])->defaultValue('bolt')->end()
                     ->scalarNode('host')->defaultValue('localhost')->end()
-                    ->integerNode('port')->end()
+                    ->scalarNode('port')->end()
                     ->scalarNode('username')->defaultValue('neo4j')->end()
                     ->scalarNode('password')->defaultValue('neo4j')->end()
                     ->scalarNode('dsn')->defaultNull()->end()
