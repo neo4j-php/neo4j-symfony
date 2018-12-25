@@ -50,7 +50,7 @@ class QueryLogger implements \Countable
             'query' => $statementText,
             'parameters' => $statementParams,
             'tag' => $statement->getTag(),
-            
+
             // Add dummy data in case we never run logException or finish
             'end_time' => microtime(true) * 1000, // same
             'nb_results' => 0,
