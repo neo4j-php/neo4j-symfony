@@ -39,8 +39,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $root = $treeBuilder->root('neo4j');
+        $treeBuilder = new TreeBuilder('neo4j');
+        // Keep compatibility with symfony/config < 4.2
+        if (!method_exists($treeBuilder, 'getRootNode')) {
+            $root = $treeBuilder->root('neo4j');
+        } else {
+            $root = $treeBuilder->getRootNode();
+        }
 
         $root->children()
             ->arrayNode('profiling')

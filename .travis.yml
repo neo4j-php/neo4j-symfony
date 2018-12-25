@@ -9,7 +9,7 @@ cache:
 env:
     global:
         - TEST_COMMAND="composer test"
-        - SYMFONY_PHPUNIT_VERSION="6.3"
+        - SYMFONY_PHPUNIT_VERSION="6.5"
 
 branches:
     except:
@@ -39,7 +39,7 @@ matrix:
           env: DEPENDENCIES="dunglas/symfony-lock:^4"
 
           # Latest commit to master
-        - php: 7.2
+        - php: 7.3
           env: STABILITY="dev"
 
     allow_failures:
