@@ -47,12 +47,18 @@ class QueryLogger implements \Countable
         $idx = $this->nbQueries++;
         $this->statements[$idx] = [
             'start_time' => microtime(true) * 1000,
-            'end_time' => microtime(true) * 1000, // same
-            'nb_results' => 0,
             'query' => $statementText,
             'parameters' => $statementParams,
             'tag' => $statement->getTag(),
+
+            // Add dummy data in case we never run logException or finish
+            'end_time' => microtime(true) * 1000, // same
+            'nb_results' => 0,
             'statistics' => [],
+            'scheme' => '',
+            'success' => false,
+            'exceptionCode' => 0,
+            'exceptionMessage' => '',
         ];
         $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }

@@ -13,7 +13,6 @@
 
         <service id="neo4j.client.abstract" class="GraphAware\Neo4j\Client\Client" abstract="true">
             <factory service="neo4j.factory.client" method="create" />
-
         </service>
     </services>
 </container>
