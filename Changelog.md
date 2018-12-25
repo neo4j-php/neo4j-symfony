@@ -2,6 +2,17 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 0.4.2
+
+### Added
+
+- Autowire support by register interfaces as aliases for default services.
+
+### Fixed
+
+- Support for Symfony 4.2
+- Better query logging on exceptions 
+
 ## 0.4.1
 
 ### Added
