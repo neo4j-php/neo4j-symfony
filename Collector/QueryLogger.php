@@ -161,7 +161,9 @@ class QueryLogger implements \Countable
 
     private function statisticsToArray(?StatementStatisticsInterface $statementStatistics)
     {
-        if (!$statementStatistics) return [];
+        if (!$statementStatistics) { 
+            return [];
+        }
         $data = [
             'contains_updates' => $statementStatistics->containsUpdates(),
             'nodes_created' => $statementStatistics->nodesCreated(),
