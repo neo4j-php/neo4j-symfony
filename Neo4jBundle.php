@@ -2,7 +2,9 @@
 
 namespace Neo4j\Neo4jBundle;
 
+use Neo4j\Neo4jBundle\DependencyInjection\CompilerPass\RegisterEventSubscriberPass;
 use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -34,6 +36,11 @@ class Neo4jBundle extends Bundle
             };
             spl_autoload_register($this->autoloader);
         }
+    }
+
+    public function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new RegisterEventSubscriberPass());
     }
 
     public function shutdown()

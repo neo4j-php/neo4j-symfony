@@ -16,6 +16,10 @@ class RegisterEventSubscriberPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->has('neo4j.event_manager')) {
+            return;
+        }
+
         $definition = $container->findDefinition('neo4j.event_manager');
 
         foreach ($container->findTaggedServiceIds('neo4j.event_subscriber') as $id => $tags) {

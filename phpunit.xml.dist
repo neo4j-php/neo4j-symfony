@@ -4,8 +4,7 @@
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         syntaxCheck="true">
+         convertWarningsToExceptions="true">
     <testsuites>
         <testsuite name="Unit tests">
             <directory suffix="Test.php">./Tests/Unit</directory>
