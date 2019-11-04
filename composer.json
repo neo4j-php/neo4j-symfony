@@ -25,7 +25,8 @@
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.3 || ^4.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^2.3"
+        "matthiasnoback/symfony-dependency-injection-test": "^2.3",
+        "graphaware/neo4j-php-ogm": "^1@rc"
     },
     "suggest": {
         "graphaware/neo4j-php-ogm": "To have EntityManager support"
