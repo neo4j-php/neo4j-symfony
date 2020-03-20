@@ -159,8 +159,11 @@ class QueryLogger implements \Countable
         return $time;
     }
 
-    private function statisticsToArray(StatementStatisticsInterface $statementStatistics)
+    private function statisticsToArray(?StatementStatisticsInterface $statementStatistics)
     {
+        if (!$statementStatistics) {
+            return [];
+        }
         $data = [
             'contains_updates' => $statementStatistics->containsUpdates(),
             'nodes_created' => $statementStatistics->nodesCreated(),
