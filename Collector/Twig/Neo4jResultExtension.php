@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
+use Twig\Extension\AbstractExtension;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
  */
-class Neo4jResultExtension extends \Twig_Extension
+class Neo4jResultExtension extends AbstractExtension
 {
     /**
      * {@inheritdoc}
