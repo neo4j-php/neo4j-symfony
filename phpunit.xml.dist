@@ -15,6 +15,10 @@
         </testsuite>
     </testsuites>
 
+    <php>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="6.5" />
+    </php>
+
     <filter>
         <whitelist>
             <directory>./</directory>

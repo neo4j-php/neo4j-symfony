@@ -28,18 +28,21 @@ matrix:
         - php: 7.0
         - php: 7.1
         - php: 7.2
+        - php: 7.3
           env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0@rc"
 
           # Force some major versions of Symfony
-        - php: 7.2
+        - php: 7.3
           env: DEPENDENCIES="dunglas/symfony-lock:^2"
-        - php: 7.2
+        - php: 7.3
           env: DEPENDENCIES="dunglas/symfony-lock:^3"
-        - php: 7.2
+        - php: 7.3
           env: DEPENDENCIES="dunglas/symfony-lock:^4"
+        - php: 7.3
+          env: DEPENDENCIES="dunglas/symfony-lock:^5"
 
           # Latest commit to master
-        - php: 7.3
+        - php: 7.4
           env: STABILITY="dev"
 
     allow_failures:
