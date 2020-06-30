@@ -31,23 +31,29 @@ matrix:
         - php: 7.3
           env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0@rc"
 
-          # Force some major versions of Symfony
+          # Force maintained versions of Symfony
         - php: 7.3
-          env: DEPENDENCIES="dunglas/symfony-lock:^2"
+          env: SYMFONY_REQUIRE="2.8.*" #allowed to fail.
         - php: 7.3
-          env: DEPENDENCIES="dunglas/symfony-lock:^3"
+          env: SYMFONY_REQUIRE="3.4.*"
         - php: 7.3
-          env: DEPENDENCIES="dunglas/symfony-lock:^4"
+          env: SYMFONY_REQUIRE="4.4.*"
         - php: 7.3
-          env: DEPENDENCIES="dunglas/symfony-lock:^5"
+          env: SYMFONY_REQUIRE="5.0.*"
+        - php: 7.3
+          env: SYMFONY_REQUIRE="5.1.*"
+        - php: 7.4
+          env: SYMFONY_REQUIRE="5.1.*"
 
           # Latest commit to master
         - php: 7.4
-          env: STABILITY="dev"
+          env: STABILITY="dev" #allowed to fail.
 
     allow_failures:
           # Dev-master is allowed to fail.
         - env: STABILITY="dev"
+        - php: 7.3
+          env: SYMFONY_REQUIRE="2.8.*"
 
 before_install:
     - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi
