@@ -21,12 +21,8 @@ matrix:
           # Test with lowest dependencies
         - php: 7.2
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak"
-        - php: 7.0
-          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak"
 
           # Test the latest stable release
-        - php: 7.0
-        - php: 7.1
         - php: 7.2
         - php: 7.3
           env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0@rc"
