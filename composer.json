@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "ongitude-one/neo4j-bolt": "^1.0",
         "longitude-one/neo4j-php-client": "^1.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/flex": "^1.8",
