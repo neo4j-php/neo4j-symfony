@@ -10,7 +10,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
  */
 class Neo4jExtensionTest extends AbstractExtensionTestCase
 {
-    protected function getMinimalConfiguration()
+    protected function getMinimalConfiguration(): array
     {
         $this->setParameter('kernel.cache_dir', 'foo');
 
@@ -41,7 +41,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderNotHasService('neo4j.collector.debug_collector');
     }
 
-    protected function getContainerExtensions()
+    protected function getContainerExtensions(): array
     {
         return [
             new Neo4jExtension(),

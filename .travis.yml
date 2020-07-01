@@ -9,11 +9,7 @@ cache:
 env:
     global:
         - TEST_COMMAND="composer test"
-        - SYMFONY_PHPUNIT_VERSION="6.5"
-
-branches:
-    except:
-        - /^analysis-.*$/
+        - SYMFONY_PHPUNIT_VERSION="8.5"
 
 matrix:
     fast_finish: true
@@ -25,13 +21,9 @@ matrix:
           # Test the latest stable release
         - php: 7.2
         - php: 7.3
-          env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="graphaware/neo4j-php-ogm:^1.0@rc"
+          env: COVERAGE=true TEST_COMMAND="composer test-ci" DEPENDENCIES="longitude-one/neo4j-php-ogm:^1.0@rc"
 
           # Force maintained versions of Symfony
-        - php: 7.3
-          env: SYMFONY_REQUIRE="2.8.*" #allowed to fail.
-        - php: 7.3
-          env: SYMFONY_REQUIRE="3.4.*"
         - php: 7.3
           env: SYMFONY_REQUIRE="4.4.*"
         - php: 7.3
@@ -46,10 +38,8 @@ matrix:
           env: STABILITY="dev" #allowed to fail.
 
     allow_failures:
-          # Dev-master is allowed to fail.
+        # Dev-master is allowed to fail.
         - env: STABILITY="dev"
-        - php: 7.3
-          env: SYMFONY_REQUIRE="2.8.*"
 
 before_install:
     - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi
@@ -57,8 +47,6 @@ before_install:
     - if ! [ -z "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
 
 install:
-    # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
-    - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then composer update --prefer-dist --no-interaction --prefer-stable --quiet; fi
     - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
     - vendor/bin/simple-phpunit install
 

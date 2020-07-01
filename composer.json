@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "ongitude-one/neo4j-bolt": "^1.0",
+        "longitude-one/neo4j-bolt": "^1.0",
         "longitude-one/neo4j-php-client": "^1.0",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/flex": "^1.8",
@@ -26,7 +26,7 @@
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.4 || ^5.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^2.3"
+        "matthiasnoback/symfony-dependency-injection-test": "^4.1"
     },
     "suggest": {
         "longitude-one/neo4j-php-ogm": "To have EntityManager support"
@@ -40,7 +40,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "vendor/bin/simple-phpunit",
-        "test-ci": "vendor/bin/simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
+        "test": "simple-phpunit",
+        "test-ci": "simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
     }
 }
