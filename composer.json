@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": ">=7.2",
-        "graphaware/neo4j-bolt": "^1.6",
-        "graphaware/neo4j-php-client": "^4.6.4",
+        "anyitsolutions/neo4j-bolt": "^1.6",
+        "anyitsolutions/neo4j-php-client": "^4.6.4",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/framework-bundle": "^4.4 || ^5.0",
         "symfony/http-kernel": "^4.4 || ^5.0",
@@ -28,7 +28,7 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.1"
     },
     "suggest": {
-        "graphaware/neo4j-php-ogm": "To have EntityManager support"
+        "plumtreesystems/neo4j-php-ogm": "To have EntityManager support"
     },
     "autoload": {
         "psr-4": {
