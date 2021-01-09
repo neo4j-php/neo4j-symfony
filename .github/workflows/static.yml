@@ -20,7 +20,8 @@ jobs:
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
         env:
-          REQUIRE_DEV: true
+          REQUIRE_DEV: false
+          CHECK_PLATFORM_REQUIREMENTS: false
         with:
           args: analyze --no-progress
 
@@ -43,5 +44,5 @@ jobs:
 
       - name: Psalm
         uses: docker://vimeo/psalm-github-actions
-        with:
-          composer_ignore_platform_reqs: true
+        env:
+          CHECK_PLATFORM_REQUIREMENTS: false
