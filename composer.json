@@ -16,8 +16,8 @@
     ],
     "require": {
         "php": "^7.2",
-        "longitude-one/neo4j-bolt": "^1.0",
-        "longitude-one/neo4j-php-client": "^1.0",
+        "graphaware/neo4j-bolt": "^1.6",
+        "graphaware/neo4j-php-client": "^4.6.4",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/flex": "^1.8",
         "symfony/framework-bundle": "^4.4 || ^5.0",
@@ -29,7 +29,7 @@
         "matthiasnoback/symfony-dependency-injection-test": "^4.1"
     },
     "suggest": {
-        "longitude-one/neo4j-php-ogm": "To have EntityManager support"
+        "graphaware/neo4j-php-ogm": "To have EntityManager support"
     },
     "autoload": {
         "psr-4": {
@@ -40,7 +40,7 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "simple-phpunit",
-        "test-ci": "simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
+        "test": "vendor/bin/simple-phpunit",
+        "test-ci": "vendor/bin/simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
     }
 }
