@@ -6,6 +6,7 @@ namespace Neo4j\Neo4jBundle\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -20,7 +21,7 @@ class Neo4jResultExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('neo4jResult', [$this, 'getType']),
+            new TwigFilter('neo4jResult', [$this, 'getType']),
         ];
     }
 

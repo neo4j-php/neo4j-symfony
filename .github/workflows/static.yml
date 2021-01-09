@@ -9,6 +9,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up PHP
+        uses: shivammathur/setup-php@2.5.0
+        with:
+          php-version: 7.4
+
+      - name: Download dependencies
+        run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
+
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
         env:
@@ -35,3 +43,5 @@ jobs:
 
       - name: Psalm
         uses: docker://vimeo/psalm-github-actions
+        with:
+          composer_ignore_platform_reqs: true
