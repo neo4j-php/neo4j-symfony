@@ -18,9 +18,6 @@ class LoggerSubscriber implements EventSubscriberInterface
      */
     private $queryLogger;
 
-    /**
-     * @param QueryLogger $queryLogger
-     */
     public function __construct(QueryLogger $queryLogger)
     {
         $this->queryLogger = $queryLogger;
@@ -38,9 +35,6 @@ class LoggerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    /**
-     * @param PreRunEvent $event
-     */
     public function onPreRun(PreRunEvent $event)
     {
         foreach ($event->getStatements() as $statement) {
@@ -48,9 +42,6 @@ class LoggerSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @param PostRunEvent $event
-     */
     public function onPostRun(PostRunEvent $event)
     {
         foreach ($event->getResults() as $result) {
@@ -58,9 +49,6 @@ class LoggerSubscriber implements EventSubscriberInterface
         }
     }
 
-    /**
-     * @param FailureEvent $event
-     */
     public function onFailure(FailureEvent $event)
     {
         $this->queryLogger->logException($event->getException());

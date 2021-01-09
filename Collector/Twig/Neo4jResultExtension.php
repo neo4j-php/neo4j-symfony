@@ -26,8 +26,6 @@ class Neo4jResultExtension extends AbstractExtension
 
     /**
      * @param mixed $object
-     *
-     * @return string
      */
     public function getType($object): string
     {
@@ -41,9 +39,6 @@ class Neo4jResultExtension extends AbstractExtension
 
     /**
      * @param mixed $object
-     * @param bool  $recursive
-     *
-     * @return string
      */
     private function doGetType($object, bool $recursive): string
     {

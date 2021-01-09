@@ -24,10 +24,6 @@ final class ClientFactory
      */
     private $connectionManager;
 
-    /**
-     * @param ConnectionManager             $connectionManager
-     * @param EventDispatcherInterface|null $eventDispatcher
-     */
     public function __construct(ConnectionManager $connectionManager, EventDispatcherInterface $eventDispatcher = null)
     {
         $this->connectionManager = $connectionManager;
@@ -38,8 +34,6 @@ final class ClientFactory
      * Build an Client form multiple connection.
      *
      * @param string $names
-     *
-     * @return ClientInterface
      */
     public function create(array $names): ClientInterface
     {
