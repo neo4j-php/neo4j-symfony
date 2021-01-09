@@ -6,6 +6,7 @@ namespace Neo4j\Neo4jBundle\Collector\Twig;
 
 use GraphAware\Neo4j\Client\Formatter\Type\Node;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -20,14 +21,12 @@ class Neo4jResultExtension extends AbstractExtension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('neo4jResult', [$this, 'getType']),
+            new TwigFilter('neo4jResult', [$this, 'getType']),
         ];
     }
 
     /**
      * @param mixed $object
-     *
-     * @return string
      */
     public function getType($object): string
     {
@@ -41,9 +40,6 @@ class Neo4jResultExtension extends AbstractExtension
 
     /**
      * @param mixed $object
-     * @param bool  $recursive
-     *
-     * @return string
      */
     private function doGetType($object, bool $recursive): string
     {

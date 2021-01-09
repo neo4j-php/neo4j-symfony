@@ -30,9 +30,6 @@ class QueryLogger implements \Countable
      */
     private $statementsHash = [];
 
-    /**
-     * @param StatementInterface $statement
-     */
     public function record(StatementInterface $statement)
     {
         $statementText = $statement->text();
@@ -63,9 +60,6 @@ class QueryLogger implements \Countable
         $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }
 
-    /**
-     * @param StatementResultInterface $statementResult
-     */
     public function finish(StatementResultInterface $statementResult)
     {
         $scheme = 'Http';
@@ -103,9 +97,6 @@ class QueryLogger implements \Countable
         $this->statementsHash = [];
     }
 
-    /**
-     * @param Neo4jExceptionInterface $exception
-     */
     public function logException(Neo4jExceptionInterface $exception)
     {
         $idx = $this->nbQueries - 1;

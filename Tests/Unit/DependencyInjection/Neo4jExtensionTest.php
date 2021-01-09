@@ -2,8 +2,8 @@
 
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
-use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
