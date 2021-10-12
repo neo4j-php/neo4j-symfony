@@ -16,16 +16,16 @@
     ],
     "require": {
         "php": ">=7.2",
-        "anyitsolutions/neo4j-bolt": "^1.6",
-        "anyitsolutions/neo4j-php-client": "^4.6.4",
+        "laudis/neo4j-php-client": "2.1.2",
         "symfony/dependency-injection": "^4.4 || ^5.0",
         "symfony/framework-bundle": "^4.4 || ^5.0",
         "symfony/http-kernel": "^4.4 || ^5.0",
         "twig/twig": "^2.0 || ^3.0"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.4 || ^5.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.1"
+        "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^4.4 || ^5.0"
     },
     "suggest": {
         "plumtreesystems/neo4j-php-ogm": "To have EntityManager support"
