@@ -43,9 +43,11 @@ class Neo4jResultExtension extends AbstractExtension
      */
     private function doGetType($object, bool $recursive): string
     {
-        if ($object instanceof Node) {
-            return sprintf('%s: %s', $object->identity(), implode(', ', $object->labels()));
-        } elseif (is_array($object) && $recursive) {
+        if ($object instanceof \Laudis\Neo4j\Types\Node) {
+            return sprintf('%s: %s', $object->getId(), implode(', ', $object->getLabels()->toArray()));
+        }
+
+        if (is_array($object) && $recursive) {
             if (empty($object)) {
                 return 'Empty array';
             }

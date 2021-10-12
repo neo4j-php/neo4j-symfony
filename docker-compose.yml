@@ -18,10 +18,6 @@ services:
             - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
         depends_on:
             - neo4j
-            - core1
-            - core2
-            - core3
-            - readreplica1
         expose:
             - 9000
         env_file:

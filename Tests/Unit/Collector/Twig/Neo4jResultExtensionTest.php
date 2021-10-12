@@ -2,7 +2,9 @@
 
 namespace Neo4j\Neo4jBundle\Tests\Unit\Collector\Twig;
 
-use GraphAware\Neo4j\Client\Formatter\Type\Node;
+use Laudis\Neo4j\Types\CypherList;
+use Laudis\Neo4j\Types\CypherMap;
+use Laudis\Neo4j\Types\Node;
 use Neo4j\Neo4jBundle\Collector\Twig\Neo4jResultExtension;
 use PHPUnit\Framework\TestCase;
 
@@ -54,8 +56,8 @@ class Neo4jResultExtensionTest extends TestCase
     public function testNote()
     {
         $o = new Neo4jResultExtension();
-        $result = $o->getType(new Node('abc', ['Label'], []));
+        $result = $o->getType(new Node(1, new CypherList(['Label']), new CypherMap()));
 
-        $this->assertEquals('abc: Label', $result);
+        $this->assertEquals('1: Label', $result);
     }
 }
