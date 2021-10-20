@@ -2,6 +2,8 @@
 
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
+use Laudis\Neo4j\Contracts\ClientInterface;
+use Laudis\Neo4j\Contracts\DriverInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 
@@ -46,25 +48,5 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         return [
             new Neo4jExtension(),
         ];
-    }
-
-    public function testDefaultDsn()
-    {
-        $this->setParameter('kernel.debug', false);
-        $this->load();
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('neo4j.connection.default', 1, 'bolt://neo4j:neo4j@localhost:7474');
-    }
-
-    public function testDsn()
-    {
-        $this->setParameter('kernel.debug', false);
-        $config = ['connections' => [
-            'default' => [
-                'dsn' => 'bolt://foo:bar@localhost:7687',
-            ],
-        ]];
-
-        $this->load($config);
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('neo4j.connection.default', 1, 'bolt://foo:bar@localhost:7687');
     }
 }

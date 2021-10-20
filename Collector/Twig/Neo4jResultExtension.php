@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Collector\Twig;
 
-use GraphAware\Neo4j\Client\Formatter\Type\Node;
+use Laudis\Neo4j\Types\Node;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
@@ -16,9 +16,9 @@ class Neo4jResultExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      *
-     * @return array
+     * @return array<TwigFilter>
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('neo4jResult', [$this, 'getType']),
@@ -43,8 +43,8 @@ class Neo4jResultExtension extends AbstractExtension
      */
     private function doGetType($object, bool $recursive): string
     {
-        if ($object instanceof \Laudis\Neo4j\Types\Node) {
-            return sprintf('%s: %s', $object->getId(), implode(', ', $object->getLabels()->toArray()));
+        if ($object instanceof Node) {
+            return sprintf('%s: %s', $object->getId(), $object->getLabels()->join(', '));
         }
 
         if (is_array($object) && $recursive) {
@@ -59,6 +59,6 @@ class Neo4jResultExtension extends AbstractExtension
             return sprintf('[%s]', implode(', ', $ret));
         }
 
-        return is_object($object) ? get_class($object) : gettype($object);
+        return get_debug_type($object);
     }
 }

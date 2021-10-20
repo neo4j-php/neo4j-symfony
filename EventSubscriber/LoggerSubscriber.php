@@ -4,19 +4,15 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\EventSubscriber;
 
-use GraphAware\Neo4j\Client\Event\FailureEvent;
-use GraphAware\Neo4j\Client\Event\PostRunEvent;
-use GraphAware\Neo4j\Client\Event\PreRunEvent;
-use GraphAware\Neo4j\Client\Neo4jClientEvents;
 use Neo4j\Neo4jBundle\Collector\QueryLogger;
+use Neo4j\Neo4jBundle\Events\FailureEvent;
+use Neo4j\Neo4jBundle\Events\PostRunEvent;
+use Neo4j\Neo4jBundle\Events\PreRunEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class LoggerSubscriber implements EventSubscriberInterface
+final class LoggerSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var QueryLogger
-     */
-    private $queryLogger;
+    private QueryLogger $queryLogger;
 
     public function __construct(QueryLogger $queryLogger)
     {
@@ -29,9 +25,9 @@ class LoggerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            Neo4jClientEvents::NEO4J_PRE_RUN => 'onPreRun',
-            Neo4jClientEvents::NEO4J_POST_RUN => 'onPostRun',
-            Neo4jClientEvents::NEO4J_ON_FAILURE => 'onFailure',
+            PreRunEvent::EVENT_ID => 'onPreRun',
+            PostRunEvent::EVENT_ID => 'onPostRun',
+            FailureEvent::EVENT_ID => 'onFailure',
         ];
     }
 

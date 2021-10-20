@@ -21,33 +21,22 @@ class Configuration implements ConfigurationInterface
      * Whether to use the debug mode.
      *
      * @see https://github.com/doctrine/DoctrineBundle/blob/v1.5.2/DependencyInjection/Configuration.php#L31-L41
-     *
-     * @var bool
      */
-    private $debug;
+    private bool $debug;
 
-    /**
-     * @param bool $debug
-     */
-    public function __construct($debug)
+    public function __construct(bool $debug)
     {
-        $this->debug = (bool) $debug;
+        $this->debug = $debug;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('neo4j');
-        // Keep compatibility with symfony/config < 4.2
-        if (!method_exists($treeBuilder, 'getRootNode')) {
-            $root = $treeBuilder->root('neo4j');
-        } else {
-            $root = $treeBuilder->getRootNode();
-        }
 
-        $root->children()
+        $treeBuilder->getRootNode()->children()
             ->arrayNode('profiling')
                 ->addDefaultsIfNotSet()
                 ->treatFalseLike(['enabled' => false])

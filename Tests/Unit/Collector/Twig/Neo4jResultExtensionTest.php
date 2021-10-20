@@ -34,7 +34,7 @@ class Neo4jResultExtensionTest extends TestCase
         $o = new Neo4jResultExtension();
         $result = $o->getType(3);
 
-        $this->assertEquals('integer', $result);
+        $this->assertEquals('int', $result);
     }
 
     public function testScalarArray()
@@ -42,7 +42,7 @@ class Neo4jResultExtensionTest extends TestCase
         $o = new Neo4jResultExtension();
         $result = $o->getType([3, 6.3]);
 
-        $this->assertEquals('[integer, double]', $result);
+        $this->assertEquals('[int, float]', $result);
     }
 
     public function testArrayArray()
