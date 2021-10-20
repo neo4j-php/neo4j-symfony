@@ -7,7 +7,7 @@
         <service id="neo4j.factory.client" class="Neo4j\Neo4jBundle\Factory\ClientFactory" public="false">
         </service>
 
-        <service id="neo4j.client.abstract" class="Laudis\Neo4j\Contracts\ClientInterface" abstract="true">
+        <service id="neo4j.client.abstract" class="Neo4j\Neo4jBundle\SymfonyClient" abstract="true">
             <factory service="neo4j.factory.client" method="create" />
         </service>
     </services>

@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
-use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use function sprintf;
 
@@ -34,8 +31,10 @@ class Neo4jExtension extends Extension
 
         $this->handleClients($config, $container);
 
-        $container->setAlias('neo4j.client', 'neo4j.client.default');
-        $container->setAlias(ClientInterface::class, 'neo4j.client.default');
+        $container->setAlias('neo4j.client', 'neo4j.client.default')
+            ->setPublic(true);
+        $container->setAlias(ClientInterface::class, 'neo4j.client.default')
+            ->setPublic(true);
 
         // Configure toolbar
         if ($this->isConfigEnabled($container, $config['profiling'])) {
@@ -78,10 +77,10 @@ class Neo4jExtension extends Extension
             $config['clients']['default'] = ['connections' => ['default']];
         }
 
-        $serviceIds = [];
         foreach ($config['clients'] as $name => $data) {
             $connections = [];
-            $serviceIds[$name] = $serviceId = sprintf('neo4j.client.%s', $name);
+            $serviceId = sprintf('neo4j.client.%s', $name);
+
             foreach ($data['connections'] as $connectionName) {
                 if (empty($config['connections'][$connectionName])) {
                     throw new InvalidConfigurationException(sprintf('Client "%s" is configured to use connection named "%s" but there is no such connection', $name, $connectionName));
@@ -95,7 +94,8 @@ class Neo4jExtension extends Extension
             $definition = new ChildDefinition('neo4j.client.abstract');
 
             $container->setDefinition($serviceId, $definition)
-                ->setArguments([$connections, $config['connections'], null]);
+                ->setArguments([$connections, $config['connections'], null])
+                ->setPublic(true);
         }
     }
 }
