@@ -2,8 +2,6 @@
 
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
-use Laudis\Neo4j\Contracts\ClientInterface;
-use Laudis\Neo4j\Contracts\DriverInterface;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Factory;
 
 use Laudis\Neo4j\ClientBuilder;
+use Laudis\Neo4j\Contracts\ClientInterface;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\SymfonyClient;
-use Laudis\Neo4j\Contracts\ClientInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use function sprintf;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

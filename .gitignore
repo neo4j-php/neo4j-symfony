@@ -8,3 +8,4 @@
 .phpunit.result.cache
 .idea
 .env
+.php-cs-fixer.cache

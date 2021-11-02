@@ -1,11 +1,16 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$finder = Finder::create()
     ->in(__DIR__.'/')
     ->exclude(__DIR__.'/vendor')
 ;
 
-return PhpCsFixer\Config::create()
+return (new Config())
     ->setRules([
         '@Symfony' => true,
     ])

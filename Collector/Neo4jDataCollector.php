@@ -40,9 +40,6 @@ final class Neo4jDataCollector extends DataCollector
         $this->queryLogger->reset();
     }
 
-    /**
-     * @return int
-     */
     public function getQueryCount(): int
     {
         return $this->data['nb_queries'];
@@ -50,8 +47,6 @@ final class Neo4jDataCollector extends DataCollector
 
     /**
      * Return all statements, successful and not successful.
-     *
-     * @return array
      */
     public function getStatements(): array
     {
@@ -60,33 +55,22 @@ final class Neo4jDataCollector extends DataCollector
 
     /**
      * Return not successful statements.
-     *
-     * @return array
      */
     public function getFailedStatements(): array
     {
         return $this->data['failed_statements'];
     }
 
-    /**
-     * @return float
-     */
     public function getTime(): float
     {
         return $this->data['time'];
     }
 
-    /**
-     * @return float
-     */
     public function getTimeForQuery(): float
     {
         return $this->data['time'];
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return 'neo4j';

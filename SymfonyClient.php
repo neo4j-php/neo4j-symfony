@@ -2,7 +2,6 @@
 
 namespace Neo4j\Neo4jBundle;
 
-
 use Laudis\Neo4j\Common\TransactionHelper;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Laudis\Neo4j\Contracts\DriverInterface;

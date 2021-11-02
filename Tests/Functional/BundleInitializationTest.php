@@ -26,7 +26,6 @@ class BundleInitializationTest extends BaseTestCase
         $this->assertInstanceOf(ClientInterface::class, $client);
     }
 
-
     public function testDefaultDsn(): void
     {
         static::bootKernel();

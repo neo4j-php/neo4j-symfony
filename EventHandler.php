@@ -20,7 +20,7 @@ class EventHandler
 
     public function handle(callable $runHandler, iterable $statements): ?CypherList
     {
-        if ($this->dispatcher === null) {
+        if (null === $this->dispatcher) {
             return $runHandler();
         }
 

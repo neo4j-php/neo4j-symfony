@@ -2,13 +2,10 @@
 
 namespace Neo4j\Neo4jBundle;
 
-use Exception;
 use Laudis\Neo4j\Contracts\UnmanagedTransactionInterface;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
-use Laudis\Neo4j\Exception\Neo4jException;
 use Laudis\Neo4j\Types\CypherList;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class SymfonyTransaction implements UnmanagedTransactionInterface
 {

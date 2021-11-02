@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('neo4j');
 
-        /** @phpstan-ignore-next-line */
+        /* @phpstan-ignore-next-line */
         $treeBuilder->getRootNode()->children()
             ->arrayNode('profiling')
                 ->addDefaultsIfNotSet()

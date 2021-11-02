@@ -2,7 +2,6 @@
 
 namespace Neo4j\Neo4jBundle\Events;
 
-use GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Symfony\Contracts\EventDispatcher\Event;
 

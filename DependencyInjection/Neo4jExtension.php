@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use Laudis\Neo4j\Contracts\ClientInterface;
+use function sprintf;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use function sprintf;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -62,7 +62,7 @@ class Neo4jExtension extends Extension
     {
         $firstName = '';
         foreach ($config['connections'] as $name => $data) {
-            if ($firstName === '' || 'default' === $name) {
+            if ('' === $firstName || 'default' === $name) {
                 $firstName = $name;
             }
         }
