@@ -3,7 +3,9 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-require __DIR__ . '/vendor/autoload.php';
+if (file_exists(__DIR__.'/vendor/autoload.php')) {
+    require __DIR__.'/vendor/autoload.php';
+}
 
 $finder = Finder::create()
     ->in(__DIR__.'/')
