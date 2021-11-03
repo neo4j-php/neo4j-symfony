@@ -13,6 +13,7 @@
         <ignoreFiles>
             <directory name="vendor" />
             <directory name="Tests" />
+            <file name=".php-cs-fixer.php" />
         </ignoreFiles>
     </projectFiles>
 </psalm>
