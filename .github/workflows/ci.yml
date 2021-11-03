@@ -28,7 +28,7 @@ jobs:
           composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
       - name: Run tests
-        run: ./vendor/bin/simple-phpunit
+        run: ./vendor/bin/phpunit
 
   lowest:
     name: Lowest deps
@@ -50,4 +50,4 @@ jobs:
       - name: Run tests
         env:
           SYMFONY_DEPRECATIONS_HELPER: "max[self]=0"
-        run: ./vendor/bin/simple-phpunit
+        run: ./vendor/bin/phpunit
