@@ -6,6 +6,11 @@ namespace Neo4j\Neo4jBundle\Factory;
 
 use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Contracts\ClientInterface;
+use Laudis\Neo4j\Databags\SummarizedResult;
+use Laudis\Neo4j\Formatter\OGMFormatter;
+use Laudis\Neo4j\Formatter\SummarizedResultFormatter;
+use Laudis\Neo4j\Types\CypherList;
+use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\SymfonyClient;
 use function sprintf;
@@ -21,11 +26,12 @@ final class ClientFactory
      */
     public function create(array $names, array $configs, ?EventDispatcherInterface $dispatcher): ClientInterface
     {
-        $builder = ClientBuilder::create();
+        $builder = ClientBuilder::create()->withFormatter(new SummarizedResultFormatter(OGMFormatter::create()));
         foreach ($names as $name) {
             $builder = $builder->withDriver($name, $this->getUrl($configs[$name]));
         }
 
+        /** @var ClientInterface<SummarizedResult<CypherList<CypherMap<mixed>>>> */
         $client = $builder->withDefaultDriver(reset($names))->build();
 
         return new SymfonyClient($client, new EventHandler(null));

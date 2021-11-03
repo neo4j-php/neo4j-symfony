@@ -22,7 +22,7 @@ final class LoggerSubscriber implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             PreRunEvent::EVENT_ID => 'onPreRun',
@@ -31,21 +31,21 @@ final class LoggerSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onPreRun(PreRunEvent $event)
+    public function onPreRun(PreRunEvent $event): void
     {
         foreach ($event->getStatements() as $statement) {
             $this->queryLogger->record($statement);
         }
     }
 
-    public function onPostRun(PostRunEvent $event)
+    public function onPostRun(PostRunEvent $event): void
     {
         foreach ($event->getResults() as $result) {
             $this->queryLogger->finish($result);
         }
     }
 
-    public function onFailure(FailureEvent $event)
+    public function onFailure(FailureEvent $event): void
     {
         $this->queryLogger->logException($event->getException());
     }
