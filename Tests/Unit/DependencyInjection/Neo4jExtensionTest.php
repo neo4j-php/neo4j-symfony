@@ -47,24 +47,4 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
             new Neo4jExtension(),
         ];
     }
-
-    public function testDefaultDsn()
-    {
-        $this->setParameter('kernel.debug', false);
-        $this->load();
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('neo4j.connection.default', 1, 'bolt://neo4j:neo4j@localhost:7474');
-    }
-
-    public function testDsn()
-    {
-        $this->setParameter('kernel.debug', false);
-        $config = ['connections' => [
-            'default' => [
-                'dsn' => 'bolt://foo:bar@localhost:7687',
-            ],
-        ]];
-
-        $this->load($config);
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument('neo4j.connection.default', 1, 'bolt://foo:bar@localhost:7687');
-    }
 }

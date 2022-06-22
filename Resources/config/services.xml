@@ -4,14 +4,10 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="neo4j.connection_manager" class="GraphAware\Neo4j\Client\Connection\ConnectionManager" public="false" />
-
         <service id="neo4j.factory.client" class="Neo4j\Neo4jBundle\Factory\ClientFactory" public="false">
-            <argument type="service" id="neo4j.connection_manager"/>
-            <argument type="service" id="event_dispatcher" on-invalid="null"/>
         </service>
 
-        <service id="neo4j.client.abstract" class="GraphAware\Neo4j\Client\Client" abstract="true">
+        <service id="neo4j.client.abstract" class="Neo4j\Neo4jBundle\SymfonyClient" abstract="true">
             <factory service="neo4j.factory.client" method="create" />
         </service>
     </services>

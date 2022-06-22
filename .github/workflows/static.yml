@@ -17,14 +17,6 @@ jobs:
       - name: Download dependencies
         run: composer update --no-interaction --prefer-dist --optimize-autoloader --prefer-stable
 
-      - name: PHPStan
-        uses: docker://oskarstark/phpstan-ga
-        env:
-          REQUIRE_DEV: false
-          CHECK_PLATFORM_REQUIREMENTS: false
-        with:
-          args: analyze --no-progress
-
   php-cs-fixer:
     name: PHP-CS-Fixer
     runs-on: ubuntu-latest
@@ -33,7 +25,7 @@ jobs:
       - name: PHP-CS-Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
-          args: --dry-run --diff-format udiff
+          args: --dry-run
 
   psalm:
     name: Psalm

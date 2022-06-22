@@ -5,3 +5,10 @@ imports:
 neo4j:
   connections:
     default: ~
+    bolt:
+        dsn: 'bolt://foo:bar@localhost:7687'
+  clients:
+      default:
+          connections: [ default, bolt ]
+      other_client:
+          connections: [ default ]

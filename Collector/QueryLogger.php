@@ -4,49 +4,51 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Collector;
 
-use GraphAware\Bolt\Result\Result;
-use GraphAware\Common\Cypher\StatementInterface;
-use GraphAware\Common\Result\StatementResult as StatementResultInterface;
-use GraphAware\Common\Result\StatementStatisticsInterface;
-use GraphAware\Neo4j\Client\Exception\Neo4jExceptionInterface;
+use Countable;
+use Exception;
+use function iterator_to_array;
+use Laudis\Neo4j\Databags\Statement;
+use Laudis\Neo4j\Databags\SummarizedResult;
+use Laudis\Neo4j\Exception\Neo4jException;
+use Laudis\Neo4j\Types\CypherList;
+use Laudis\Neo4j\Types\CypherMap;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
+ *
+ * @psalm-import-type OGMTypes from \Laudis\Neo4j\Formatter\OGMFormatter
+ *
+ * @psalm-type StatementInfo = array{
+ *     start_time: float,
+ *     query: string,
+ *     parameters: string,
+ *     end_time: float,
+ *     nb_results: int,
+ *     statistics: array,
+ *     scheme: string,
+ *     success: bool,
+ *     exceptionCode: string,
+ *     exceptionMessage: string
+ * }
  */
-class QueryLogger implements \Countable
+class QueryLogger implements Countable
 {
-    /**
-     * @var int
-     */
-    private $nbQueries = 0;
+    private int $nbQueries = 0;
 
     /**
-     * @var array
+     * @var array<StatementInfo>
      */
-    private $statements = [];
+    private array $statements = [];
 
-    /**
-     * @var array
-     */
-    private $statementsHash = [];
-
-    public function record(StatementInterface $statement)
+    public function record(Statement $statement): void
     {
-        $statementText = $statement->text();
-        $statementParams = json_encode($statement->parameters());
-        $tag = $statement->getTag() ?: -1;
+        $statementText = $statement->getText();
+        $statementParams = json_encode($statement->getParameters(), JSON_THROW_ON_ERROR);
 
-        // Make sure we do not record the same statement twice
-        if (isset($this->statementsHash[$statementText][$statementParams][$tag])) {
-            return;
-        }
-
-        $idx = $this->nbQueries++;
-        $this->statements[$idx] = [
+        $this->statements[] = [
             'start_time' => microtime(true) * 1000,
             'query' => $statementText,
             'parameters' => $statementParams,
-            'tag' => $statement->getTag(),
 
             // Add dummy data in case we never run logException or finish
             'end_time' => microtime(true) * 1000, // same
@@ -54,56 +56,43 @@ class QueryLogger implements \Countable
             'statistics' => [],
             'scheme' => '',
             'success' => false,
-            'exceptionCode' => 0,
+            'exceptionCode' => '',
             'exceptionMessage' => '',
         ];
-        $this->statementsHash[$statementText][$statementParams][$tag] = $idx;
     }
 
-    public function finish(StatementResultInterface $statementResult)
+    /**
+     * @param SummarizedResult<CypherList<CypherMap<OGMTypes>>> $result
+     *
+     * @throws Exception
+     */
+    public function finish(SummarizedResult $result): void
     {
-        $scheme = 'Http';
-        if ($statementResult instanceof Result) {
-            $scheme = 'Bolt';
-        }
+        $id = count($this->statements) - 1;
 
-        $statement = $statementResult->statement();
-        $statementText = $statement->text();
-        $statementParams = $statement->parameters();
-        $encodedParameters = json_encode($statementParams);
-        $tag = $statement->getTag() ?: -1;
-
-        if (!isset($this->statementsHash[$statementText][$encodedParameters][$tag])) {
-            $idx = $this->nbQueries++;
-            $this->statements[$idx]['start_time'] = null;
-            $this->statementsHash[$idx] = $idx;
-        } else {
-            $idx = $this->statementsHash[$statementText][$encodedParameters][$tag];
-        }
-
-        $this->statements[$idx] = array_merge($this->statements[$idx], [
-            'end_time' => microtime(true) * 1000,
-            'nb_results' => $statementResult->size(),
-            'statistics' => $this->statisticsToArray($statementResult->summarize()->updateStatistics()),
-            'scheme' => $scheme,
+        $summary = $result->getSummary();
+        $this->statements[$id] = array_merge($this->statements[$id], [
+            'end_time' => $summary->getResultConsumedAfter(),
+            'nb_results' => $result->count(),
+            'statistics' => iterator_to_array($summary->getCounters()->getIterator(), true),
+            'scheme' => $summary->getServerInfo()->getAddress()->getScheme(),
             'success' => true,
         ]);
     }
 
-    public function reset()
+    public function reset(): void
     {
-        $this->nbQueries = 0;
         $this->statements = [];
-        $this->statementsHash = [];
     }
 
-    public function logException(Neo4jExceptionInterface $exception)
+    public function logException(Neo4jException $exception): void
     {
-        $idx = $this->nbQueries - 1;
+        $classification = explode('.', $exception->getNeo4jCode())[1] ?? '';
+        $idx = count($this->statements) - 1;
         $this->statements[$idx] = array_merge($this->statements[$idx], [
             'end_time' => microtime(true) * 1000,
-            'exceptionCode' => method_exists($exception, 'classification') ? $exception->classification() : '',
-            'exceptionMessage' => method_exists($exception, 'getMessage') ? $exception->getMessage() : '',
+            'exceptionCode' => $classification,
+            'exceptionMessage' => $exception->getErrors()[0]->getMessage(),
             'success' => false,
         ]);
     }
@@ -111,65 +100,27 @@ class QueryLogger implements \Countable
     /**
      * {@inheritdoc}
      */
-    public function count()
+    public function count(): int
     {
         return $this->nbQueries;
     }
 
     /**
-     * @return array[]
+     * @return array<StatementInfo>
      */
-    public function getStatements()
+    public function getStatements(): array
     {
         return $this->statements;
     }
 
-    /**
-     * @return array
-     */
-    public function getStatementsHash()
-    {
-        return $this->statementsHash;
-    }
-
-    /**
-     * @return int
-     */
-    public function getElapsedTime()
+    public function getElapsedTime(): float
     {
         $time = 0;
 
         foreach ($this->statements as $statement) {
-            if (!isset($statement['start_time'], $statement['end_time'])) {
-                continue;
-            }
-
             $time += $statement['end_time'] - $statement['start_time'];
         }
 
         return $time;
-    }
-
-    private function statisticsToArray(?StatementStatisticsInterface $statementStatistics)
-    {
-        if (!$statementStatistics) {
-            return [];
-        }
-        $data = [
-            'contains_updates' => $statementStatistics->containsUpdates(),
-            'nodes_created' => $statementStatistics->nodesCreated(),
-            'nodes_deleted' => $statementStatistics->nodesDeleted(),
-            'relationships_created' => $statementStatistics->relationshipsCreated(),
-            'relationships_deleted' => $statementStatistics->relationshipsDeleted(),
-            'properties_set' => $statementStatistics->propertiesSet(),
-            'labels_added' => $statementStatistics->labelsAdded(),
-            'labels_removed' => $statementStatistics->labelsRemoved(),
-            'indexes_added' => $statementStatistics->indexesAdded(),
-            'indexes_removed' => $statementStatistics->indexesRemoved(),
-            'constraints_added' => $statementStatistics->constraintsAdded(),
-            'constraints_removed' => $statementStatistics->constraintsRemoved(),
-        ];
-
-        return $data;
     }
 }

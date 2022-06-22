@@ -3,6 +3,8 @@
 namespace Neo4j\Neo4jBundle\Tests\Functional\app;
 
 use Neo4j\Neo4jBundle\Neo4jBundle;
+use RuntimeException;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,7 +26,7 @@ class AppKernel extends Kernel
         }
 
         if (!file_exists($config)) {
-            throw new \RuntimeException(sprintf('The config file "%s" does not exist', $config));
+            throw new RuntimeException(sprintf('The config file "%s" does not exist', $config));
         }
 
         $this->config = $config;
@@ -33,7 +35,7 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new FrameworkBundle(),
             new Neo4jBundle(),
         ];
     }

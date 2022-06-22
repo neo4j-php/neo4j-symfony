@@ -4,10 +4,17 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Factory;
 
-use GraphAware\Neo4j\Client\Client;
-use GraphAware\Neo4j\Client\ClientInterface;
-use GraphAware\Neo4j\Client\Connection\ConnectionManager;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Laudis\Neo4j\ClientBuilder;
+use Laudis\Neo4j\Contracts\ClientInterface;
+use Laudis\Neo4j\Databags\SummarizedResult;
+use Laudis\Neo4j\Formatter\OGMFormatter;
+use Laudis\Neo4j\Formatter\SummarizedResultFormatter;
+use Laudis\Neo4j\Types\CypherList;
+use Laudis\Neo4j\Types\CypherMap;
+use Neo4j\Neo4jBundle\EventHandler;
+use Neo4j\Neo4jBundle\SymfonyClient;
+use function sprintf;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>
@@ -15,37 +22,55 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 final class ClientFactory
 {
     /**
-     * @var EventDispatcherInterface
+     * Build a Client form multiple connection.
      */
-    private $eventDispatcher;
-
-    /**
-     * @var ConnectionManager
-     */
-    private $connectionManager;
-
-    public function __construct(ConnectionManager $connectionManager, EventDispatcherInterface $eventDispatcher = null)
+    public function create(array $names, array $configs, ?EventDispatcherInterface $dispatcher): ClientInterface
     {
-        $this->connectionManager = $connectionManager;
-        $this->eventDispatcher = $eventDispatcher;
+        $builder = ClientBuilder::create()->withFormatter(new SummarizedResultFormatter(OGMFormatter::create()));
+        foreach ($names as $name) {
+            $builder = $builder->withDriver($name, $this->getUrl($configs[$name]));
+        }
+
+        /** @var ClientInterface<SummarizedResult<CypherList<CypherMap<mixed>>>> */
+        $client = $builder->withDefaultDriver(reset($names))->build();
+
+        return new SymfonyClient($client, new EventHandler(null));
     }
 
     /**
-     * Build an Client form multiple connection.
-     *
-     * @param string $names
+     * Get URL form config.
      */
-    public function create(array $names): ClientInterface
+    private function getUrl(array $config): string
     {
-        // Create a new connection manager specific for this client
-        $clientConnectionManager = new ConnectionManager();
-        foreach ($names as $name) {
-            $clientConnectionManager->registerExistingConnection($name, $this->connectionManager->getConnection($name));
+        if (null !== $config['dsn']) {
+            return $config['dsn'];
         }
 
-        $firstName = reset($names);
-        $clientConnectionManager->setMaster($firstName);
+        if (isset($config['username'], $config['password'])) {
+            return sprintf(
+                '%s://%s:%s@%s:%d',
+                $config['scheme'] ?? 'bolt',
+                $config['username'],
+                $config['password'],
+                $config['host'],
+                $this->getPort($config)
+            );
+        }
 
-        return new Client($clientConnectionManager, $this->eventDispatcher);
+        return sprintf(
+            '%s://%s:%d',
+            $config['scheme'] ?? 'bolt',
+            $config['host'],
+            $this->getPort($config)
+        );
+    }
+
+    private function getPort(array $config): int
+    {
+        if (isset($config['port'])) {
+            return (int) $config['port'];
+        }
+
+        return 'http' === $config['scheme'] ? 7474 : 7687;
     }
 }

@@ -15,17 +15,24 @@
         }
     ],
     "require": {
-        "php": ">=7.2",
-        "anyitsolutions/neo4j-bolt": "^1.6",
-        "anyitsolutions/neo4j-php-client": "^4.6.4",
-        "symfony/dependency-injection": "^4.4 || ^5.0",
-        "symfony/framework-bundle": "^4.4 || ^5.0",
-        "symfony/http-kernel": "^4.4 || ^5.0",
-        "twig/twig": "^2.0 || ^3.0"
+        "php": "^7.4 || ^8.0",
+        "laudis/neo4j-php-client": "^2.6",
+        "symfony/dependency-injection": "^5.0",
+        "symfony/framework-bundle": "^5.0",
+        "symfony/http-kernel": "^5.0",
+        "twig/twig": "^3.0",
+        "symfony/event-dispatcher-contracts": "^2.0",
+        "symfony/event-dispatcher": "^5.0",
+        "symfony/http-foundation": "^5.0",
+        "symfony/config": "^5.0",
+        "ext-json": "*"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^4.4 || ^5.0",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.1"
+        "friendsofphp/php-cs-fixer": "^3.2",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+        "phpunit/phpunit": "^9.5",
+        "symfony/phpunit-bridge": "^5.0",
+        "vimeo/psalm": "^4.10"
     },
     "suggest": {
         "plumtreesystems/neo4j-php-ogm": "To have EntityManager support"

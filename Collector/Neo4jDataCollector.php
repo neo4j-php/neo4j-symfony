@@ -7,16 +7,14 @@ namespace Neo4j\Neo4jBundle\Collector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Throwable;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
  */
 final class Neo4jDataCollector extends DataCollector
 {
-    /**
-     * @var QueryLogger
-     */
-    private $queryLogger;
+    private QueryLogger $queryLogger;
 
     public function __construct(QueryLogger $logger)
     {
@@ -26,70 +24,54 @@ final class Neo4jDataCollector extends DataCollector
     /**
      * {@inheritdoc}
      */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, Throwable $exception = null): void
     {
         $this->data['time'] = $this->queryLogger->getElapsedTime();
         $this->data['nb_queries'] = count($this->queryLogger);
         $this->data['statements'] = $this->queryLogger->getStatements();
-        $this->data['failed_statements'] = array_filter($this->queryLogger->getStatements(), function ($statement) {
-            return !isset($statement['success']) || !$statement['success'];
+        $this->data['failed_statements'] = array_filter($this->queryLogger->getStatements(), static function ($statement) {
+            return empty($statement['success']);
         });
     }
 
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
         $this->queryLogger->reset();
     }
 
-    /**
-     * @return int
-     */
-    public function getQueryCount()
+    public function getQueryCount(): int
     {
         return $this->data['nb_queries'];
     }
 
     /**
      * Return all statements, successful and not successful.
-     *
-     * @return array
      */
-    public function getStatements()
+    public function getStatements(): array
     {
         return $this->data['statements'];
     }
 
     /**
      * Return not successful statements.
-     *
-     * @return array
      */
-    public function getFailedStatements()
+    public function getFailedStatements(): array
     {
         return $this->data['failed_statements'];
     }
 
-    /**
-     * @return float
-     */
-    public function getTime()
+    public function getTime(): float
     {
         return $this->data['time'];
     }
 
-    /**
-     * @return float
-     */
-    public function getTimeForQuery()
+    public function getTimeForQuery(): float
     {
         return $this->data['time'];
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'neo4j';
     }

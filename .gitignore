@@ -6,3 +6,6 @@
 /vendor/
 .php_cs.cache
 .phpunit.result.cache
+.idea
+.env
+.php-cs-fixer.cache
