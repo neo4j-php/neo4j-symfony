@@ -22,7 +22,7 @@ class EventHandler
     }
 
     /**
-     * @param iterable<Statement> $statements
+     * @param iterable<Statement>                                                   $statements
      * @param callable():CypherList<SummarizedResult<CypherList<CypherMap<mixed>>>> $runHandler
      *
      * @return CypherList<SummarizedResult<CypherList<CypherMap<mixed>>>>

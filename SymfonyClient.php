@@ -101,4 +101,9 @@ class SymfonyClient implements ClientInterface
     {
         return $this->writeTransaction($tsxHandler, $alias, $config);
     }
+
+    public function verifyConnectivity(?string $driver = null): bool
+    {
+        return $this->client->verifyConnectivity($driver);
+    }
 }
