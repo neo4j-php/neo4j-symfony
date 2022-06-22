@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "laudis/neo4j-php-client": "^2.2",
+        "laudis/neo4j-php-client": "^2.6",
         "symfony/dependency-injection": "^5.0",
         "symfony/framework-bundle": "^5.0",
         "symfony/http-kernel": "^5.0",
