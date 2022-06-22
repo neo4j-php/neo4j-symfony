@@ -58,4 +58,19 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     {
         $this->tsx->rollback();
     }
+
+    public function isRolledBack(): bool
+    {
+        return $this->tsx->isRolledBack();
+    }
+
+    public function isCommitted(): bool
+    {
+        return $this->tsx->isCommitted();
+    }
+
+    public function isFinished(): bool
+    {
+        return $this->tsx->isFinished();
+    }
 }

@@ -30,6 +30,7 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @psalm-suppress All
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder(): TreeBuilder
@@ -37,10 +38,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('neo4j');
 
         /*
-         * @psalm-suppress all
          * @phpstan-ignore-next-line
+         * @psalm-suppress All
          */
-        $treeBuilder->getRootNode()->children()
+        $treeBuilder->getRootNode()
+            ->children()
             ->arrayNode('profiling')
                 ->addDefaultsIfNotSet()
                 ->treatFalseLike(['enabled' => false])

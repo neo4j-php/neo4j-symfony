@@ -80,8 +80,7 @@ class SymfonyClient implements ClientInterface
 
         return TransactionHelper::retry(
             fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler),
-            $tsxHandler,
-            $config ?? TransactionConfiguration::default()
+            $tsxHandler
         );
     }
 
@@ -92,8 +91,7 @@ class SymfonyClient implements ClientInterface
 
         return TransactionHelper::retry(
             fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler),
-            $tsxHandler,
-            $config ?? TransactionConfiguration::default()
+            $tsxHandler
         );
     }
 

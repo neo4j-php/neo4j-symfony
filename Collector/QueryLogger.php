@@ -73,7 +73,7 @@ class QueryLogger implements Countable
         $summary = $result->getSummary();
         $this->statements[$id] = array_merge($this->statements[$id], [
             'end_time' => $summary->getResultConsumedAfter(),
-            'nb_results' => $result->getResult()->count(),
+            'nb_results' => $result->count(),
             'statistics' => iterator_to_array($summary->getCounters()->getIterator(), true),
             'scheme' => $summary->getServerInfo()->getAddress()->getScheme(),
             'success' => true,
