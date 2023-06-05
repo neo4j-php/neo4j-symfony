@@ -1,0 +1,113 @@
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
+
+{% block toolbar %}
+    {% if collector.queryCount > 0 %}
+        {% set icon %}
+            {{ include('@Neo4j/Icon/neo4j.svg') }}
+            <span class="sf-toolbar-value">{{ collector.queryCount }}</span>
+            <span class="sf-toolbar-label">stmt.</span>
+        {% endset %}
+
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <b>Query count</b>
+                <span class="sf-toolbar-status">{{ collector.queryCount }}</span>
+            </div>
+            {% if collector.failedStatements|length %}
+            <div class="sf-toolbar-info-piece">
+                <b>Failed queries</b>
+                <span class="sf-toolbar-status sf-toolbar-status-red">{{ collector.failedStatements|length }}</span>
+            </div>
+            {% endif %}
+            <div class="sf-toolbar-info-piece">
+                <b>Total time</b>
+                <span class="sf-toolbar-status">{{ '%0.2f'|format(collector.time) }}ms</span>
+            </div>
+
+        {% endset %}
+        {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url, 'status': collector.failedStatements|length ? 'red' : '' } %}
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('bundles/neo4j/style/neo4j.css') }}" />
+    <script type="text/javascript" src="{{ asset("bundles/neo4j/script/neo4j.js") }}"></script>
+    {{ parent() }}
+{% endblock %}
+
+{% block menu %}
+    {# This left-hand menu appears when using the full-screen profiler. #}
+    <span class="label {{ collector.queryCount == 0 ? 'disabled' }} {{ collector.failedStatements|length ? 'label-status-error' }}">
+        <span class="icon">
+            {{ include('@Neo4j/Icon/neo4j.svg') }}
+        </span>
+        <strong>Neo4j</strong>
+        {% if collector.failedStatements|length %}
+            <span class="count">
+                <span>{{ collector.failedStatements|length }}</span>
+             </span>
+        {% endif %}
+    </span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Neo4j Bundle</h2>
+
+    <table class="alt queries-table">
+        <thead>
+        <tr>
+            <th class="nowrap">#</th>
+            <th class="nowrap">Status</th>
+            <th style="width: 100%;">Query</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for idx, statement in collector.statements %}
+        <tr>
+            {% set start_time = statement.start_time|default(null) %}
+            {% set end_time = statement.end_time|default(null) %}
+
+            <td class="nowrap{% if not statement.success %} bg-red{% endif %}">{{ idx + 1 }}</td>
+            <td class="nowrap">{% if start_time is not null and end_time is not null %}{{ '%0.2f'|format(end_time - start_time) }}ms{% endif %}</td>
+            <td>
+                <div>
+                    {{ statement.query|default('') }}
+                </div>
+                <div class="text-small font-normal">
+                    <a href="#" class="sf-toggle link-inverse" data-toggle-selector="#neo4j-details-{{ idx }}" data-toggle-alt-content="Hide details" data-toggle-original-content="View details">View details</a>
+                </div>
+
+                <div id="neo4j-details-{{ idx }}">
+                    <div>
+                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.parameters|default([])|yaml_encode }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">Tag</strong>: {{ statement.tag|default('N/A')|yaml_encode }}
+                    </div>
+                    {% if statement.success %}
+                    <div>
+                        <strong class="font-normal text-small">Number of results</strong>: {{ statement.nb_results }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">Scheme</strong>: {{ statement.scheme }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">Statistics</strong>: {{ statement.statistics|yaml_encode }}
+                    </div>
+                    {% else %}
+                    <div>
+                        <strong class="font-normal text-small">Type</strong>: {{ statement.exceptionCode }}
+                    </div>
+                    <div>
+                        <strong class="font-normal text-small">message</strong>: {{ statement.exceptionMessage }}
+                    </div>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

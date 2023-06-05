@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="neo4j.collector.debug_collector" class="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector" public="false">
+            <argument type="service" id="neo4j.client_logger"/>
+
+            <tag name="data_collector" template="@Neo4j/webprofiler.html.twig" priority="200" id="neo4j"/>
+        </service>
+
+        <service id="neo4j.collector.twig.result" class="Neo4j\Neo4jBundle\Collector\Twig\Neo4jResultExtension" public="false">
+            <tag name="twig.extension" />
+        </service>
+
+        <service id="neo4j.client_logger" class="Neo4j\Neo4jBundle\Collector\QueryLogger" public="false"/>
+
+        <service id="neo4j.subscriber.logger" class="Neo4j\Neo4jBundle\EventSubscriber\LoggerSubscriber">
+            <argument type="service" id="neo4j.client_logger" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+    </services>
+</container>

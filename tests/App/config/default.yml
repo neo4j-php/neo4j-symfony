@@ -1,0 +1,53 @@
+imports:
+    - { resource: framework.yml }
+    - { resource: services.yml }
+
+neo4j:
+    default_driver: neo4j-test
+    default_driver_config:
+        acquire_connection_timeout: 10
+        user_agent: 'Neo4j Symfony Bundle/testing'
+        pool_size: 256
+        ssl:
+            mode: enable
+            verify_peer: false
+    default_session_config:
+        fetch_size: 999
+        access_mode: read
+        database: symfony
+    default_transaction_config:
+        timeout: 40
+
+    drivers:
+        -   alias: neo4j_undefined_configs
+            dsn: bolt://localhost
+
+        -   alias: neo4j-enforced-defaults
+            dsn: bolt://localhost
+            authentication: null
+            driver_config: null
+            session_config: null
+            priority: null
+
+        -   alias: neo4j-partly-enforced-defaults
+            dsn: neo4j://neo4j:secret@localhost:7688
+            driver_config: null
+            session_config:
+                fetch_size: 123
+                access_mode: null
+                database: null
+            transaction_config:
+                timeout: 40
+
+        -   alias: neo4j-simple
+            dsn: 'bolt://test:test@localhost'
+
+        -   alias: neo4j-fallback-mechanism
+            priority: 100
+            dsn: bolt://localhost
+
+        -   alias: neo4j-fallback-mechanism
+            priority: 1000
+            dsn: bolt://localhost
+
+
