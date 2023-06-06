@@ -1,0 +1,24 @@
+name: Static Analysis
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  php-cs-fixer:
+    name: "Lint & Analyse"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v6
+        with:
+          progress: yes
+          php_version: 8.0
+          version: 2
+      - name: "PHP-CS-Fixer"
+        run: vendor/bin/php-cs-fixer fix --dry-run
+      - name: "PSalm"
+        run: ./console debug:config && vendor/bin/psalm --show-info=true

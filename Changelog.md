@@ -2,6 +2,13 @@
 
 The change log describes what is "Added", "Removed", "Changed" or "Fixed" between each release. 
 
+## 0.5.0
+
+- Reworked to newer version of Client and driver
+- Changed config api to reflect newer client
+- Removed OGM support
+- Moved to modern bundle structure standards
+
 ## 0.4.2
 
 ### Added

@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php
+
+use Neo4j\Neo4jBundle\Tests\Application;
+
+require __DIR__.'/vendor/autoload.php';
+
+
+$application = new Application();
+
+$application->run();

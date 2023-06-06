@@ -12,41 +12,48 @@
         {
             "name": "Xavier Coureau",
             "email": "xavier@pandawan-technology.com"
+        },
+        {
+            "name": "Ghlen Nagels",
+            "email": "ghlen@nagels.tech"
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
-        "laudis/neo4j-php-client": "^2.6",
-        "symfony/dependency-injection": "^5.0",
-        "symfony/framework-bundle": "^5.0",
-        "symfony/http-kernel": "^5.0",
+        "php": ">=8.0",
+        "laudis/neo4j-php-client": "dev-main",
         "twig/twig": "^3.0",
-        "symfony/event-dispatcher-contracts": "^2.0",
-        "symfony/event-dispatcher": "^5.0",
-        "symfony/http-foundation": "^5.0",
-        "symfony/config": "^5.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/dependency-injection": "^5.4 || ^6.0",
+        "symfony/config": "^6.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.2",
-        "matthiasnoback/symfony-dependency-injection-test": "^4.1",
+        "matthiasnoback/symfony-dependency-injection-test": "^4.3",
         "phpunit/phpunit": "^9.5",
-        "symfony/phpunit-bridge": "^5.0",
-        "vimeo/psalm": "^4.10"
-    },
-    "suggest": {
-        "plumtreesystems/neo4j-php-ogm": "To have EntityManager support"
+        "psalm/plugin-symfony": "^5.0",
+        "symfony/console": "^5.4 || ^6.0",
+        "symfony/framework-bundle": "^5.4 || ^6.0",
+        "symfony/http-kernel": "^5.4 || ^6.0",
+        "symfony/test-pack": "^1.1",
+        "symfony/yaml": "^5.4 || ^6.0",
+        "vimeo/psalm": "^5.12",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "psalm/plugin-phpunit": "^0.18"
     },
     "autoload": {
         "psr-4": {
-            "Neo4j\\Neo4jBundle\\": ""
+            "Neo4j\\Neo4jBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Neo4j\\Neo4jBundle\\Tests\\": "tests/"
         }
     },
     "config": {
-        "sort-packages": true
-    },
-    "scripts": {
-        "test": "vendor/bin/simple-phpunit",
-        "test-ci": "vendor/bin/simple-phpunit --coverage-text --coverage-clover=build/coverage.xml"
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": false
+        }
     }
 }

@@ -1,0 +1,43 @@
+name: Tests
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        php: [ '8.0', '8.1', '8.2']
+        sf_version: [ '5.4.*', '6.2.*', '6.3.*' ]
+        exclude:
+          - php: 7.4
+            sf_version: 6.2.*
+          - php: 8.0
+            sf_version: 6.2.*
+          - php: 7.4
+            sf_version: 6.3.*
+          - php: 8.0
+            sf_version: 6.3.*
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v6
+        with:
+          progress: yes
+          php_version: ${{matrix.php}}
+          version: 2
+      - uses: php-actions/phpunit@v3
+        with:
+          configuration: phpunit.xml.dist
+          php_version: ${{ matrix.php }}
+          memory_limit: 1024M
+          version: 9
+          testsuite: Unit
+          bootstrap: vendor/autoload.php
