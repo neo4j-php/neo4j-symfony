@@ -1,17 +1,16 @@
-name: Static Analysis
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+name: Tests
+on: [push, pull_request]
 
 jobs:
-  php-cs-fixer:
-    name: "Lint & Analyse"
+  build:
+    name: Build
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        php: [ '7.4', '8.0', '8.1', '8.2']
+        sf_version: [ '5.4.*', '6.2.*', '6.3.*' ]
+
     steps:
       - uses: actions/checkout@v2
       - name: Cache Composer dependencies
@@ -19,19 +18,10 @@ jobs:
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-      - uses: php-actions/composer@v6
-        with:
-          progress: yes
-          php_version: 8.0
-          version: 2
-      - name: "PHP-CS-Fixer"
-        run: vendor/bin/php-cs-fixer fix --dry-run
-      - name: "PSalm"
-        run: vendor/bin/psalm --show-info=true
       - uses: php-actions/phpunit@v3
         with:
           configuration: phpunit.xml.dist
-          php_version: 8.2
+          php_version: ${{ matrix.php }}
           memory_limit: 1024M
           version: 9
           testsuite: Unit
