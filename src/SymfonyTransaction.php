@@ -46,9 +46,6 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
         return $this->handler->handle(fn () => $this->tsx->runStatements($statements), $statements);
     }
 
-    /**
-     * @psalm-suppress InvalidReturnStatement
-     */
     public function commit(iterable $statements = []): CypherList
     {
         return $this->handler->handle(fn () => $this->tsx->commit($statements), $statements);
