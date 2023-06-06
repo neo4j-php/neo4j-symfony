@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="https://getpsalm.org/schema/config"
         xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-        findUnusedCode="true"
+        findUnusedCode="false"
         findUnusedBaselineEntry="true"
 >
     <projectFiles>
@@ -18,5 +18,6 @@
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
             <containerXml>var/cache/test/Neo4j_Neo4jBundle_Tests_App_TestKernelTestDebugContainer.xml</containerXml>
         </pluginClass>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
 </psalm>

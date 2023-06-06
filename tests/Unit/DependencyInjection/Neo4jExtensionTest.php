@@ -19,7 +19,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         return ['drivers' => ['default' => ['dsn' => 'bolt://localhost']]];
     }
 
-    public function testDataCollectorLoaded()
+    public function testDataCollectorLoaded(): void
     {
         $this->setParameter('kernel.debug', true);
         $this->load();
@@ -29,7 +29,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    public function testDataCollectorNotLoadedInNonDebug()
+    public function testDataCollectorNotLoadedInNonDebug(): void
     {
         $this->setParameter('kernel.debug', false);
         $this->load();
@@ -37,7 +37,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderNotHasService('neo4j.collector.debug_collector');
     }
 
-    public function testDataCollectorNotLoadedWhenDisabled()
+    public function testDataCollectorNotLoadedWhenDisabled(): void
     {
         $this->setParameter('kernel.debug', true);
         $this->load(['profiling' => ['enabled' => false]]);

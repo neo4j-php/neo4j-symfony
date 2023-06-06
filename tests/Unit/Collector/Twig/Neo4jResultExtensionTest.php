@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class Neo4jResultExtensionTest extends TestCase
 {
-    public function testEmptyArray()
+    public function testEmptyArray(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType([]);
@@ -23,7 +23,7 @@ class Neo4jResultExtensionTest extends TestCase
         $this->assertEquals('Empty array', $result);
     }
 
-    public function testObject()
+    public function testObject(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType($o);
@@ -31,7 +31,7 @@ class Neo4jResultExtensionTest extends TestCase
         $this->assertEquals(Neo4jResultExtension::class, $result);
     }
 
-    public function testScalar()
+    public function testScalar(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType(3);
@@ -39,7 +39,7 @@ class Neo4jResultExtensionTest extends TestCase
         $this->assertEquals('int', $result);
     }
 
-    public function testScalarArray()
+    public function testScalarArray(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType([3, 6.3]);
@@ -47,7 +47,7 @@ class Neo4jResultExtensionTest extends TestCase
         $this->assertEquals('[int, float]', $result);
     }
 
-    public function testArrayArray()
+    public function testArrayArray(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType([[]]);
@@ -55,7 +55,7 @@ class Neo4jResultExtensionTest extends TestCase
         $this->assertEquals('[array]', $result);
     }
 
-    public function testNode()
+    public function testNode(): void
     {
         $o = new Neo4jResultExtension();
         $result = $o->getType(new Node(1, new CypherList(['Label']), new CypherMap(), null));

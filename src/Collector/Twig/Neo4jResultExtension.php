@@ -23,7 +23,7 @@ class Neo4jResultExtension extends AbstractExtension
         ];
     }
 
-    public function getType($object): string
+    public function getType(mixed $object): string
     {
         return $this->doGetType($object, true);
     }
@@ -33,7 +33,7 @@ class Neo4jResultExtension extends AbstractExtension
         return 'neo4j.result';
     }
 
-    private function doGetType($object, bool $recursive): string
+    private function doGetType(mixed $object, bool $recursive): string
     {
         if ($object instanceof Node) {
             return sprintf('%s: %s', $object->getId(), $object->getLabels()->join(', '));

@@ -37,7 +37,8 @@
         "symfony/yaml": "^6.2",
         "vimeo/psalm": "^5.12",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "psalm/plugin-phpunit": "^0.18"
     },
     "autoload": {
         "psr-4": {
