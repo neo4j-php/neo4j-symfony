@@ -36,7 +36,7 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           progress: yes
-          php_version: 8.0
+          php_version: ${{matrix.php}}
           version: 2
       - uses: php-actions/phpunit@v3
         with:
