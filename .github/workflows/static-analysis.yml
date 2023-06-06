@@ -21,4 +21,4 @@ jobs:
       - name: "PHP-CS-Fixer"
         run: vendor/bin/php-cs-fixer fix --dry-run
       - name: "PSalm"
-        run: vendor/bin/psalm --show-info=true
+        run: ./console debug:config && vendor/bin/psalm --show-info=true
