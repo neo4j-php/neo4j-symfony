@@ -64,6 +64,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('profiling')
                     ->info('Profiling configuration')
+                    ->canBeEnabled()
                     ->children()
                         ->booleanNode('enabled')
                             ->info('Enable profiling')
@@ -71,18 +72,9 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-                ->append($this->decorateDriverConfig(
-                    'default_driver_config',
-                    'The default configuration for every driver'
-                ))
-                ->append($this->decorateSessionConfig(
-                    'default_session_config',
-                    'The default configuration for every session'
-                ))
-                ->append($this->decorateTransactionConfig(
-                    'default_transaction_config',
-                    'The default configuration for every transaction'
-                ))
+                ->append($this->decorateDriverConfig())
+                ->append($this->decorateSessionConfig())
+                ->append($this->decorateTransactionConfig())
                 ->scalarNode('default_driver')
                     ->info('The default driver to use. Default is the first configured driver.')
                 ->end()
@@ -99,7 +91,7 @@ class Configuration implements ConfigurationInterface
                         ->end()
                         ->scalarNode('dsn')
                             ->info('The DSN for the driver. Default is "bolt://localhost:7687".')
-                            ->isRequired()
+                            ->defaultValue('bolt://localhost:7687')
                         ->end()
                         ->arrayNode('authentication')
                             ->info('The authentication for the driver')
@@ -113,18 +105,6 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('token')->end()
                             ->end()
                         ->end()
-                        ->append($this->decorateDriverConfig(
-                            'driver_config',
-                            'The configuration for this driver'
-                        ))
-                        ->append($this->decorateSessionConfig(
-                            'session_config',
-                            'The configuration for this session'
-                        ))
-                        ->append($this->decorateTransactionConfig(
-                            'transaction_config',
-                            'The configuration for this transaction'
-                        ))
                         ->scalarNode('priority')
                             ->info('The priority of this when trying to fall back on the same alias. Default is 0')
                         ->end()
@@ -136,10 +116,10 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    private function decorateSessionConfig(string $name, string $info): ArrayNodeDefinition
+    private function decorateSessionConfig(): ArrayNodeDefinition
     {
-        return (new ArrayNodeDefinition($name))
-            ->info($info)
+        return (new ArrayNodeDefinition('default_session_config'))
+            ->info('The default configuration for every session')
             ->children()
                 ->scalarNode('fetch_size')
                 ->end()
@@ -153,10 +133,10 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function decorateDriverConfig(string $name, string $info): ArrayNodeDefinition
+    private function decorateDriverConfig(): ArrayNodeDefinition
     {
-        return (new ArrayNodeDefinition($name))
-            ->info($info)
+        return (new ArrayNodeDefinition('default_driver_config'))
+            ->info('The default configuration for every driver')
             ->children()
                 ->scalarNode('acquire_connection_timeout')
                     ->info(sprintf(
@@ -188,10 +168,10 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function decorateTransactionConfig(string $name, string $info): ArrayNodeDefinition
+    private function decorateTransactionConfig(): ArrayNodeDefinition
     {
-        return (new ArrayNodeDefinition($name))
-            ->info($info)
+        return (new ArrayNodeDefinition('default_transaction_config'))
+            ->info('The default configuration for every transaction')
             ->children()
                 ->scalarNode('timeout')
                     ->info(
