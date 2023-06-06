@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Events;
 
 use Laudis\Neo4j\Databags\SummarizedResult;
@@ -14,9 +16,9 @@ class PostRunEvent extends Event
     /**
      * @param CypherList<SummarizedResult<CypherMap>> $results
      */
-    public function __construct(protected readonly CypherList $results)
-    {
-    }
+    public function __construct(
+        protected readonly CypherList $results
+    ) {}
 
     /**
      * @return CypherList<SummarizedResult<CypherMap>>

@@ -14,8 +14,6 @@ use Twig\TwigFilter;
 class Neo4jResultExtension extends AbstractExtension
 {
     /**
-     * {@inheritdoc}
-     *
      * @return array<TwigFilter>
      */
     public function getFilters(): array
@@ -25,9 +23,6 @@ class Neo4jResultExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @param mixed $object
-     */
     public function getType($object): string
     {
         return $this->doGetType($object, true);
@@ -38,9 +33,6 @@ class Neo4jResultExtension extends AbstractExtension
         return 'neo4j.result';
     }
 
-    /**
-     * @param mixed $object
-     */
     private function doGetType($object, bool $recursive): string
     {
         if ($object instanceof Node) {

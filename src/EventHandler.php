@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle;
 
 use Laudis\Neo4j\Databags\Statement;
@@ -22,8 +24,8 @@ class EventHandler
     }
 
     /**
-     * @param iterable<Statement>                                                   $statements
      * @param callable():CypherList<SummarizedResult<CypherMap>> $runHandler
+     * @param iterable<Statement>                                $statements
      *
      * @return CypherList<SummarizedResult<CypherMap>>
      */

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

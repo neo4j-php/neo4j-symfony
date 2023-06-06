@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
@@ -14,7 +16,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
     {
         $this->setParameter('kernel.cache_dir', 'foo');
 
-        return ['drivers' => ['default' => [ 'dsn' => 'bolt://localhost']]];
+        return ['drivers' => ['default' => ['dsn' => 'bolt://localhost']]];
     }
 
     public function testDataCollectorLoaded()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Tests\Unit\Collector\Twig;
 
 use Laudis\Neo4j\Types\CypherList;

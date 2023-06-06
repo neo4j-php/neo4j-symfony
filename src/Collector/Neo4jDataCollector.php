@@ -21,9 +21,6 @@ final class Neo4jDataCollector extends DataCollector
         $this->queryLogger = $logger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function collect(Request $request, Response $response, Throwable $exception = null): void
     {
         $this->data['time'] = $this->queryLogger->getElapsedTime();

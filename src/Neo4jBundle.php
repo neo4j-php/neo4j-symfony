@@ -1,11 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle;
 
-use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-use function dirname;
 
 /**
  * @author Tobias Nyholm <tobias.nyholm@gmail.com>

@@ -40,7 +40,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *   authentication?: DriverAuthenticationArray|null,
  *   priority?: int|null,
  * }
- *
  * @psalm-type NormalisedDriverConfig = array{
  *    default_driver_config?: DriverConfigArray|null,
  *    default_session_config?: SessionConfigArray|null,

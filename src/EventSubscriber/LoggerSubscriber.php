@@ -19,9 +19,6 @@ final class LoggerSubscriber implements EventSubscriberInterface
         $this->queryLogger = $queryLogger;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [

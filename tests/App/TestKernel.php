@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Tests\App;
 
 use Neo4j\Neo4jBundle\Neo4jBundle;

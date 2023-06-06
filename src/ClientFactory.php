@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle;
 
 use InvalidArgumentException;
@@ -26,9 +28,9 @@ use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
 class ClientFactory
 {
     /**
-     * @param DriverConfigArray|null $driverConfig
-     * @param SessionConfigArray|null $sessionConfiguration
-     * @param TransactionConfigArray|null $transactionConfiguration
+     * @param DriverConfigArray|null        $driverConfig
+     * @param SessionConfigArray|null       $sessionConfiguration
+     * @param TransactionConfigArray|null   $transactionConfiguration
      * @param list<DriverRegistrationArray> $connections
      */
     public function __construct(
@@ -39,7 +41,8 @@ class ClientFactory
         private readonly array $connections,
     ) {}
 
-    public function create(): SymfonyClient {
+    public function create(): SymfonyClient
+    {
         $builder = ClientBuilder::create();
 
         if ($this->driverConfig) {
@@ -98,7 +101,6 @@ class ClientFactory
             timeout: $this->transactionConfiguration['timeout'] ?? null
         );
     }
-
 
     /**
      * @param DriverAuthenticationArray|null $auth

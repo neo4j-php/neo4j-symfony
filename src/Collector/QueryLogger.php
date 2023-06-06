@@ -6,13 +6,13 @@ namespace Neo4j\Neo4jBundle\Collector;
 
 use Countable;
 use Exception;
+
+use function iterator_to_array;
+
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Exception\Neo4jException;
-use Laudis\Neo4j\Types\CypherList;
 use Laudis\Neo4j\Types\CypherMap;
-
-use function iterator_to_array;
 
 /**
  * @author Xavier Coureau <xavier@pandawan-technology.com>
@@ -103,9 +103,6 @@ class QueryLogger implements Countable
         ]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function count(): int
     {
         return $this->nbQueries;
