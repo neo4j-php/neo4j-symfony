@@ -24,20 +24,10 @@ neo4j:
 
         -   alias: neo4j-enforced-defaults
             dsn: bolt://localhost
-            authentication: null
-            driver_config: null
-            session_config: null
             priority: null
 
         -   alias: neo4j-partly-enforced-defaults
             dsn: neo4j://neo4j:secret@localhost:7688
-            driver_config: null
-            session_config:
-                fetch_size: 123
-                access_mode: null
-                database: null
-            transaction_config:
-                timeout: 40
 
         -   alias: neo4j-simple
             dsn: 'bolt://test:test@localhost'
