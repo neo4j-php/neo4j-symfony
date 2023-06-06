@@ -25,8 +25,8 @@ class SymfonyClient implements ClientInterface
      * @param ClientInterface<SummarizedResult<CypherMap>> $client
      */
     public function __construct(
-        private readonly ClientInterface $client,
-        private readonly EventHandler $handler
+        private ClientInterface $client,
+        private EventHandler $handler
     ) {}
 
     public function run(string $statement, iterable $parameters = [], string $alias = null): ?SummarizedResult

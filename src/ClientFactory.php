@@ -34,11 +34,11 @@ class ClientFactory
      * @param list<DriverRegistrationArray> $connections
      */
     public function __construct(
-        private readonly EventHandler $eventHandler,
-        private readonly array|null $driverConfig,
-        private readonly array|null $sessionConfiguration,
-        private readonly array|null $transactionConfiguration,
-        private readonly array $connections,
+        private EventHandler $eventHandler,
+        private array|null $driverConfig,
+        private array|null $sessionConfiguration,
+        private array|null $transactionConfiguration,
+        private array $connections,
     ) {}
 
     public function create(): SymfonyClient

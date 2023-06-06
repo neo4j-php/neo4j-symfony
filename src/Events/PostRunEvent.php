@@ -17,7 +17,7 @@ class PostRunEvent extends Event
      * @param CypherList<SummarizedResult<CypherMap>> $results
      */
     public function __construct(
-        protected readonly CypherList $results
+        protected CypherList $results
     ) {}
 
     /**

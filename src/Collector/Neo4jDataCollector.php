@@ -14,11 +14,8 @@ use Throwable;
  */
 final class Neo4jDataCollector extends DataCollector
 {
-    private QueryLogger $queryLogger;
-
-    public function __construct(QueryLogger $logger)
+    public function __construct(private QueryLogger $queryLogger)
     {
-        $this->queryLogger = $logger;
     }
 
     public function collect(Request $request, Response $response, Throwable $exception = null): void
