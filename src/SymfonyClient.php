@@ -107,4 +107,9 @@ class SymfonyClient implements ClientInterface
     {
         $this->client->rollbackBoundTransaction($alias, $depth);
     }
+
+    public function hasDriver(string $alias): bool
+    {
+        return $this->client->hasDriver($alias);
+    }
 }
