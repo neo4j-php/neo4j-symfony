@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": ">=8.0",
-        "laudis/neo4j-php-client": "dev-main",
+        "laudis/neo4j-php-client": "^3.0.5",
         "twig/twig": "^3.0",
         "ext-json": "*",
         "symfony/dependency-injection": "^5.4 || ^6.0",
