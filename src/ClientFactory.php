@@ -10,12 +10,16 @@ use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Common\Uri;
 use Laudis\Neo4j\Contracts\AuthenticateInterface;
 use Laudis\Neo4j\Databags\DriverConfiguration;
+use Laudis\Neo4j\Databags\HttpPsrBindings;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Databags\TransactionConfiguration;
 use Laudis\Neo4j\Enum\AccessMode;
 use Laudis\Neo4j\Enum\SslMode;
 use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 /**
  * @psalm-import-type SessionConfigArray from Configuration
@@ -39,6 +43,9 @@ class ClientFactory
         private array|null $sessionConfiguration,
         private array|null $transactionConfiguration,
         private array $connections,
+        private ClientInterface|null $client,
+        private StreamFactoryInterface|null $streamFactory,
+        private RequestFactoryInterface|null $requestFactory,
     ) {}
 
     public function create(): SymfonyClient
@@ -72,7 +79,7 @@ class ClientFactory
 
     private function makeDriverConfig(): DriverConfiguration
     {
-        return new DriverConfiguration(
+        $config = new DriverConfiguration(
             userAgent: $this->driverConfig['user_agent'] ?? null,
             httpPsrBindings: null,
             sslConfig: $this->makeSslConfig($this->driverConfig['ssl'] ?? null),
@@ -81,6 +88,21 @@ class ClientFactory
             acquireConnectionTimeout: $this->driverConfig['acquire_connection_timeout'] ?? null,
             semaphore: null,
         );
+
+        $bindings = new HttpPsrBindings();
+        if ($this->client) {
+            $config = $config->withHttpPsrBindings($bindings->withClient($this->client));
+        }
+
+        if ($this->streamFactory) {
+            $config = $config->withHttpPsrBindings($bindings->withStreamFactory($this->streamFactory));
+        }
+
+        if ($this->requestFactory) {
+            $config = $config->withHttpPsrBindings($bindings->withRequestFactory($this->requestFactory));
+        }
+
+        return $config;
     }
 
     private function makeSessionConfig(): SessionConfiguration
