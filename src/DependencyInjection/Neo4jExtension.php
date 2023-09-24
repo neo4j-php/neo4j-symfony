@@ -18,14 +18,6 @@ class Neo4jExtension extends ConfigurableExtension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.xml');
-        $loader->load('data-collector.xml');
-
-        $debug = $container->getParameter('kernel.debug');
-        if ($debug === false) {
-            $container->removeDefinition('neo4j.collector.debug_collector');
-        } elseif (($mergedConfig['profiling']['enabled'] ?? null) === false) {
-            $container->removeDefinition('neo4j.collector.debug_collector');
-        }
 
         $container->getDefinition('neo4j.client_factory')
             ->setArgument(1, $mergedConfig['default_driver_config'] ?? null)
