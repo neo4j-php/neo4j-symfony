@@ -36,22 +36,28 @@ class SymfonyClient implements ClientInterface
 
     public function runStatement(Statement $statement, string $alias = null): ?SummarizedResult
     {
-        return $this->runStatements([$statement], $alias)->first();
+        return $this->handler->handle(fn(Statement $statement) => $this->client->runStatement($statement, $alias), $statement, $alias);
     }
 
     public function runStatements(iterable $statements, string $alias = null): CypherList
     {
-        return $this->handler->handle(fn () => $this->client->runStatements($statements, $alias), $statements);
+        $tbr = [];
+        foreach ($statements as $statement) {
+            $tbr[] = $this->runStatement($statement, $alias);
+        }
+
+        return CypherList::fromIterable($tbr);
     }
 
     public function beginTransaction(iterable $statements = null, string $alias = null, TransactionConfiguration $config = null): UnmanagedTransactionInterface
     {
-        $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler);
-        /**
-         * @var callable():CypherList<SummarizedResult<CypherMap>> $runHandler
-         */
-        $runHandler = fn (): CypherList => $tsx->runStatements($statements ?? []);
-        $this->handler->handle($runHandler, $statements ?? []);
+        $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler, $alias);
+
+        $runHandler = fn (Statement $statement): CypherList => $tsx->runStatement($statement);
+
+        foreach (($statements ?? []) as $statement) {
+            $this->handler->handle($runHandler, $statement, $alias);
+        }
 
         return $tsx;
     }
@@ -67,7 +73,7 @@ class SymfonyClient implements ClientInterface
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler),
+            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }
@@ -78,7 +84,7 @@ class SymfonyClient implements ClientInterface
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler),
+            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }

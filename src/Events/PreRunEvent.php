@@ -11,24 +11,17 @@ class PreRunEvent extends Event
 {
     public const EVENT_ID = 'neo4j.pre_run';
 
-    /**
-     * @var iterable<Statement>
-     */
-    private iterable $statements;
-
-    /**
-     * @param iterable<Statement> $statements
-     */
-    public function __construct(iterable $statements)
+    public function __construct(private string|null $alias, private Statement $statement)
     {
-        $this->statements = $statements;
     }
 
-    /**
-     * @return iterable<Statement>
-     */
-    public function getStatements(): iterable
+    public function getStatement(): Statement
     {
-        return $this->statements;
+        return $this->statement;
+    }
+
+    public function getAlias(): string|null
+    {
+        return $this->alias;
     }
 }

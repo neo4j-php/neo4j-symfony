@@ -20,6 +20,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *     verify_peer?: bool|null,
  * }
  * @psalm-type DriverConfigArray = array{
+ *     profiling?: bool,
  *     acquire_connection_timeout?: int|null,
  *     user_agent?: string|null,
  *     pool_size?: int|null,
@@ -77,6 +78,10 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('alias')
                             ->info('The alias for this driver. Default is "default".')
                             ->defaultValue('default')
+                        ->end()
+                        ->scalarNode('profiling')
+                            ->info('Enable profiling for requests on this driver')
+                            ->defaultValue('false')
                         ->end()
                         ->scalarNode('dsn')
                             ->info('The DSN for the driver. Default is "bolt://localhost:7687".')

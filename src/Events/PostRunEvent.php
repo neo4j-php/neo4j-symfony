@@ -4,27 +4,25 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Events;
 
-use Laudis\Neo4j\Databags\SummarizedResult;
-use Laudis\Neo4j\Types\CypherList;
-use Laudis\Neo4j\Types\CypherMap;
+use Laudis\Neo4j\Databags\ResultSummary;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class PostRunEvent extends Event
 {
     public const EVENT_ID = 'neo4j.post_run';
 
-    /**
-     * @param CypherList<SummarizedResult<CypherMap>> $results
-     */
     public function __construct(
-        protected CypherList $results
+        private string|null $alias,
+        private ResultSummary $result
     ) {}
 
-    /**
-     * @return CypherList<SummarizedResult<CypherMap>>
-     */
-    public function getResults(): CypherList
+    public function getResult(): ResultSummary
     {
-        return $this->results;
+        return $this->result;
+    }
+
+    public function getAlias(): string|null
+    {
+        return $this->alias;
     }
 }
