@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\Events;
+namespace Neo4j\Neo4jBundle\Event;
 
 use Laudis\Neo4j\Databags\ResultSummary;
 use Symfony\Contracts\EventDispatcher\Event;
@@ -14,7 +14,8 @@ class PostRunEvent extends Event
     public function __construct(
         private string|null $alias,
         private ResultSummary $result
-    ) {}
+    ) {
+    }
 
     public function getResult(): ResultSummary
     {

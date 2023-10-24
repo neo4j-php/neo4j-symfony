@@ -17,8 +17,6 @@ jobs:
         php: [ '8.0', '8.1', '8.2']
         sf_version: [ '5.4.*', '6.2.*', '6.3.*' ]
         exclude:
-          - php: 7.4
-            sf_version: 6.2.*
           - php: 8.0
             sf_version: 6.2.*
           - php: 7.4
@@ -39,5 +37,4 @@ jobs:
           php_version: ${{ matrix.php }}
           memory_limit: 1024M
           version: 9
-          testsuite: Unit
           bootstrap: vendor/autoload.php

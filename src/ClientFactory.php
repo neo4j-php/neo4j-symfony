@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle;
 
-use InvalidArgumentException;
 use Laudis\Neo4j\Authentication\Authenticate;
 use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Common\Uri;
@@ -13,9 +12,11 @@ use Laudis\Neo4j\Databags\DriverConfiguration;
 use Laudis\Neo4j\Databags\HttpPsrBindings;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Laudis\Neo4j\Databags\SslConfiguration;
+use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Databags\TransactionConfiguration;
 use Laudis\Neo4j\Enum\AccessMode;
 use Laudis\Neo4j\Enum\SslMode;
+use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -46,10 +47,12 @@ class ClientFactory
         private ClientInterface|null $client,
         private StreamFactoryInterface|null $streamFactory,
         private RequestFactoryInterface|null $requestFactory,
-    ) {}
+    ) {
+    }
 
     public function create(): SymfonyClient
     {
+        /** @var ClientBuilder<SummarizedResult<CypherMap>> $builder */
         $builder = ClientBuilder::create();
 
         if ($this->driverConfig) {
@@ -73,7 +76,6 @@ class ClientFactory
             );
         }
 
-        /** @psalm-suppress InvalidArgument */
         return new SymfonyClient($builder->build(), $this->eventHandler);
     }
 
@@ -129,19 +131,19 @@ class ClientFactory
      */
     private function createAuth(array|null $auth, string $dsn): AuthenticateInterface
     {
-        if ($auth === null) {
+        if (null === $auth) {
             return Authenticate::disabled();
         }
 
         return match ($auth['type'] ?? null) {
             'basic' => Authenticate::basic(
-                $auth['username'] ?? throw new InvalidArgumentException('Missing username for basic authentication'),
-                $auth['password'] ?? throw new InvalidArgumentException('Missing password for basic authentication')
+                $auth['username'] ?? throw new \InvalidArgumentException('Missing username for basic authentication'),
+                $auth['password'] ?? throw new \InvalidArgumentException('Missing password for basic authentication')
             ),
-            'kerberos' => Authenticate::kerberos($auth['token'] ?? throw new InvalidArgumentException('Missing token for kerberos authentication')),
+            'kerberos' => Authenticate::kerberos($auth['token'] ?? throw new \InvalidArgumentException('Missing token for kerberos authentication')),
             'dsn', null => Authenticate::fromUrl(Uri::create($dsn)),
             'none' => Authenticate::disabled(),
-            'oid' => Authenticate::oidc($auth['token'] ?? throw new InvalidArgumentException('Missing token for oid authentication')),
+            'oid' => Authenticate::oidc($auth['token'] ?? throw new \InvalidArgumentException('Missing token for oid authentication')),
         };
     }
 
@@ -150,7 +152,7 @@ class ClientFactory
      */
     private function makeSslConfig(array|null $ssl): SslConfiguration
     {
-        if ($ssl === null) {
+        if (null === $ssl) {
             return new SslConfiguration(
                 mode: SslMode::DISABLE(),
                 verifyPeer: false,

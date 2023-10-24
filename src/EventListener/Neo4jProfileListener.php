@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\EventSubscriber;
+namespace Neo4j\Neo4jBundle\EventListener;
 
 use Laudis\Neo4j\Databags\ResultSummary;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
-use Neo4j\Neo4jBundle\Events\FailureEvent;
-use Neo4j\Neo4jBundle\Events\PostRunEvent;
+use Neo4j\Neo4jBundle\Event\FailureEvent;
+use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
-final class ProfileSubscriber implements EventSubscriberInterface, ResetInterface
+final class Neo4jProfileListener implements EventSubscriberInterface, ResetInterface
 {
     /**
      * @var list<ResultSummary>
@@ -27,7 +27,7 @@ final class ProfileSubscriber implements EventSubscriberInterface, ResetInterfac
     /**
      * @param list<string> $enabledProfiles
      */
-    public function __construct(private array $enabledProfiles)
+    public function __construct(private array $enabledProfiles = [])
     {
     }
 
@@ -35,7 +35,7 @@ final class ProfileSubscriber implements EventSubscriberInterface, ResetInterfac
     {
         return [
             PostRunEvent::EVENT_ID => 'onPostRun',
-            FailureEvent::EVENT_ID => 'onFailure'
+            FailureEvent::EVENT_ID => 'onFailure',
         ];
     }
 
@@ -52,7 +52,7 @@ final class ProfileSubscriber implements EventSubscriberInterface, ResetInterfac
             $this->profiledFailures[] = [
                 'exception' => $event->getException(),
                 'statement' => $event->getStatement(),
-                'alias' => $event->getAlias()
+                'alias' => $event->getAlias(),
             ];
         }
     }
@@ -69,7 +69,6 @@ final class ProfileSubscriber implements EventSubscriberInterface, ResetInterfac
     {
         return $this->profiledFailures;
     }
-
 
     public function reset(): void
     {

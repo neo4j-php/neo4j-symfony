@@ -27,7 +27,8 @@ class SymfonyClient implements ClientInterface
     public function __construct(
         private ClientInterface $client,
         private EventHandler $handler
-    ) {}
+    ) {
+    }
 
     public function run(string $statement, iterable $parameters = [], string $alias = null): ?SummarizedResult
     {
@@ -36,7 +37,7 @@ class SymfonyClient implements ClientInterface
 
     public function runStatement(Statement $statement, string $alias = null): ?SummarizedResult
     {
-        return $this->handler->handle(fn(Statement $statement) => $this->client->runStatement($statement, $alias), $statement, $alias);
+        return $this->handler->handle(fn (Statement $statement) => $this->client->runStatement($statement, $alias), $statement, $alias);
     }
 
     public function runStatements(iterable $statements, string $alias = null): CypherList

@@ -2,17 +2,9 @@
     "name": "neo4j/neo4j-bundle",
     "description": "Symfony integration for Neo4j",
     "type": "symfony-bundle",
-    "keywords": ["neo4j"],
+    "keywords": ["neo4j", "symfony", "bundle", "graph", "database", "cypher"],
     "license": "MIT",
     "authors": [
-        {
-            "name": "Tobias Nyholm",
-            "email": "tobias.nyholm@gmail.com"
-        },
-        {
-            "name": "Xavier Coureau",
-            "email": "xavier@pandawan-technology.com"
-        },
         {
             "name": "Ghlen Nagels",
             "email": "ghlen@nagels.tech"
@@ -24,7 +16,7 @@
         "twig/twig": "^3.0",
         "ext-json": "*",
         "symfony/dependency-injection": "^5.4 || ^6.0",
-        "symfony/config": "^6.0"
+        "symfony/config": "^5.4 || ^6.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.3",
@@ -35,9 +27,9 @@
         "symfony/http-kernel": "^5.4 || ^6.0",
         "symfony/test-pack": "^1.1",
         "symfony/yaml": "^5.4 || ^6.0",
-        "vimeo/psalm": "^5.12",
+        "vimeo/psalm": "^5.15.0",
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.0",
+        "friendsofphp/php-cs-fixer": "^3.30",
         "psalm/plugin-phpunit": "^0.18"
     },
     "autoload": {
@@ -55,5 +47,10 @@
         "allow-plugins": {
             "php-http/discovery": false
         }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm --show-info=true",
+        "fix-cs": "vendor/bin/php-cs-fixer fix",
+        "check-cs": "vendor/bin/php-cs-fixer fix --dry-run"
     }
 }

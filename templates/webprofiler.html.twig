@@ -1,9 +1,10 @@
+{# templates/data_collector/template.html.twig #}
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
     {% if collector.queryCount > 0 %}
         {% set icon %}
-            {{ include('@Neo4j/Icon/neo4j.svg') }}
+            {{ include('@Neo4j/neo4j.svg') }}
             <span class="sf-toolbar-value">{{ collector.queryCount }}</span>
             <span class="sf-toolbar-label">stmt.</span>
         {% endset %}
@@ -30,8 +31,8 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ asset('bundles/neo4j/style/neo4j.css') }}" />
-    <script type="text/javascript" src="{{ asset("bundles/neo4j/script/neo4j.js") }}"></script>
+    <link rel="stylesheet" href="{{ asset('bundles/neo4j/css/neo4j.css') }}" />
+    <script type="text/javascript" src="{{ asset("bundles/neo4j/js/neo4j.js") }}"></script>
     {{ parent() }}
 {% endblock %}
 
@@ -62,7 +63,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for idx, statement in collector.statements %}
+        {% for idx, statement in collector.successfulStatements %}
         <tr>
             {% set start_time = statement.start_time|default(null) %}
             {% set end_time = statement.end_time|default(null) %}

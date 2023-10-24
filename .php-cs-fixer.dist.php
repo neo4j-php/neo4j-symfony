@@ -24,6 +24,7 @@ use PhpCsFixerCustomFixers\Fixer\StringableInterfaceFixer;
 try {
     $finder = PhpCsFixer\Finder::create()
         ->in(__DIR__.'/src')
+        ->in(__DIR__.'/config')
         ->in(__DIR__.'/tests');
 } catch (Throwable $e) {
     echo $e->getMessage()."\n";
@@ -35,28 +36,6 @@ return (new Config())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
-
-        'array_syntax' => ['syntax' => 'short'],
-        'linebreak_after_opening_tag' => true,
-        'ordered_imports' => true,
-        'phpdoc_order' => true,
-        'phpdoc_to_comment' => false,
-        'yoda_style' => false,
-        'declare_strict_types' => true,
-        'global_namespace_import' => [
-            'import_classes' => true,
-            'import_constants' => true,
-            'import_functions' => true,
-        ],
-        ConstructorEmptyBracesFixer::name() => true,
-        IssetToArrayKeyExistsFixer::name() => true,
-        MultilineCommentOpeningClosingAloneFixer::name() => true,
-        MultilinePromotedPropertiesFixer::name() => true,
-        PhpUnitAssertArgumentsOrderFixer::name() => true,
-        PhpdocNoSuperfluousParamFixer::name() => true,
-        PhpdocParamOrderFixer::name() => true,
-        StringableInterfaceFixer::name() => true,
     ])
     ->setFinder($finder)
-    ->registerCustomFixers(new PhpCsFixerCustomFixers\Fixers())
 ;

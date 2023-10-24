@@ -1,9 +1,10 @@
 version: '3.7'
 networks:
-    neo-eloquent:
+    neo4j-symfony:
 
 services:
     app:
+        user: ${UID-1000}:${GID-1000}
         build:
             context: .
         ports:
@@ -18,7 +19,7 @@ services:
             - NEO4J_PASSWORD=testtest
         working_dir: /opt/project
         networks:
-            - neo-eloquent
+            - neo4j-symfony
 
     neo4j:
         environment:
@@ -28,5 +29,5 @@ services:
             - ${DOCKER_HOST_NEO4J_HTTP_PORT:-7474}:7474
             - ${DOCKER_HOST_NEO4J_BOLT_PORT:-7687}:7687
         networks:
-            - neo-eloquent
+            - neo4j-symfony
 

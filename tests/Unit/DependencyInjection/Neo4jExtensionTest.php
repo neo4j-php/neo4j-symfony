@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
 
 /**
@@ -24,9 +25,7 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.debug', true);
         $this->load();
 
-        $this->assertContainerBuilderHasService('neo4j.collector.debug_collector',
-            'Neo4j\Neo4jBundle\Collector\Neo4jDataCollector'
-        );
+        $this->assertContainerBuilderHasService('neo4j.data_collector', Neo4jDataCollector::class);
     }
 
     public function testDataCollectorNotLoadedInNonDebug(): void
@@ -34,15 +33,19 @@ class Neo4jExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.debug', false);
         $this->load();
 
-        $this->assertContainerBuilderNotHasService('neo4j.collector.debug_collector');
+        $this->assertContainerBuilderNotHasService('neo4j.data_collector');
     }
 
     public function testDataCollectorNotLoadedWhenDisabled(): void
     {
         $this->setParameter('kernel.debug', true);
-        $this->load(['profiling' => ['enabled' => false]]);
+        $this->load(['drivers' => [
+            'default' => [
+                'profiling' => false,
+            ],
+        ]]);
 
-        $this->assertContainerBuilderNotHasService('neo4j.collector.debug_collector');
+        $this->assertContainerBuilderNotHasService('neo4j.neo4j_data_collector');
     }
 
     protected function getContainerExtensions(): array

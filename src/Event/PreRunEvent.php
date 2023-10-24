@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\Events;
+namespace Neo4j\Neo4jBundle\Event;
 
 use Laudis\Neo4j\Databags\Statement;
 use Symfony\Contracts\EventDispatcher\Event;

@@ -1,6 +1,6 @@
-imports:
-    - { resource: framework.yml }
-    - { resource: services.yml }
+framework:
+    secret: test
+    test: true
 
 neo4j:
     default_driver: neo4j-test

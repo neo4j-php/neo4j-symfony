@@ -7,27 +7,46 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/neo4j/neo4j-bundle.svg?style=flat-square)](https://packagist.org/packages/neo4j/neo4j-bundle)
 
 
-## Install
+Installation
+============
 
-Via Composer
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
 
-``` bash
+Applications that use Symfony Flex
+----------------------------------
+
+Open a command console, enter your project directory and execute:
+
+```console
 $ composer require neo4j/neo4j-bundle
 ```
 
-Enable the bundle in your kernel:
+Applications that don't use Symfony Flex
+----------------------------------------
 
-``` php
-<?php
-// app/AppKernel.php
+### Step 1: Download the Bundle
 
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Neo4j\Neo4jBundle\Neo4jBundle(),
-    );
-}
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
+
+```console
+$ composer require neo4j/neo4j-bundle
+```
+
+### Step 2: Enable the Bundle
+
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
+
+```php
+// config/bundles.php
+
+return [
+    // ...
+    \Neo4j\Neo4jBundle\Neo4jBundle::class => ['all' => true],
+];
 ```
 
 ## Documentation

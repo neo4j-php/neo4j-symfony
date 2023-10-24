@@ -15,9 +15,9 @@ use Laudis\Neo4j\Enum\ConnectionProtocol;
 use Laudis\Neo4j\Enum\QueryTypeEnum;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Laudis\Neo4j\Types\CypherList;
-use Neo4j\Neo4jBundle\Events\FailureEvent;
-use Neo4j\Neo4jBundle\Events\PostRunEvent;
-use Neo4j\Neo4jBundle\Events\PreRunEvent;
+use Neo4j\Neo4jBundle\Event\FailureEvent;
+use Neo4j\Neo4jBundle\Event\PostRunEvent;
+use Neo4j\Neo4jBundle\Event\PreRunEvent;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventHandler
@@ -33,7 +33,6 @@ class EventHandler
      * @template T
      *
      * @param callable(Statement):SummarizedResult<T> $runHandler
-     * @param iterable<Statement>                     $statements
      *
      * @return SummarizedResult<T>
      */
