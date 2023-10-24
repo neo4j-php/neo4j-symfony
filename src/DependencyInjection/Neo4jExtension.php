@@ -4,39 +4,66 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
+use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
+use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @psalm-import-type NormalisedDriverConfig from Configuration
  */
-class Neo4jExtension extends ConfigurableExtension
+class Neo4jExtension extends Extension
 {
-    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
+    public function load(array $configs, ContainerBuilder $container): ContainerBuilder
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('services.xml');
-        $loader->load('data-collector.xml');
+        $configuration = new Configuration();
+        $mergedConfig = $this->processConfiguration($configuration, $configs);
 
-        $debug = $container->getParameter('kernel.debug');
-        if ($debug === false) {
-            $container->removeDefinition('neo4j.collector.debug_collector');
-        } elseif (($mergedConfig['profiling']['enabled'] ?? null) === false) {
-            $container->removeDefinition('neo4j.collector.debug_collector');
-        }
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader->load('services.php');
 
         $container->getDefinition('neo4j.client_factory')
             ->setArgument(1, $mergedConfig['default_driver_config'] ?? null)
             ->setArgument(2, $mergedConfig['default_session_config'] ?? null)
             ->setArgument(3, $mergedConfig['default_transaction_config'] ?? null)
             ->setArgument(4, $mergedConfig['drivers'] ?? [])
+            ->setArgument(5, new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument(6, new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument(7, new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false)
         ;
 
         $container->getDefinition('neo4j.driver')
             ->setArgument(0, $mergedConfig['drivers']['alias'] ?? 'default');
+
+        $enabledProfiles = [];
+        foreach ($mergedConfig['drivers'] as $driver) {
+            if (true === $driver['profiling'] || (null === $driver['profiling'] && $container->getParameter('kernel.debug'))) {
+                $enabledProfiles[] = $driver['alias'];
+            }
+        }
+
+        if (0 !== count($enabledProfiles)) {
+            $container->setDefinition('neo4j.data_collector', (new Definition(Neo4jDataCollector::class))
+                ->setArgument(0, new Reference('neo4j.client_factory'))
+                ->addTag('data_collector')
+            );
+
+            $container->setDefinition('neo4j.subscriber', (new Definition(Neo4jProfileListener::class))
+                ->setArgument(0, $enabledProfiles)
+                ->addTag('kernel.event_subscriber')
+            );
+        }
+
+        return $container;
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration

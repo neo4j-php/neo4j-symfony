@@ -15,17 +15,11 @@ use Laudis\Neo4j\Types\CypherMap;
  */
 class SymfonyTransaction implements UnmanagedTransactionInterface
 {
-    /** @var UnmanagedTransactionInterface<SummarizedResult<CypherMap>> */
-    private UnmanagedTransactionInterface $tsx;
-    private EventHandler $handler;
-
     /**
      * @param UnmanagedTransactionInterface<SummarizedResult<CypherMap>> $tsx
      */
-    public function __construct(UnmanagedTransactionInterface $tsx, EventHandler $handler)
+    public function __construct(private UnmanagedTransactionInterface $tsx, private EventHandler $handler, private string|null $alias)
     {
-        $this->tsx = $tsx;
-        $this->handler = $handler;
     }
 
     public function run(string $statement, iterable $parameters = []): SummarizedResult
@@ -35,7 +29,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
 
     public function runStatement(Statement $statement): SummarizedResult
     {
-        return $this->runStatements([$statement])->first();
+        return $this->handler->handle(fn ($statement) => $this->tsx->runStatement($statement), $statement, $this->alias);
     }
 
     /**
@@ -43,12 +37,21 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
      */
     public function runStatements(iterable $statements): CypherList
     {
-        return $this->handler->handle(fn () => $this->tsx->runStatements($statements), $statements);
+        $tbr = [];
+        foreach ($statements as $statement) {
+            $tbr[] = $this->runStatement($statement);
+        }
+
+        return CypherList::fromIterable($tbr);
     }
 
     public function commit(iterable $statements = []): CypherList
     {
-        return $this->handler->handle(fn () => $this->tsx->commit($statements), $statements);
+        $tbr = $this->runStatements($statements);
+
+        $this->tsx->commit();
+
+        return $tbr;
     }
 
     public function rollback(): void

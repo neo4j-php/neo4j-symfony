@@ -19,6 +19,6 @@ jobs:
           php_version: 8.0
           version: 2
       - name: "PHP-CS-Fixer"
-        run: vendor/bin/php-cs-fixer fix --dry-run
+        run: composer check-cs
       - name: "PSalm"
-        run: ./console debug:config && vendor/bin/psalm --show-info=true
+        run: composer psalm

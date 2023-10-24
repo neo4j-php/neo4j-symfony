@@ -6,7 +6,6 @@ namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
-use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -40,7 +39,7 @@ class BundleInitializationTest extends KernelTestCase
         $container = static::getContainer();
 
         $client = $container->get('neo4j.client');
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage("Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')");
         $client->getDriver('default');
     }
@@ -50,7 +49,7 @@ class BundleInitializationTest extends KernelTestCase
         static::bootKernel();
         $container = static::getContainer();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage("Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')");
 
         $container->get('neo4j.driver');

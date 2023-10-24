@@ -20,6 +20,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *     verify_peer?: bool|null,
  * }
  * @psalm-type DriverConfigArray = array{
+ *     profiling?: bool,
  *     acquire_connection_timeout?: int|null,
  *     user_agent?: string|null,
  *     pool_size?: int|null,
@@ -61,16 +62,6 @@ class Configuration implements ConfigurationInterface
         $treeBuilder->getRootNode()
             ->fixXmlConfig('driver')
             ->children()
-                ->arrayNode('profiling')
-                    ->info('Profiling configuration')
-                    ->canBeEnabled()
-                    ->children()
-                        ->booleanNode('enabled')
-                            ->info('Enable profiling')
-                            ->defaultTrue()
-                        ->end()
-                    ->end()
-                ->end()
                 ->append($this->decorateDriverConfig())
                 ->append($this->decorateSessionConfig())
                 ->append($this->decorateTransactionConfig())
@@ -87,6 +78,10 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('alias')
                             ->info('The alias for this driver. Default is "default".')
                             ->defaultValue('default')
+                        ->end()
+                        ->scalarNode('profiling')
+                            ->info('Enable profiling for requests on this driver. If no value is provided the default value will be equal to the kernel.debug parameter.')
+                            ->defaultValue(null)
                         ->end()
                         ->scalarNode('dsn')
                             ->info('The DSN for the driver. Default is "bolt://localhost:7687".')
@@ -121,6 +116,7 @@ class Configuration implements ConfigurationInterface
             ->info('The default configuration for every session')
             ->children()
                 ->scalarNode('fetch_size')
+                    ->info('The amount of rows that are being fetched at once in the result cursor')
                 ->end()
                 ->enumNode('access_mode')
                     ->values(['read', 'write', null])
