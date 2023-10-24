@@ -49,7 +49,7 @@
         }
     },
     "scripts": {
-        "psalm": "vendor/bin/psalm --show-info=true",
+        "psalm": "php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
         "fix-cs": "vendor/bin/php-cs-fixer fix",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run"
     }
