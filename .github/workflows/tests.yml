@@ -15,7 +15,7 @@ jobs:
       max-parallel: 10
       matrix:
         php: [ '8.0', '8.1', '8.2']
-        sf_version: [ '5.4.*', '6.2.*', '6.3.*' ]
+        sf_version: [ '5.4.*', '6.0.*', '6.3.*' ]
         exclude:
           - php: 8.0
             sf_version: 6.2.*
