@@ -5,32 +5,51 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Contracts\ClientInterface;
+use Laudis\Neo4j\Contracts\DriverInterface;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-/**
- * @author Tobias Nyholm <tobias.nyholm@gmail.com>
- */
-class BundleInitializationTest extends KernelTestCase
+class Integration extends KernelTestCase
 {
     protected static function getKernelClass(): string
     {
         return TestKernel::class;
     }
 
-    public function testRegisterBundle(): void
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+        self::bootKernel();
+    }
+
+    public function testClient(): void
     {
         static::bootKernel();
         $container = static::getContainer();
 
         $this->assertTrue($container->has('neo4j.client'));
         $client = $container->get('neo4j.client');
-        self::assertInstanceOf(ClientInterface::class, $client);
         $this->assertInstanceOf(ClientInterface::class, $client);
 
         $this->assertTrue($container->has(ClientInterface::class));
-        self::assertInstanceOf(ClientInterface::class, $client);
         $this->assertInstanceOf(ClientInterface::class, $client);
+
+        $this->assertSame($client, $container->get('neo4j.client'));
+    }
+
+    public function testDriver(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        $this->assertTrue($container->has('neo4j.driver'));
+        $driver = $container->get('neo4j.driver');
+        $this->assertInstanceOf(DriverInterface::class, $driver);
+
+        $this->assertTrue($container->has(DriverInterface::class));
+        $this->assertInstanceOf(DriverInterface::class, $driver);
+
+        $this->assertSame($driver, $container->get('neo4j.driver'));
     }
 
     public function testDefaultDsn(): void

@@ -20,7 +20,7 @@ Applications that use Symfony Flex
 Open a command console, enter your project directory and execute:
 
 ```console
-$ composer require neo4j/neo4j-bundle
+$ composer require neo4j
 ```
 
 Applications that don't use Symfony Flex

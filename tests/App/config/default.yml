@@ -40,4 +40,7 @@ neo4j:
             priority: 1000
             dsn: bolt://localhost
 
+        -   alias: neo4j-test
+            dsn: neo4j://neo4j:testtest@neo4j
+
 

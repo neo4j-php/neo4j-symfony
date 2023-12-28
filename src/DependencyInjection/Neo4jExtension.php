@@ -35,9 +35,10 @@ class Neo4jExtension extends Extension
             ->setArgument(2, $mergedConfig['default_session_config'] ?? null)
             ->setArgument(3, $mergedConfig['default_transaction_config'] ?? null)
             ->setArgument(4, $mergedConfig['drivers'] ?? [])
-            ->setArgument(5, new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument(6, new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument(7, new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument(5, $mergedConfig['default_driver'] ?? null)
+            ->setArgument(6, new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument(7, new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument(8, new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false)
         ;
 

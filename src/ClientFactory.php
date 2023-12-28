@@ -44,6 +44,7 @@ class ClientFactory
         private array|null $sessionConfiguration,
         private array|null $transactionConfiguration,
         private array $connections,
+        private string|null $defaultDriver,
         private ClientInterface|null $client,
         private StreamFactoryInterface|null $streamFactory,
         private RequestFactoryInterface|null $requestFactory,
@@ -74,6 +75,10 @@ class ClientFactory
                 $this->createAuth($connection['authentication'] ?? null, $connection['dsn']),
                 $connection['priority'] ?? null
             );
+        }
+
+        if ($this->defaultDriver) {
+            $builder = $builder->withDefaultDriver($this->defaultDriver);
         }
 
         return new SymfonyClient($builder->build(), $this->eventHandler);
