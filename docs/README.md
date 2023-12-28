@@ -42,8 +42,8 @@ return [
 
 ## Documentation
 
-The bundle is a convenient way of registering services. We register `Connections`, 
-`Clients` and `EntityManagers`. You will always have alias for the default services:
+The bundle is a convenient way of registering services. We register `Drivers` and one
+`Clients`. You will always have alias for the default services:
 
  * neo4j.driver
  * neo4j.client
@@ -58,9 +58,8 @@ neo4j:
 ```
 
 With the minimal configuration we have services named:
- * neo4j.connection.default
- * neo4j.client.default
- * neo4j.entity_manager.default*
+ * neo4j.driver.default
+ * neo4j.client
 
 ### Full configuration example
 
