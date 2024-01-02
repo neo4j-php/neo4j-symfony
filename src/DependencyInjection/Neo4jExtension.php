@@ -58,6 +58,8 @@ class Neo4jExtension extends Extension
                 ->addTag('data_collector')
             );
 
+            $container->setAlias(Neo4jProfileListener::class, 'neo4j.subscriber');
+
             $container->setDefinition('neo4j.subscriber', (new Definition(Neo4jProfileListener::class))
                 ->setArgument(0, $enabledProfiles)
                 ->addTag('kernel.event_subscriber')
