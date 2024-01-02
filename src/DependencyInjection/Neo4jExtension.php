@@ -54,7 +54,7 @@ class Neo4jExtension extends Extension
 
         if (0 !== count($enabledProfiles)) {
             $container->setDefinition('neo4j.data_collector', (new Definition(Neo4jDataCollector::class))
-                ->setArgument(0, new Reference('neo4j.client_factory'))
+                ->setAutowired(true)
                 ->addTag('data_collector')
             );
 
