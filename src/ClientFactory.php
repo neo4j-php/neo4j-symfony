@@ -137,7 +137,7 @@ class ClientFactory
     private function createAuth(array|null $auth, string $dsn): AuthenticateInterface
     {
         if (null === $auth) {
-            return Authenticate::disabled();
+            return Authenticate::fromUrl(Uri::create($dsn));
         }
 
         return match ($auth['type'] ?? null) {
