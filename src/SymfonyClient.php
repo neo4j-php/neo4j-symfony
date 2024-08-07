@@ -30,17 +30,17 @@ class SymfonyClient implements ClientInterface
     ) {
     }
 
-    public function run(string $statement, iterable $parameters = [], string $alias = null): ?SummarizedResult
+    public function run(string $statement, iterable $parameters = [], ?string $alias = null): ?SummarizedResult
     {
         return $this->runStatement(new Statement($statement, $parameters), $alias);
     }
 
-    public function runStatement(Statement $statement, string $alias = null): ?SummarizedResult
+    public function runStatement(Statement $statement, ?string $alias = null): ?SummarizedResult
     {
         return $this->handler->handle(fn (Statement $statement) => $this->client->runStatement($statement, $alias), $statement, $alias);
     }
 
-    public function runStatements(iterable $statements, string $alias = null): CypherList
+    public function runStatements(iterable $statements, ?string $alias = null): CypherList
     {
         $tbr = [];
         foreach ($statements as $statement) {
@@ -50,7 +50,7 @@ class SymfonyClient implements ClientInterface
         return CypherList::fromIterable($tbr);
     }
 
-    public function beginTransaction(iterable $statements = null, string $alias = null, TransactionConfiguration $config = null): UnmanagedTransactionInterface
+    public function beginTransaction(?iterable $statements = null, ?string $alias = null, ?TransactionConfiguration $config = null): UnmanagedTransactionInterface
     {
         $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler, $alias);
 
@@ -68,7 +68,7 @@ class SymfonyClient implements ClientInterface
         return $this->client->getDriver($alias);
     }
 
-    public function writeTransaction(callable $tsxHandler, string $alias = null, TransactionConfiguration $config = null)
+    public function writeTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
     {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::READ());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
@@ -79,7 +79,7 @@ class SymfonyClient implements ClientInterface
         );
     }
 
-    public function readTransaction(callable $tsxHandler, string $alias = null, TransactionConfiguration $config = null)
+    public function readTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
     {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::WRITE());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
@@ -90,27 +90,27 @@ class SymfonyClient implements ClientInterface
         );
     }
 
-    public function transaction(callable $tsxHandler, string $alias = null, TransactionConfiguration $config = null)
+    public function transaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
     {
         return $this->writeTransaction($tsxHandler, $alias, $config);
     }
 
-    public function verifyConnectivity(string $driver = null): bool
+    public function verifyConnectivity(?string $driver = null): bool
     {
         return $this->client->verifyConnectivity($driver);
     }
 
-    public function bindTransaction(string $alias = null, TransactionConfiguration $config = null): void
+    public function bindTransaction(?string $alias = null, ?TransactionConfiguration $config = null): void
     {
         $this->client->bindTransaction($alias, $config);
     }
 
-    public function commitBoundTransaction(string $alias = null, int $depth = 1): void
+    public function commitBoundTransaction(?string $alias = null, int $depth = 1): void
     {
         $this->client->commitBoundTransaction($alias, $depth);
     }
 
-    public function rollbackBoundTransaction(string $alias = null, int $depth = 1): void
+    public function rollbackBoundTransaction(?string $alias = null, int $depth = 1): void
     {
         $this->client->rollbackBoundTransaction($alias, $depth);
     }

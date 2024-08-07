@@ -12,7 +12,7 @@ class PostRunEvent extends Event
     public const EVENT_ID = 'neo4j.post_run';
 
     public function __construct(
-        private string|null $alias,
+        private ?string $alias,
         private ResultSummary $result
     ) {
     }
@@ -22,7 +22,7 @@ class PostRunEvent extends Event
         return $this->result;
     }
 
-    public function getAlias(): string|null
+    public function getAlias(): ?string
     {
         return $this->alias;
     }

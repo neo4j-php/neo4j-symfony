@@ -14,7 +14,7 @@ class FailureEvent extends Event
 
     protected bool $shouldThrowException = true;
 
-    public function __construct(private string|null $alias, private Statement $statement, private Neo4jException $exception)
+    public function __construct(private ?string $alias, private Statement $statement, private Neo4jException $exception)
     {
     }
 
@@ -33,7 +33,7 @@ class FailureEvent extends Event
         return $this->shouldThrowException;
     }
 
-    public function getAlias(): string|null
+    public function getAlias(): ?string
     {
         return $this->alias;
     }
