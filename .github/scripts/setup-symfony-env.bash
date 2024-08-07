@@ -24,7 +24,7 @@ function install-specified-symfony-version {
     rm composer.lock || true
     rm -Rf vendor || true
     # Replace the Symfony version in composer.json
-    sed -i 's/\^5.4 || \^6.0 || \^7.0/'$symfony_version'/g' composer.json
+    sed -i 's/\^5.4 || \^6.0 || \^7.0/\^'$symfony_version'/g' composer.json
     # Install the specified Symfony version
     composer install
 }
