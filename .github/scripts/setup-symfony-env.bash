@@ -24,7 +24,6 @@ function install-specified-symfony-version {
     composer install
 }
 
-# Ensure cleanup is called on exit. Handles both success and failure exits
 trap cleanup EXIT
 
 install-specified-symfony-version $1
