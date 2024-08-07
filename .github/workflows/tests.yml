@@ -34,8 +34,9 @@ jobs:
         uses: php-actions/composer@v2
         with:
             php_version: ${{ matrix.php }}
-        env:
-          SYMFONY_REQUIRE: ${{ matrix.sf_version }}
+
+      - name: Override Symfony version
+        run: composer run ci-symfony-install-version ${{ matrix.sf_version }}
 
       - uses: php-actions/phpunit@v3
         with:
