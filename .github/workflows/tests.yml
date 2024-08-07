@@ -4,6 +4,8 @@ on:
     branches:
       - master
   pull_request:
+    branches:
+      - master
 
 jobs:
   build:
@@ -28,11 +30,12 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Install symfony/flex
-        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
-
-      - name: Composer update on php ${{ matrix.php }} and symfony ${{ matrix.sf_version }}
-        run: export SYMFONY_REQUIRE=${{ matrix.sf_version }} composer update
+      - name: Install dependencies
+        uses: php-actions/composer@v2
+        with:
+            php_version: ${{ matrix.php }}
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.sf_version }}
 
       - uses: php-actions/phpunit@v3
         with:
