@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Validate composer.json
+      - name: Validate composer-5.4.json
         run: composer validate --strict
 
       - name: Setup PHP ${{ matrix.php }}
