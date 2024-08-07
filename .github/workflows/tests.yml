@@ -30,11 +30,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
 
-      - name: Install dependencies
-        uses: php-actions/composer@v2
-        with:
-            php_version: ${{ matrix.php }}
-
       - name: Override Symfony version
         run: composer run ci-symfony-install-version ${{ matrix.sf_version }}
 
