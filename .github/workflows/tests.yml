@@ -14,19 +14,29 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: [ '8.0', '8.1', '8.2']
-        sf_version: [ '5.4.*', '6.0.*', '6.3.*' ]
+        php: [ '8.1', '8.2', '8.3']
+        sf_version: [ '5.4.*', '6.4.*', '7.1.*' ]
         exclude:
-          - php: 8.0
-            sf_version: 6.3.*
+          - php: 8.1
+            sf_version: 7.1.*
 
     steps:
       - uses: actions/checkout@v2
-      - uses: php-actions/composer@v6
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Setup PHP ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
         with:
-          progress: yes
-          php_version: ${{matrix.php}}
-          version: 2
+          php-version: ${{ matrix.php }}
+        run: php -v
+
+      - name: Install symfony/flex
+        run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
+
+      - name: Composer update on php ${{ matrix.php }} and symfony ${{ matrix.sf_version }}
+        run: export SYMFONY_REQUIRE=${{ matrix.sf_version }} composer update --prefer-dist --no-progress
+
       - uses: php-actions/phpunit@v3
         with:
           configuration: phpunit.xml.dist
