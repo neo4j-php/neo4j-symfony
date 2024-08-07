@@ -27,7 +27,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-        run: php -v
 
       - name: Install symfony/flex
         run: composer global require --no-progress --no-scripts --no-plugins symfony/flex
