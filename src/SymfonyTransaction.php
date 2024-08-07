@@ -18,7 +18,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     /**
      * @param UnmanagedTransactionInterface<SummarizedResult<CypherMap>> $tsx
      */
-    public function __construct(private UnmanagedTransactionInterface $tsx, private EventHandler $handler, private string|null $alias)
+    public function __construct(private UnmanagedTransactionInterface $tsx, private EventHandler $handler, private ?string $alias)
     {
     }
 

@@ -27,7 +27,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
     ) {
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $this->data['successful_statements'] = array_map(
             static fn (ResultSummary $summary) => $summary->toArray(),

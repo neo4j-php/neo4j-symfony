@@ -11,7 +11,7 @@ class PreRunEvent extends Event
 {
     public const EVENT_ID = 'neo4j.pre_run';
 
-    public function __construct(private string|null $alias, private Statement $statement)
+    public function __construct(private ?string $alias, private Statement $statement)
     {
     }
 
@@ -20,7 +20,7 @@ class PreRunEvent extends Event
         return $this->statement;
     }
 
-    public function getAlias(): string|null
+    public function getAlias(): ?string
     {
         return $this->alias;
     }

@@ -40,14 +40,14 @@ class ClientFactory
      */
     public function __construct(
         private EventHandler $eventHandler,
-        private array|null $driverConfig,
-        private array|null $sessionConfiguration,
-        private array|null $transactionConfiguration,
+        private ?array $driverConfig,
+        private ?array $sessionConfiguration,
+        private ?array $transactionConfiguration,
         private array $connections,
-        private string|null $defaultDriver,
-        private ClientInterface|null $client,
-        private StreamFactoryInterface|null $streamFactory,
-        private RequestFactoryInterface|null $requestFactory,
+        private ?string $defaultDriver,
+        private ?ClientInterface $client,
+        private ?StreamFactoryInterface $streamFactory,
+        private ?RequestFactoryInterface $requestFactory,
     ) {
     }
 
@@ -134,7 +134,7 @@ class ClientFactory
     /**
      * @param DriverAuthenticationArray|null $auth
      */
-    private function createAuth(array|null $auth, string $dsn): AuthenticateInterface
+    private function createAuth(?array $auth, string $dsn): AuthenticateInterface
     {
         if (null === $auth) {
             return Authenticate::fromUrl(Uri::create($dsn));
@@ -155,7 +155,7 @@ class ClientFactory
     /**
      * @param SslConfigArray|null $ssl
      */
-    private function makeSslConfig(array|null $ssl): SslConfiguration
+    private function makeSslConfig(?array $ssl): SslConfiguration
     {
         if (null === $ssl) {
             return new SslConfiguration(

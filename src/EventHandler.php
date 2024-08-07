@@ -36,7 +36,7 @@ class EventHandler
      *
      * @return SummarizedResult<T>
      */
-    public function handle(callable $runHandler, Statement $statement, string|null $alias): SummarizedResult
+    public function handle(callable $runHandler, Statement $statement, ?string $alias): SummarizedResult
     {
         if (null === $this->dispatcher) {
             return $runHandler($statement);
