@@ -11,8 +11,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      NEO4J_AUTH: neo4j/testtest
     strategy:
       max-parallel: 10
       matrix:
@@ -46,6 +44,8 @@ jobs:
     services:
       neo4j:
         image: neo4j:5.22
+        env:
+          NEO4J_AUTH: neo4j/testtest
         options: >-
           --hostname neo4j
           --health-cmd "wget -q --method=HEAD http://localhost:7474 || exit 1"
