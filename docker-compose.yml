@@ -1,10 +1,9 @@
-version: '3.7'
 networks:
     neo4j-symfony:
 
 services:
     app:
-        user: ${UID-1000}:${GID-1000}
+        user: root:${UID-1000}:${GID-1000}
         build:
             context: .
         ports:
@@ -24,7 +23,7 @@ services:
     neo4j:
         environment:
             - NEO4J_AUTH=neo4j/testtest
-        image: neo4j:5
+        image: neo4j:5.22
         ports:
             - ${DOCKER_HOST_NEO4J_HTTP_PORT:-7474}:7474
             - ${DOCKER_HOST_NEO4J_BOLT_PORT:-7687}:7687

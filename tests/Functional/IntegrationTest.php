@@ -6,10 +6,12 @@ namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Laudis\Neo4j\Contracts\DriverInterface;
+use Laudis\Neo4j\Neo4j\Neo4jDriver;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
+use Psr\Http\Message\UriInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class Integration extends KernelTestCase
+class IntegrationTest extends KernelTestCase
 {
     protected static function getKernelClass(): string
     {
@@ -57,10 +59,22 @@ class Integration extends KernelTestCase
         static::bootKernel();
         $container = static::getContainer();
 
+        /**
+         * @var ClientInterface $client
+         */
         $client = $container->get('neo4j.client');
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage("Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')");
-        $client->getDriver('default');
+        /**
+         * @var Neo4jDriver $driver
+         */
+        $driver = $client->getDriver('default');
+        $reflection = new \ReflectionClass($driver);
+        $property = $reflection->getProperty('parsedUrl');
+        /**
+         * @var UriInterface $uri
+         */
+        $uri = $property->getValue($driver);
+
+        $this->assertSame($uri->getScheme(), 'neo4j');
     }
 
     public function testDsn(): void
@@ -69,8 +83,14 @@ class Integration extends KernelTestCase
         $container = static::getContainer();
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage("Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')");
+        $this->expectExceptionMessage(
+            "Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')"
+        );
 
-        $container->get('neo4j.driver');
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        $client->getDriver('neo4j_undefined_configs');
     }
 }
