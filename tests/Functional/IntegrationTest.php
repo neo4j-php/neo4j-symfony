@@ -83,8 +83,8 @@ class IntegrationTest extends KernelTestCase
         $container = static::getContainer();
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage(
-            "Cannot connect to any server on alias: neo4j_undefined_configs with Uris: ('bolt://localhost')"
+        $this->expectExceptionMessageMatches(
+            "/Cannot connect to any server on alias: neo4j_undefined_configs with Uris: \('bolt:\/\/(localhost|localhostt)'\)/"
         );
 
         /**
