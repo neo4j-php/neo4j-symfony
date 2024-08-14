@@ -22,5 +22,8 @@ final class TestKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/default.yml');
+        if ('ci' === $this->environment) {
+            $loader->load(__DIR__.'/config/ci/default.yml');
+        }
     }
 }

@@ -1,0 +1,3 @@
+parameters:
+  neo4j.dsn.badname: bolt://localhostt
+  neo4j.dsn.test: neo4j://neo4j:testtest@localhost

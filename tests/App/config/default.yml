@@ -2,6 +2,12 @@ framework:
   secret: test
   test: true
 
+parameters:
+  neo4j.dsn.badname: bolt://localhost
+  neo4j.dsn.secret: neo4j://neo4j:secret@localhost:7688
+  neo4j.dsn.test: neo4j://neo4j:testtest@neo4j
+  neo4j.dsn.simple: bolt://test:test@localhost
+
 neo4j:
   default_driver: neo4j-test
   default_driver_config:
@@ -20,25 +26,25 @@ neo4j:
 
   drivers:
     - alias: neo4j_undefined_configs
-      dsn: bolt://localhost
+      dsn: '%neo4j.dsn.badname%'
 
     - alias: neo4j-enforced-defaults
-      dsn: bolt://localhost
+      dsn: '%neo4j.dsn.badname%'
       priority: null
 
     - alias: neo4j-partly-enforced-defaults
-      dsn: neo4j://neo4j:secret@localhost:7688
+      dsn: '%neo4j.dsn.secret%'
 
     - alias: neo4j-simple
-      dsn: "bolt://test:test@localhost"
+      dsn: '%neo4j.dsn.simple%'
 
     - alias: neo4j-fallback-mechanism
       priority: 100
-      dsn: bolt://localhost
+      dsn: '%neo4j.dsn.badname%'
 
     - alias: neo4j-fallback-mechanism
       priority: 1000
-      dsn: bolt://localhost
+      dsn: '%neo4j.dsn.badname%'
 
     - alias: neo4j-test
-      dsn: neo4j://neo4j:testtest@neo4j
+      dsn: '%neo4j.dsn.test%'
