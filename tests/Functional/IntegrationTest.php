@@ -17,7 +17,6 @@ use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Enum\SslMode;
 use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
-use Neo4j\Neo4jBundle\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Psr\Http\Message\UriInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
