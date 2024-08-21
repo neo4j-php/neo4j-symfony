@@ -7,14 +7,17 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Client;
+use Laudis\Neo4j\Common\DriverSetupManager;
 use Laudis\Neo4j\Common\SingleThreadedSemaphore;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Laudis\Neo4j\Contracts\DriverInterface;
 use Laudis\Neo4j\Databags\ConnectionRequestData;
+use Laudis\Neo4j\Databags\DriverSetup;
 use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Enum\SslMode;
 use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
+use Neo4j\Neo4jBundle\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Psr\Http\Message\UriInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -100,6 +103,31 @@ class IntegrationTest extends KernelTestCase
         $client->getDriver('neo4j_undefined_configs');
     }
 
+    public function testDriverAuthentication(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Neo4jDriver $driver */
+        $driver = $client->getDriver('neo4j-auth');
+        /** @var Neo4jConnectionPool $pool */
+        $pool = $this->getPrivateProperty($driver, 'pool');
+        /** @var ConnectionRequestData $data */
+        $data = $this->getPrivateProperty($pool, 'data');
+        $auth = $data->getAuth();
+        /** @var string $username */
+        $username = $this->getPrivateProperty($auth, 'username');
+        /** @var string $password */
+        $password = $this->getPrivateProperty($auth, 'password');
+
+        $this->assertSame($username, 'neo4j');
+        $this->assertSame($password, 'testtest');
+    }
+
     public function testDefaultDriverConfig(): void
     {
         static::bootKernel();
@@ -153,7 +181,7 @@ class IntegrationTest extends KernelTestCase
         $this->assertSame($sessionConfig->getFetchSize(), 999);
     }
 
-    public function testDefaultTrasactionConfig(): void
+    public function testDefaultTransactionConfig(): void
     {
         static::bootKernel();
         $container = static::getContainer();
@@ -167,6 +195,30 @@ class IntegrationTest extends KernelTestCase
         $transactionConfig = $innerClient->getDefaultTransactionConfiguration();
 
         $this->assertSame($transactionConfig->getTimeout(), 40.0);
+    }
+
+    public function testPriority(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Client $innerClient */
+        $innerClient = $this->getPrivateProperty($client, 'client');
+        /** @var DriverSetupManager $drivers */
+        $drivers = $this->getPrivateProperty($innerClient, 'driverSetups');
+        /** @var array<\SplPriorityQueue<int, DriverSetup>> $fallbackDriverQueue */
+        $driverSetups = $this->getPrivateProperty($drivers, 'driverSetups');
+        /** @var \SplPriorityQueue<int, DriverSetup> $fallbackDriverQueue */
+        $fallbackDriverQueue = $driverSetups['neo4j-fallback-mechanism'];
+        $fallbackDriverQueue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
+        /** @var array{data: DriverSetup, priority: int} $extractedValue */
+        $extractedValue = $fallbackDriverQueue->extract();
+
+        $this->assertSame($extractedValue['priority'], 1000);
     }
 
     /**
