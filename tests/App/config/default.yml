@@ -26,25 +26,25 @@ neo4j:
 
   drivers:
     - alias: neo4j_undefined_configs
-      dsn: '%neo4j.dsn.badname%'
+      dsn: "%neo4j.dsn.badname%"
 
     - alias: neo4j-enforced-defaults
-      dsn: '%neo4j.dsn.badname%'
+      dsn: "%neo4j.dsn.badname%"
       priority: null
 
     - alias: neo4j-partly-enforced-defaults
-      dsn: '%neo4j.dsn.secret%'
+      dsn: "%neo4j.dsn.secret%"
 
     - alias: neo4j-simple
-      dsn: '%neo4j.dsn.simple%'
+      dsn: "%neo4j.dsn.simple%"
 
     - alias: neo4j-fallback-mechanism
       priority: 100
-      dsn: '%neo4j.dsn.badname%'
+      dsn: "%neo4j.dsn.badname%"
 
     - alias: neo4j-fallback-mechanism
       priority: 1000
-      dsn: '%neo4j.dsn.badname%'
+      dsn: "%neo4j.dsn.badname%"
 
     - alias: neo4j-test
-      dsn: '%neo4j.dsn.test%'
+      dsn: "%neo4j.dsn.test%"
