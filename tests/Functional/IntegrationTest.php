@@ -1,11 +1,19 @@
 <?php
 
+/** @noinspection PhpInternalEntityUsedInspection */
+
 declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
+use Laudis\Neo4j\Client;
+use Laudis\Neo4j\Common\SingleThreadedSemaphore;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Laudis\Neo4j\Contracts\DriverInterface;
+use Laudis\Neo4j\Databags\ConnectionRequestData;
+use Laudis\Neo4j\Databags\SslConfiguration;
+use Laudis\Neo4j\Enum\SslMode;
+use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Psr\Http\Message\UriInterface;
@@ -67,12 +75,10 @@ class IntegrationTest extends KernelTestCase
          * @var Neo4jDriver $driver
          */
         $driver = $client->getDriver('default');
-        $reflection = new \ReflectionClass($driver);
-        $property = $reflection->getProperty('parsedUrl');
         /**
          * @var UriInterface $uri
          */
-        $uri = $property->getValue($driver);
+        $uri = $this->getPrivateProperty($driver, 'parsedUrl');
 
         $this->assertSame($uri->getScheme(), 'neo4j');
     }
@@ -92,5 +98,89 @@ class IntegrationTest extends KernelTestCase
          */
         $client = $container->get('neo4j.client');
         $client->getDriver('neo4j_undefined_configs');
+    }
+
+    public function testDefaultDriverConfig(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Neo4jDriver $driver */
+        $driver = $client->getDriver('default');
+        /** @var Neo4jConnectionPool $pool */
+        $pool = $this->getPrivateProperty($driver, 'pool');
+        /** @var SingleThreadedSemaphore $semaphore */
+        $semaphore = $this->getPrivateProperty($pool, 'semaphore');
+        /** @var int $max */
+        $max = $this->getPrivateProperty($semaphore, 'max');
+
+        // default_driver_config.pool_size
+        $this->assertSame($max, 256);
+
+        /** @var ConnectionRequestData $data */
+        $data = $this->getPrivateProperty($pool, 'data');
+
+        $this->assertSame($data->getUserAgent(), 'Neo4j Symfony Bundle/testing');
+
+        /** @var SslConfiguration $sslConfig */
+        $sslConfig = $this->getPrivateProperty($data, 'config');
+        /** @var SslMode $sslMode */
+        $sslMode = $this->getPrivateProperty($sslConfig, 'mode');
+        /** @var bool $verifyPeer */
+        $verifyPeer = $this->getPrivateProperty($sslConfig, 'verifyPeer');
+
+        $this->assertSame($sslMode, SslMode::DISABLE());
+        $this->assertFalse($verifyPeer);
+    }
+
+    public function testDefaultSessionConfig(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Client $innerClient */
+        $innerClient = $this->getPrivateProperty($client, 'client');
+        $sessionConfig = $innerClient->getDefaultSessionConfiguration();
+
+        $this->assertSame($sessionConfig->getFetchSize(), 999);
+    }
+
+    public function testDefaultTrasactionConfig(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var ClientInterface $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Client $innerClient */
+        $innerClient = $this->getPrivateProperty($client, 'client');
+        $transactionConfig = $innerClient->getDefaultTransactionConfiguration();
+
+        $this->assertSame($transactionConfig->getTimeout(), 40.0);
+    }
+
+    /**
+     * @template T
+     *
+     * @return T
+     *
+     * @noinspection PhpDocMissingThrowsInspection
+     */
+    private function getPrivateProperty(object $object, string $property): mixed
+    {
+        $reflection = new \ReflectionClass($object);
+        $property = $reflection->getProperty($property);
+
+        return $property->getValue($object);
     }
 }
