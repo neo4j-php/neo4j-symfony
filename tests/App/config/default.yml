@@ -6,6 +6,7 @@ parameters:
   neo4j.dsn.badname: bolt://localhost
   neo4j.dsn.secret: neo4j://neo4j:secret@localhost:7688
   neo4j.dsn.test: neo4j://neo4j:testtest@neo4j
+  neo4j.dsn.auth: neo4j://neo4j
   neo4j.dsn.simple: bolt://test:test@localhost
 
 neo4j:
@@ -48,3 +49,10 @@ neo4j:
 
     - alias: neo4j-test
       dsn: "%neo4j.dsn.test%"
+
+    - alias: neo4j-auth
+      dsn: "%neo4j.dsn.auth%"
+      authentication:
+        type: basic
+        username: neo4j
+        password: testtest
