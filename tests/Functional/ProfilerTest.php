@@ -2,6 +2,7 @@
 
 namespace Functional;
 
+use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -21,9 +22,11 @@ class ProfilerTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         if ($profile = $client->getProfile()) {
+            /** @var Neo4jDataCollector $collector */
+            $collector = $profile->getCollector('neo4j');
             $this->assertEquals(
                 2,
-                $profile->getCollector('neo4j')->getQueryCount()
+                $collector->getQueryCount()
             );
         }
     }
