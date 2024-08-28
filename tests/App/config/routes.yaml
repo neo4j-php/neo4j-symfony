@@ -1,3 +1,3 @@
-controllers:
-  resource: '../Controller/'
-  type: attribute
+test:
+  path: /
+  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController

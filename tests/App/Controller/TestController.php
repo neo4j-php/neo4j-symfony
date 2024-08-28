@@ -5,7 +5,6 @@ namespace Neo4j\Neo4jBundle\Tests\App\Controller;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 
 class TestController extends AbstractController
 {
@@ -15,12 +14,6 @@ class TestController extends AbstractController
     }
 
     public function __invoke(): Response
-    {
-        return $this->index();
-    }
-
-    #[Route('/', methods: ['GET'])]
-    public function index(): Response
     {
         $this->client->run('MATCH (n) RETURN n');
         $this->client->run('MATCH (n) RETURN n');
