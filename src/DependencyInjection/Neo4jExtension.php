@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
-use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
-use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
