@@ -73,7 +73,7 @@ class Neo4jExtension extends Extension
                 (new Definition(Neo4jDataCollector::class))
                     ->setAutowired(true)
                     ->addTag('data_collector', [
-                        'id' => Neo4jDataCollector::class,
+                        'id' => 'neo4j',
                         'priority' => 500,
                     ])
             );

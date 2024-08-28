@@ -7,4 +7,4 @@ web_profiler_wdt:
   prefix: /_wdt
 web_profiler_profiler:
   resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'
-  prefix: /_profiler
+  prefix: /_profiler4

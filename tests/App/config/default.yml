@@ -20,7 +20,6 @@ twig:
   debug: "%kernel.debug%"
   paths:
     - '%kernel.project_dir%/tests/App/Controller/Twig'
-    - '%kernel.project_dir%/templates'
 
 web_profiler:
   toolbar: true

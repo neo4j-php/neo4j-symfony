@@ -3,7 +3,7 @@ networks:
 
 services:
     app:
-        user: root:${UID-1000}:${GID-1000}
+        user: ${UID-1000}:${GID-1000}
         build:
             context: .
         ports:
@@ -18,6 +18,8 @@ services:
             - NEO4J_PASSWORD=testtest
             - XDEBUG_CONFIG="client_host=host.docker.internal log=/tmp/xdebug.log"
         working_dir: /opt/project
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         networks:
             - neo4j-symfony
 
