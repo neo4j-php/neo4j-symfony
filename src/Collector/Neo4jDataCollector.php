@@ -78,6 +78,6 @@ final class Neo4jDataCollector extends AbstractDataCollector
 
     public static function getTemplate(): ?string
     {
-        return 'web_profiler.html.twig';
+        return 'data_collector/web_profiler.html.twig';
     }
 }

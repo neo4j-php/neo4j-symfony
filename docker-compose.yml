@@ -16,6 +16,7 @@ services:
             - NEO4J_PORT=7687
             - NEO4J_USER=neo4j
             - NEO4J_PASSWORD=testtest
+            - XDEBUG_CONFIG="client_host=host.docker.internal log=/tmp/xdebug.log"
         working_dir: /opt/project
         networks:
             - neo4j-symfony

@@ -24,7 +24,7 @@ class EventHandler
 {
     private ?EventDispatcherInterface $dispatcher;
 
-    public function __construct(?EventDispatcherInterface $dispatcher)
+    public function __construct(?EventDispatcherInterface $dispatcher, private readonly string $alias)
     {
         $this->dispatcher = $dispatcher;
     }
@@ -46,9 +46,9 @@ class EventHandler
 
         try {
             $tbr = $runHandler($statement);
-            $this->dispatcher->dispatch(new PostRunEvent($alias, $tbr->getSummary()), PostRunEvent::EVENT_ID);
+            $this->dispatcher->dispatch(new PostRunEvent($alias ?? $this->alias, $tbr->getSummary()), PostRunEvent::EVENT_ID);
         } catch (Neo4jException $e) {
-            $event = new FailureEvent($alias, $statement, $e);
+            $event = new FailureEvent($alias ?? $this->alias, $statement, $e);
             $event = $this->dispatcher->dispatch($event, FailureEvent::EVENT_ID);
 
             if ($event->shouldThrowException()) {

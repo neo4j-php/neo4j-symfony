@@ -17,10 +17,6 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
 
-    $services->set('neo4j.event_handler', EventHandler::class)
-        ->autowire()
-        ->autoconfigure();
-
     $services->set('neo4j.client_factory', ClientFactory::class)
         ->args([
             service('neo4j.event_handler'),

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
+use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -27,8 +28,15 @@ class Neo4jExtension extends Extension
         $configuration = new Configuration();
         $mergedConfig = $this->processConfiguration($configuration, $configs);
 
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
         $loader->load('services.php');
+
+        $defaultAlias = $mergedConfig['default_driver'] ?? $mergedConfig['drivers'][0]['alias'] ?? 'default';
+
+        $container->setDefinition('neo4j.event_handler', new Definition(EventHandler::class))
+            ->setAutowired(true)
+            ->addTag('neo4j.event_handler')
+            ->setArgument(1, $defaultAlias);
 
         $container->getDefinition('neo4j.client_factory')
             ->setArgument(1, $mergedConfig['default_driver_config'] ?? null)
@@ -37,32 +45,46 @@ class Neo4jExtension extends Extension
             ->setArgument(4, $mergedConfig['drivers'] ?? [])
             ->setArgument(5, $mergedConfig['default_driver'] ?? null)
             ->setArgument(6, new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument(7, new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument(8, new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setAbstract(false)
-        ;
+            ->setArgument(
+                7,
+                new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
+            )
+            ->setArgument(
+                8,
+                new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
+            )
+            ->setAbstract(false);
 
         $container->getDefinition('neo4j.driver')
-            ->setArgument(0, $mergedConfig['drivers']['alias'] ?? 'default');
+            ->setArgument(0, $defaultAlias);
 
         $enabledProfiles = [];
         foreach ($mergedConfig['drivers'] as $driver) {
-            if (true === $driver['profiling'] || (null === $driver['profiling'] && $container->getParameter('kernel.debug'))) {
+            if (true === $driver['profiling'] || (null === $driver['profiling'] && $container->getParameter(
+                        'kernel.debug'
+                    ))) {
                 $enabledProfiles[] = $driver['alias'];
             }
         }
 
         if (0 !== count($enabledProfiles)) {
-            $container->setDefinition('neo4j.data_collector', (new Definition(Neo4jDataCollector::class))
-                ->setAutowired(true)
-                ->addTag('data_collector')
+            $container->setDefinition(
+                'neo4j.data_collector',
+                (new Definition(Neo4jDataCollector::class))
+                    ->setAutowired(true)
+                    ->addTag('data_collector', [
+                        'id' => Neo4jDataCollector::class,
+                        'priority' => 500,
+                    ])
             );
 
             $container->setAlias(Neo4jProfileListener::class, 'neo4j.subscriber');
 
-            $container->setDefinition('neo4j.subscriber', (new Definition(Neo4jProfileListener::class))
-                ->setArgument(0, $enabledProfiles)
-                ->addTag('kernel.event_subscriber')
+            $container->setDefinition(
+                'neo4j.subscriber',
+                (new Definition(Neo4jProfileListener::class))
+                    ->setArgument(0, $enabledProfiles)
+                    ->addTag('kernel.event_subscriber')
             );
         }
 
