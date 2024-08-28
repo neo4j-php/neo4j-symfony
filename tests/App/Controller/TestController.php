@@ -14,6 +14,11 @@ class TestController extends AbstractController
     ) {
     }
 
+    public function __invoke(): Response
+    {
+        return $this->index();
+    }
+
     #[Route('/', methods: ['GET'])]
     public function index(): Response
     {
