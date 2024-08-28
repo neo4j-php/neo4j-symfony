@@ -12,7 +12,6 @@ use Psr\Http\Message\StreamFactoryInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -50,20 +49,6 @@ class Neo4jExtension extends Extension
             if (true === $driver['profiling'] || (null === $driver['profiling'] && $container->getParameter('kernel.debug'))) {
                 $enabledProfiles[] = $driver['alias'];
             }
-        }
-
-        if (0 !== count($enabledProfiles)) {
-            $container->setDefinition('neo4j.data_collector', (new Definition(Neo4jDataCollector::class))
-                ->setAutowired(true)
-                ->addTag('data_collector')
-            );
-
-            $container->setAlias(Neo4jProfileListener::class, 'neo4j.subscriber');
-
-            $container->setDefinition('neo4j.subscriber', (new Definition(Neo4jProfileListener::class))
-                ->setArgument(0, $enabledProfiles)
-                ->addTag('kernel.event_subscriber')
-            );
         }
 
         return $container;
