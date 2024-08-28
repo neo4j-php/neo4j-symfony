@@ -8,7 +8,6 @@ use Laudis\Neo4j\Contracts\SessionInterface;
 use Laudis\Neo4j\Contracts\TransactionInterface;
 use Neo4j\Neo4jBundle\ClientFactory;
 use Neo4j\Neo4jBundle\EventHandler;
-use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Neo4j\Neo4jBundle\SymfonyClient;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
