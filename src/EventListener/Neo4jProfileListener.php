@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\EventListener;
 
-use DateTimeInterface;
 use Laudis\Neo4j\Databags\ResultSummary;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
@@ -19,13 +18,21 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
      * @var list<array{
      *     result: ResultSummary,
      *     alias: string|null,
-     *     time: DateTimeInterface
+     *     time: string,
+     *     start_time: float|int,
+     *     end_time: float|int
      * }>
      */
     private array $profiledSummaries = [];
 
     /**
-     * @var list<array{exception: Neo4jException, statement: Statement, alias: string|null}>
+     * @var list<array{
+     *     exception: Neo4jException,
+     *     statement: Statement,
+     *     alias: string|null,
+     *     time: string,
+     *     timestamp: int
+     * }>
      */
     private array $profiledFailures = [];
 
@@ -80,7 +87,13 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     }
 
     /**
-     * @return list<array{exception: Neo4jException, statement: Statement, alias: string|null}>
+     * @return list<array{
+     *     exception: Neo4jException,
+     *     statement: Statement,
+     *     alias: string|null,
+     *     time: string,
+     *     timestamp: int
+     * }>
      */
     public function getProfiledFailures(): array
     {

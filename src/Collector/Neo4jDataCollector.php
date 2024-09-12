@@ -32,12 +32,15 @@ final class Neo4jDataCollector extends AbstractDataCollector
         $profiledSummaries = $this->subscriber->getProfiledSummaries();
         $successfulStatements = array_map(
             static function (string $key, mixed $value) {
-                if ('result' !== $key) {
-                    return [...$value, 'status' => 'success'];
+                if ('result' !== $key && /* Is always array */ is_array($value)) {
+                    return [
+                        ...$value,
+                        'status' => 'success',
+                    ];
                 }
 
                 return array_map(
-                    static function (string $key, mixed $obj) {
+                    static function (mixed $obj) {
                         if (is_object($obj) && method_exists($obj, 'toArray')) {
                             return $obj->toArray();
                         }

@@ -16,13 +16,12 @@ class TestController extends AbstractController
 
     public function __invoke(Profiler $profiler): Response
     {
-        //        dd($profiler->loadProfile('0a1909'));
         // Successful statement
         $this->client->run('MATCH (n) RETURN n');
         try {
             // Failing statement
             $this->client->run('MATCH (n) {x: $x}', ['x' => 1]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             // ignore
         }
 

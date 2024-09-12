@@ -12,9 +12,9 @@ class PostRunEvent extends Event
     public const EVENT_ID = 'neo4j.post_run';
 
     public function __construct(
-        private ?string $alias,
-        private ResultSummary $result,
-        private \DateTimeInterface $time
+        private readonly ?string $alias,
+        private readonly ResultSummary $result,
+        private readonly \DateTimeInterface $time
     ) {
     }
 
