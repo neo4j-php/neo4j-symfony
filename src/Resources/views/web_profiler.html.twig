@@ -60,19 +60,25 @@
             <th class="nowrap">#</th>
             <th class="nowrap">Status</th>
             <th style="width: 100%;">Query</th>
+            <th class="nowrap">Query Time</th>
+            <th class="nowrap">Query Type</th>
+            <th class="nowrap">Database</th>
+            <th class="nowrap">Executed At</th>
+            <th class="nowrap">Exception Title</th>
         </tr>
         </thead>
         <tbody>
-        {% for idx, statement in collector.successfulStatements %}
+        {% for idx, statement in collector.statements %}
         <tr>
+            {% set status = statement.status|default('unknown') %}
             {% set start_time = statement.start_time|default(null) %}
             {% set end_time = statement.end_time|default(null) %}
 
             <td class="nowrap">{{ idx + 1 }}</td>
-            <td class="nowrap">{% if start_time is not null and end_time is not null %}{{ '%0.2f'|format(end_time - start_time) }}ms{% endif %}</td>
+            <td class="nowrap">{{ statement.status }}</td>
             <td>
                 <div>
-                    {{ statement.query|default('') }}
+                    {{ statement.result.statement.text|default('') }}
                 </div>
                 <div class="text-small font-normal">
                     <a href="#" class="sf-toggle link-inverse" data-toggle-selector="#neo4j-details-{{ idx }}" data-toggle-alt-content="Hide details" data-toggle-original-content="View details">View details</a>
@@ -80,31 +86,45 @@
 
                 <div id="neo4j-details-{{ idx }}">
                     <div>
-                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.parameters|default([])|yaml_encode }}
+                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.result.parameters|default([])|yaml_encode }}
                     </div>
                     <div>
-                        <strong class="font-normal text-small">Tag</strong>: {{ statement.tag|default('N/A')|yaml_encode }}
+                        <strong class="font-normal text-small">Tag</strong>: {{ statement.result.tag|default('N/A')|yaml_encode }}
                     </div>
-{#                    {% if statement.success %}#}
+{#                    {% if statement.result.success %}#}
                     <div>
-                        <strong class="font-normal text-small">Number of results</strong>: {{ statement.nb_results|default('N/A') }}
+                        <strong class="font-normal text-small">Number of results</strong>: {{ statement.result.nb_results|default('N/A') }}
                     </div>
                     <div>
-                        <strong class="font-normal text-small">Scheme</strong>: {{ statement.scheme|default('N/A') }}
+                        <strong class="font-normal text-small">Scheme</strong>: {{ statement.result.scheme|default('N/A') }}
                     </div>
                     <div>
                         <strong class="font-normal text-small">Statistics</strong>: {{ statement|yaml_encode }}
                     </div>
 {#                    {% else %}#}
 {#                    <div>#}
-{#                        <strong class="font-normal text-small">Type</strong>: {{ statement.exceptionCode }}#}
+{#                        <strong class="font-normal text-small">Type</strong>: {{ statement.result.exceptionCode }}#}
 {#                    </div>#}
 {#                    <div>#}
-{#                        <strong class="font-normal text-small">message</strong>: {{ statement.exceptionMessage }}#}
+{#                        <strong class="font-normal text-small">message</strong>: {{ statement.result.exceptionMessage }}#}
 {#                    </div>.suc#}
 {#                    {% endif %}#}
                 </div>
             </td>
+            <td class="nowrap">{% if status is same as('success') %}{% if start_time is not null and end_time is not null %}{{ '%0.2f'|format(end_time - start_time) }}ms{% endif %}{% else %}N/A{% endif %}</td>
+            {% if status is same as('success') %}
+                <td class="nowrap">{{ statement.result.queryType }}</td>
+                <td class="nowrap">{{ statement.result.databaseInfo.name }}</td>
+            {% else %}
+                <td class="nowrap">N/A</td>
+                <td class="nowrap">N/A</td>
+            {% endif %}
+            <td class="nowrap">{{ statement.time }}</td>
+            {% if status is same as('success') %}
+                <td class="nowrap">N/A</td>
+            {% else %}
+                <td class="nowrap">{{ statement.exception.title }}</td>
+            {% endif %}
         </tr>
         {% endfor %}
         </tbody>

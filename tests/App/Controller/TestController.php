@@ -16,7 +16,7 @@ class TestController extends AbstractController
 
     public function __invoke(Profiler $profiler): Response
     {
-//        dd($profiler->loadProfile('0a1909'));
+        //        dd($profiler->loadProfile('0a1909'));
         // Successful statement
         $this->client->run('MATCH (n) RETURN n');
         try {

@@ -13,13 +13,19 @@ class PostRunEvent extends Event
 
     public function __construct(
         private ?string $alias,
-        private ResultSummary $result
+        private ResultSummary $result,
+        private \DateTimeInterface $time
     ) {
     }
 
     public function getResult(): ResultSummary
     {
         return $this->result;
+    }
+
+    public function getTime(): \DateTimeInterface
+    {
+        return $this->time;
     }
 
     public function getAlias(): ?string

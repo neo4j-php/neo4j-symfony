@@ -42,13 +42,20 @@ class EventHandler
             return $runHandler($statement);
         }
 
-        $this->dispatcher->dispatch(new PreRunEvent($alias, $statement), PreRunEvent::EVENT_ID);
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
+        $this->dispatcher->dispatch(new PreRunEvent($alias, $statement, $time), PreRunEvent::EVENT_ID);
 
         try {
             $tbr = $runHandler($statement);
-            $this->dispatcher->dispatch(new PostRunEvent($alias ?? $this->alias, $tbr->getSummary()), PostRunEvent::EVENT_ID);
+            $this->dispatcher->dispatch(
+                new PostRunEvent($alias ?? $this->alias, $tbr->getSummary(), $time),
+                PostRunEvent::EVENT_ID
+            );
         } catch (Neo4jException $e) {
-            $event = new FailureEvent($alias ?? $this->alias, $statement, $e);
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
+            $event = new FailureEvent($alias ?? $this->alias, $statement, $e, $time);
             $event = $this->dispatcher->dispatch($event, FailureEvent::EVENT_ID);
 
             if ($event->shouldThrowException()) {

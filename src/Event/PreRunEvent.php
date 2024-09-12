@@ -11,13 +11,18 @@ class PreRunEvent extends Event
 {
     public const EVENT_ID = 'neo4j.pre_run';
 
-    public function __construct(private ?string $alias, private Statement $statement)
+    public function __construct(private ?string $alias, private Statement $statement, private \DateTimeInterface $time)
     {
     }
 
     public function getStatement(): Statement
     {
         return $this->statement;
+    }
+
+    public function getTime(): \DateTimeInterface
+    {
+        return $this->time;
     }
 
     public function getAlias(): ?string

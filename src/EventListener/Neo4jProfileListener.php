@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\EventListener;
 
+use DateTimeInterface;
 use Laudis\Neo4j\Databags\ResultSummary;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
@@ -15,7 +16,11 @@ use Symfony\Contracts\Service\ResetInterface;
 final class Neo4jProfileListener implements EventSubscriberInterface, ResetInterface
 {
     /**
-     * @var list<ResultSummary>
+     * @var list<array{
+     *     result: ResultSummary,
+     *     alias: string|null,
+     *     time: DateTimeInterface
+     * }>
      */
     private array $profiledSummaries = [];
 
@@ -27,7 +32,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     /**
      * @param list<string> $enabledProfiles
      */
-    public function __construct(private array $enabledProfiles = [])
+    public function __construct(private readonly array $enabledProfiles = [])
     {
     }
 
@@ -42,17 +47,29 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     public function onPostRun(PostRunEvent $event): void
     {
         if (in_array($event->getAlias(), $this->enabledProfiles)) {
-            $this->profiledSummaries[] = $event->getResult();
+            $time = $event->getTime();
+            $result = $event->getResult();
+            $end_time = $time->getTimestamp() + $result->getResultAvailableAfter() + $result->getResultConsumedAfter();
+            $this->profiledSummaries[] = [
+                'result' => $event->getResult(),
+                'alias' => $event->getAlias(),
+                'time' => $time->format('Y-m-d H:i:s'),
+                'start_time' => $time->getTimestamp(),
+                'end_time' => $end_time,
+            ];
         }
     }
 
     public function onFailure(FailureEvent $event): void
     {
         if (in_array($event->getAlias(), $this->enabledProfiles)) {
+            $time = $event->getTime();
             $this->profiledFailures[] = [
                 'exception' => $event->getException(),
                 'statement' => $event->getStatement(),
                 'alias' => $event->getAlias(),
+                'time' => $time->format('Y-m-d H:i:s'),
+                'timestamp' => $time->getTimestamp(),
             ];
         }
     }

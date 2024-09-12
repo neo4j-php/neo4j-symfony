@@ -28,7 +28,7 @@ class Neo4jExtension extends Extension
         $configuration = new Configuration();
         $mergedConfig = $this->processConfiguration($configuration, $configs);
 
-        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.php');
 
         $defaultAlias = $mergedConfig['default_driver'] ?? $mergedConfig['drivers'][0]['alias'] ?? 'default';
@@ -61,8 +61,8 @@ class Neo4jExtension extends Extension
         $enabledProfiles = [];
         foreach ($mergedConfig['drivers'] as $driver) {
             if (true === $driver['profiling'] || (null === $driver['profiling'] && $container->getParameter(
-                        'kernel.debug'
-                    ))) {
+                'kernel.debug'
+            ))) {
                 $enabledProfiles[] = $driver['alias'];
             }
         }
