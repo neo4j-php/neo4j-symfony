@@ -29,30 +29,21 @@ final class Neo4jDataCollector extends AbstractDataCollector
 
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
+        $t = $this;
         $profiledSummaries = $this->subscriber->getProfiledSummaries();
-        $successfulStatements = array_map(
-            static function (string $key, mixed $value) {
-                if ('result' !== $key && /* Is always array */ is_array($value)) {
-                    return [
-                        ...$value,
-                        'status' => 'success',
-                    ];
+        $successfulStatements = [];
+        foreach ($profiledSummaries as $summary) {
+            $statement = ['status' => 'success'];
+            foreach ($summary as $key => $value) {
+                if (!is_array($value) && !is_object($value)) {
+                    $statement[$key] = $value;
+                    continue;
                 }
 
-                return array_map(
-                    static function (mixed $obj) {
-                        if (is_object($obj) && method_exists($obj, 'toArray')) {
-                            return $obj->toArray();
-                        }
-
-                        return $obj;
-                    },
-                    $value['result']->toArray()
-                );
-            },
-            array_keys($profiledSummaries),
-            array_values($profiledSummaries)
-        );
+                $statement[$key] = $t->recursiveToArray($value);
+            }
+            $successfulStatements[] = $statement;
+        }
 
         $failedStatements = array_map(
             static fn (array $x) => [
@@ -95,6 +86,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
         return 'neo4j';
     }
 
+    /** @api */
     public function getStatements(): array
     {
         return $this->data['statements'];
@@ -116,11 +108,13 @@ final class Neo4jDataCollector extends AbstractDataCollector
         );
     }
 
+    /** @api */
     public function getFailedStatementsCount(): array
     {
         return $this->data['failed_statements_count'];
     }
 
+    /** @api */
     public function getSuccessfulStatementsCount(): array
     {
         return $this->data['successful_statements_count'];
@@ -134,5 +128,21 @@ final class Neo4jDataCollector extends AbstractDataCollector
     public static function getTemplate(): ?string
     {
         return '@Neo4j/web_profiler.html.twig';
+    }
+
+    private function recursiveToArray(mixed $obj): mixed
+    {
+        if (is_array($obj)) {
+            return array_map(
+                fn (mixed $x) => $this->recursiveToArray($x),
+                $obj
+            );
+        }
+
+        if (is_object($obj) && method_exists($obj, 'toArray')) {
+            return $obj->toArray();
+        }
+
+        return $obj;
     }
 }

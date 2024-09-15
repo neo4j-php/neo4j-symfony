@@ -6,6 +6,7 @@ use Laudis\Neo4j\Contracts\ClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Profiler\Profiler;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class TestController extends AbstractController
 {
@@ -14,10 +15,10 @@ class TestController extends AbstractController
     ) {
     }
 
-    public function __invoke(Profiler $profiler): Response
+    public function __invoke(Profiler $profiler, Stopwatch $stopwatch): Response
     {
         // Successful statement
-        $this->client->run('MATCH (n) RETURN n');
+        $this->client->run('MATCH (n {foo: $bar}) RETURN n', ['bar' => 'baz']);
         try {
             // Failing statement
             $this->client->run('MATCH (n) {x: $x}', ['x' => 1]);

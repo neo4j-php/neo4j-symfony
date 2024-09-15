@@ -18,14 +18,18 @@ use Laudis\Neo4j\Types\CypherList;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Neo4j\Neo4jBundle\Event\PreRunEvent;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventHandler
 {
     private ?EventDispatcherInterface $dispatcher;
 
-    public function __construct(?EventDispatcherInterface $dispatcher, private readonly string $alias)
-    {
+    public function __construct(
+        ?EventDispatcherInterface $dispatcher,
+        private readonly string $alias,
+        private readonly Stopwatch $stopwatch
+    ) {
         $this->dispatcher = $dispatcher;
     }
 
@@ -46,13 +50,17 @@ class EventHandler
         $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
         $this->dispatcher->dispatch(new PreRunEvent($alias, $statement, $time), PreRunEvent::EVENT_ID);
 
+        $stopWatchName = sprintf('neo4j.%s.query', $alias ?? $this->alias);
         try {
+            $this->stopwatch->start($stopWatchName);
             $tbr = $runHandler($statement);
+            $this->stopwatch->stop($stopWatchName);
             $this->dispatcher->dispatch(
                 new PostRunEvent($alias ?? $this->alias, $tbr->getSummary(), $time),
                 PostRunEvent::EVENT_ID
             );
         } catch (Neo4jException $e) {
+            $this->stopwatch->stop($stopWatchName);
             /** @noinspection PhpUnhandledExceptionInspection */
             $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
             $event = new FailureEvent($alias ?? $this->alias, $statement, $e, $time);

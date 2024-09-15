@@ -86,7 +86,7 @@
 
                 <div id="neo4j-details-{{ idx }}">
                     <div>
-                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.result.parameters|default([])|yaml_encode }}
+                        <strong class="font-normal text-small">Parameters</strong>: {{ statement.result.statement.parameters|default([])|json_encode }}
                     </div>
                     <div>
                         <strong class="font-normal text-small">Tag</strong>: {{ statement.result.tag|default('N/A')|yaml_encode }}
@@ -99,7 +99,7 @@
                         <strong class="font-normal text-small">Scheme</strong>: {{ statement.result.scheme|default('N/A') }}
                     </div>
                     <div>
-                        <strong class="font-normal text-small">Statistics</strong>: {{ statement|yaml_encode }}
+                        <strong class="font-normal text-small">Statistics</strong>: {{ statement|json_encode }}
                     </div>
 {#                    {% else %}#}
 {#                    <div>#}
