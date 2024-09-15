@@ -28,7 +28,7 @@ class EventHandler
     public function __construct(
         ?EventDispatcherInterface $dispatcher,
         private readonly string $alias,
-        private readonly Stopwatch $stopwatch
+        private readonly ?Stopwatch $stopwatch
     ) {
         $this->dispatcher = $dispatcher;
     }
@@ -52,15 +52,15 @@ class EventHandler
 
         $stopWatchName = sprintf('neo4j.%s.query', $alias ?? $this->alias);
         try {
-            $this->stopwatch->start($stopWatchName);
+            $this->stopwatch?->start($stopWatchName);
             $tbr = $runHandler($statement);
-            $this->stopwatch->stop($stopWatchName);
+            $this->stopwatch?->stop($stopWatchName);
             $this->dispatcher->dispatch(
                 new PostRunEvent($alias ?? $this->alias, $tbr->getSummary(), $time),
                 PostRunEvent::EVENT_ID
             );
         } catch (Neo4jException $e) {
-            $this->stopwatch->stop($stopWatchName);
+            $this->stopwatch?->stop($stopWatchName);
             /** @noinspection PhpUnhandledExceptionInspection */
             $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
             $event = new FailureEvent($alias ?? $this->alias, $statement, $e, $time);

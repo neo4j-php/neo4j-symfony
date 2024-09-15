@@ -89,26 +89,11 @@
                         <strong class="font-normal text-small">Parameters</strong>: {{ statement.result.statement.parameters|default([])|json_encode }}
                     </div>
                     <div>
-                        <strong class="font-normal text-small">Tag</strong>: {{ statement.result.tag|default('N/A')|yaml_encode }}
-                    </div>
-{#                    {% if statement.result.success %}#}
-                    <div>
-                        <strong class="font-normal text-small">Number of results</strong>: {{ statement.result.nb_results|default('N/A') }}
-                    </div>
-                    <div>
-                        <strong class="font-normal text-small">Scheme</strong>: {{ statement.result.scheme|default('N/A') }}
+                        <strong class="font-normal text-small">Alias</strong>: {{ statement.alias|default('N/A') }}
                     </div>
                     <div>
                         <strong class="font-normal text-small">Statistics</strong>: {{ statement|json_encode }}
                     </div>
-{#                    {% else %}#}
-{#                    <div>#}
-{#                        <strong class="font-normal text-small">Type</strong>: {{ statement.result.exceptionCode }}#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <strong class="font-normal text-small">message</strong>: {{ statement.result.exceptionMessage }}#}
-{#                    </div>.suc#}
-{#                    {% endif %}#}
                 </div>
             </td>
             <td class="nowrap">{% if status is same as('success') %}{% if start_time is not null and end_time is not null %}{{ '%0.2f'|format(end_time - start_time) }}ms{% endif %}{% else %}N/A{% endif %}</td>
