@@ -16,6 +16,10 @@ use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 return static function (ContainerConfigurator $configurator) {
     $services = $configurator->services();
 
+    $services->set('neo4j.event_handler', EventHandler::class)
+        ->autowire()
+        ->autoconfigure();
+
     $services->set('neo4j.client_factory', ClientFactory::class)
         ->args([
             service('neo4j.event_handler'),
@@ -43,4 +47,7 @@ return static function (ContainerConfigurator $configurator) {
     $services->alias(DriverInterface::class, 'neo4j.driver');
     $services->alias(SessionInterface::class, 'neo4j.session');
     $services->alias(TransactionInterface::class, 'neo4j.transaction');
+
+    $services->set('neo4j.subscriber', Neo4jProfileListener::class)
+        ->tag('kernel.event_subscriber');
 };
