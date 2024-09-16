@@ -14,7 +14,8 @@ class PostRunEvent extends Event
     public function __construct(
         private readonly ?string $alias,
         private readonly ResultSummary $result,
-        private readonly \DateTimeInterface $time
+        private readonly \DateTimeInterface $time,
+        private readonly ?string $scheme
     ) {
     }
 
@@ -31,5 +32,10 @@ class PostRunEvent extends Event
     public function getAlias(): ?string
     {
         return $this->alias;
+    }
+
+    public function getScheme(): ?string
+    {
+        return $this->scheme;
     }
 }

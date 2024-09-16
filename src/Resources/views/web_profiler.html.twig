@@ -91,6 +91,10 @@
                     <div>
                         <strong class="font-normal text-small">Alias</strong>: {{ statement.alias|default('N/A') }}
                     </div>
+                    {# TODO: Add scheme. Scheme is currently private in the underlying driver  #}
+{#                    <div>#}
+{#                        <strong class="font-normal text-small">Scheme</strong>: {{ statement.scheme|default('N/A') }}#}
+{#                    </div>#}
                     <div>
                         <strong class="font-normal text-small">Statistics</strong>: {{ statement|json_encode }}
                     </div>

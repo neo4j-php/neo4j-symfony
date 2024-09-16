@@ -37,7 +37,12 @@ class SymfonyClient implements ClientInterface
 
     public function runStatement(Statement $statement, ?string $alias = null): ?SummarizedResult
     {
-        return $this->handler->handle(fn (Statement $statement) => $this->client->runStatement($statement, $alias), $statement, $alias);
+        return $this->handler->handle(
+            fn(Statement $statement) => $this->client->runStatement($statement, $alias),
+            $statement,
+            $alias,
+            null
+        );
     }
 
     public function runStatements(iterable $statements, ?string $alias = null): CypherList
@@ -50,14 +55,17 @@ class SymfonyClient implements ClientInterface
         return CypherList::fromIterable($tbr);
     }
 
-    public function beginTransaction(?iterable $statements = null, ?string $alias = null, ?TransactionConfiguration $config = null): UnmanagedTransactionInterface
-    {
+    public function beginTransaction(
+        ?iterable $statements = null,
+        ?string $alias = null,
+        ?TransactionConfiguration $config = null
+    ): UnmanagedTransactionInterface {
         $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler, $alias);
 
-        $runHandler = fn (Statement $statement): CypherList => $tsx->runStatement($statement);
+        $runHandler = fn(Statement $statement): CypherList => $tsx->runStatement($statement);
 
         foreach (($statements ?? []) as $statement) {
-            $this->handler->handle($runHandler, $statement, $alias);
+            $this->handler->handle($runHandler, $statement, $alias, null);
         }
 
         return $tsx;
@@ -68,24 +76,30 @@ class SymfonyClient implements ClientInterface
         return $this->client->getDriver($alias);
     }
 
-    public function writeTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
-    {
+    public function writeTransaction(
+        callable $tsxHandler,
+        ?string $alias = null,
+        ?TransactionConfiguration $config = null
+    ) {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::READ());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
+            fn() => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }
 
-    public function readTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
-    {
+    public function readTransaction(
+        callable $tsxHandler,
+        ?string $alias = null,
+        ?TransactionConfiguration $config = null
+    ) {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::WRITE());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
+            fn() => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }
