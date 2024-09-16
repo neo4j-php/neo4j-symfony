@@ -18,14 +18,18 @@ use Laudis\Neo4j\Types\CypherList;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Neo4j\Neo4jBundle\Event\PreRunEvent;
+use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventHandler
 {
     private ?EventDispatcherInterface $dispatcher;
 
-    public function __construct(?EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        ?EventDispatcherInterface $dispatcher,
+        private readonly string $alias,
+        private readonly ?Stopwatch $stopwatch,
+    ) {
         $this->dispatcher = $dispatcher;
     }
 
@@ -36,19 +40,34 @@ class EventHandler
      *
      * @return SummarizedResult<T>
      */
-    public function handle(callable $runHandler, Statement $statement, ?string $alias): SummarizedResult
+    public function handle(callable $runHandler, Statement $statement, ?string $alias, ?string $scheme): SummarizedResult
     {
+        $stopWatchName = sprintf('neo4j.%s.query', $alias ?? $this->alias);
         if (null === $this->dispatcher) {
-            return $runHandler($statement);
+            $this->stopwatch?->start($stopWatchName);
+            $result = $runHandler($statement);
+            $this->stopwatch?->stop($stopWatchName);
+
+            return $result;
         }
 
-        $this->dispatcher->dispatch(new PreRunEvent($alias, $statement), PreRunEvent::EVENT_ID);
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
+        $this->dispatcher->dispatch(new PreRunEvent($alias, $statement, $time, $scheme), PreRunEvent::EVENT_ID);
 
         try {
+            $this->stopwatch?->start($stopWatchName);
             $tbr = $runHandler($statement);
-            $this->dispatcher->dispatch(new PostRunEvent($alias, $tbr->getSummary()), PostRunEvent::EVENT_ID);
+            $this->stopwatch?->stop($stopWatchName);
+            $this->dispatcher->dispatch(
+                new PostRunEvent($alias ?? $this->alias, $tbr->getSummary(), $time, $scheme),
+                PostRunEvent::EVENT_ID
+            );
         } catch (Neo4jException $e) {
-            $event = new FailureEvent($alias, $statement, $e);
+            $this->stopwatch?->stop($stopWatchName);
+            /** @noinspection PhpUnhandledExceptionInspection */
+            $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
+            $event = new FailureEvent($alias ?? $this->alias, $statement, $e, $time, $scheme);
             $event = $this->dispatcher->dispatch($event, FailureEvent::EVENT_ID);
 
             if ($event->shouldThrowException()) {

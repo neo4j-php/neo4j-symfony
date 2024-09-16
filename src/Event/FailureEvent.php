@@ -14,8 +14,13 @@ class FailureEvent extends Event
 
     protected bool $shouldThrowException = true;
 
-    public function __construct(private ?string $alias, private Statement $statement, private Neo4jException $exception)
-    {
+    public function __construct(
+        private readonly ?string $alias,
+        private readonly Statement $statement,
+        private readonly Neo4jException $exception,
+        private readonly \DateTimeInterface $time,
+        private readonly ?string $scheme,
+    ) {
     }
 
     public function getException(): Neo4jException
@@ -23,6 +28,7 @@ class FailureEvent extends Event
         return $this->exception;
     }
 
+    /** @api */
     public function disableException(): void
     {
         $this->shouldThrowException = false;
@@ -33,6 +39,11 @@ class FailureEvent extends Event
         return $this->shouldThrowException;
     }
 
+    public function getTime(): \DateTimeInterface
+    {
+        return $this->time;
+    }
+
     public function getAlias(): ?string
     {
         return $this->alias;
@@ -41,5 +52,10 @@ class FailureEvent extends Event
     public function getStatement(): Statement
     {
         return $this->statement;
+    }
+
+    public function getScheme(): ?string
+    {
+        return $this->scheme;
     }
 }

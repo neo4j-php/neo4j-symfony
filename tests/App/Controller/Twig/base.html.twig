@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Application{% endblock %}</title>
+    {% block stylesheets %}
+    {# Include your stylesheets here #}
+    {% endblock %}
+</head>
+<body>
+<header>
+    {# Include your navigation/header here #}
+</header>
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+<footer>
+    {# Include your footer here #}
+</footer>
+
+{% block javascripts %}
+{# Include your JavaScripts here #}
+{% endblock %}
+</body>
+</html>

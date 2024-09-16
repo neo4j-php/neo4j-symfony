@@ -18,8 +18,11 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     /**
      * @param UnmanagedTransactionInterface<SummarizedResult<CypherMap>> $tsx
      */
-    public function __construct(private UnmanagedTransactionInterface $tsx, private EventHandler $handler, private ?string $alias)
-    {
+    public function __construct(
+        private readonly UnmanagedTransactionInterface $tsx,
+        private readonly EventHandler $handler,
+        private readonly ?string $alias,
+    ) {
     }
 
     public function run(string $statement, iterable $parameters = []): SummarizedResult
@@ -29,7 +32,11 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
 
     public function runStatement(Statement $statement): SummarizedResult
     {
-        return $this->handler->handle(fn ($statement) => $this->tsx->runStatement($statement), $statement, $this->alias);
+        return $this->handler->handle(fn ($statement) => $this->tsx->runStatement($statement),
+            $statement,
+            $this->alias,
+            null
+        );
     }
 
     /**

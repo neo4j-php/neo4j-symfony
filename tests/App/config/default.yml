@@ -1,6 +1,29 @@
+
+services:
+  Neo4j\Neo4jBundle\Tests\App\Controller\TestController:
+    public: true
+    autoconfigure: true
+    autowire: true
+    tags: ['controller.service_arguments']
+  Symfony\Component\HttpKernel\Profiler\Profiler: '@profiler'
+  Symfony\Component\HttpKernel\EventListener\ProfilerListener: '@profiler_listener'
+
 framework:
   secret: test
   test: true
+  profiler: { enabled: true, collect: true }
+  router:
+    resource: '%kernel.project_dir%/tests/App/config/routes.yaml'
+    type: 'yaml'
+
+twig:
+  debug: "%kernel.debug%"
+  paths:
+    - '%kernel.project_dir%/tests/App/Controller/Twig'
+
+web_profiler:
+  toolbar: true
+  intercept_redirects: false
 
 parameters:
   neo4j.dsn.badname: bolt://localhost

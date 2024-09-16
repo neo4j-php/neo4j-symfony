@@ -19,18 +19,22 @@
         "symfony/config": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.30",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0",
         "phpunit/phpunit": "^9.5",
+        "psalm/plugin-phpunit": "^0.18",
         "psalm/plugin-symfony": "^5.0",
         "symfony/console": "^5.4 || ^6.0 || ^7.0",
         "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
         "symfony/http-kernel": "^5.4 || ^6.0 || ^7.0",
+        "symfony/routing": "^5.4 || ^6.0 || ^7.0",
+        "symfony/stopwatch": "^6.4",
         "symfony/test-pack": "^1.1",
+        "symfony/twig-bundle": "^5.4 || ^6.0 || ^7.0",
+        "symfony/web-profiler-bundle": "^5.4 || ^6.0 || ^7.0",
         "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
-        "vimeo/psalm": "^5.15.0",
-        "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
-        "friendsofphp/php-cs-fixer": "^3.30",
-        "psalm/plugin-phpunit": "^0.18"
+        "vimeo/psalm": "^5.15.0"
     },
     "autoload": {
         "psr-4": {
@@ -49,7 +53,7 @@
         }
     },
     "scripts": {
-        "psalm": "php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
+        "psalm": "APP_ENV=dev php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
         "fix-cs": "vendor/bin/php-cs-fixer fix",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run",
         "ci-symfony-install-version": "./.github/scripts/setup-symfony-env.bash"

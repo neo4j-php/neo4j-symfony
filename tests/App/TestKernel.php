@@ -6,6 +6,8 @@ namespace Neo4j\Neo4jBundle\Tests\App;
 
 use Neo4j\Neo4jBundle\Neo4jBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -15,6 +17,8 @@ final class TestKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
+            new TwigBundle(),
+            new WebProfilerBundle(),
             new Neo4jBundle(),
         ];
     }

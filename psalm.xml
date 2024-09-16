@@ -18,7 +18,7 @@
     </projectFiles>
     <plugins>
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
-            <containerXml>var/cache/test/Neo4j_Neo4jBundle_Tests_App_TestKernelTestDebugContainer.xml</containerXml>
+            <containerXml>var/cache/dev/Neo4j_Neo4jBundle_Tests_App_TestKernelDevDebugContainer.xml</containerXml>
         </pluginClass>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
     </plugins>
