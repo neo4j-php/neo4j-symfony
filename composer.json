@@ -53,7 +53,7 @@
         }
     },
     "scripts": {
-        "psalm": "php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
+        "psalm": "APP_ENV=dev php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
         "fix-cs": "vendor/bin/php-cs-fixer fix",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run",
         "ci-symfony-install-version": "./.github/scripts/setup-symfony-env.bash"
