@@ -134,7 +134,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
     {
         if (is_array($obj)) {
             return array_map(
-                fn (mixed $x) => $this->recursiveToArray($x),
+                fn (mixed $x): mixed => $this->recursiveToArray($x),
                 $obj
             );
         }

@@ -56,15 +56,15 @@ class ClientFactory
         /** @var ClientBuilder<SummarizedResult<CypherMap>> $builder */
         $builder = ClientBuilder::create();
 
-        if ($this->driverConfig) {
+        if (null !== $this->driverConfig) {
             $builder = $builder->withDefaultDriverConfiguration($this->makeDriverConfig());
         }
 
-        if ($this->sessionConfiguration) {
+        if (null !== $this->sessionConfiguration) {
             $builder = $builder->withDefaultSessionConfiguration($this->makeSessionConfig());
         }
 
-        if ($this->transactionConfiguration) {
+        if (null !== $this->transactionConfiguration) {
             $builder = $builder->withDefaultTransactionConfiguration($this->makeTransactionConfig());
         }
 
@@ -77,7 +77,7 @@ class ClientFactory
             );
         }
 
-        if ($this->defaultDriver) {
+        if (null !== $this->defaultDriver) {
             $builder = $builder->withDefaultDriver($this->defaultDriver);
         }
 

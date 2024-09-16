@@ -13,7 +13,7 @@ class ProfilerTest extends WebTestCase
         return TestKernel::class;
     }
 
-    public function testProfiler()
+    public function testProfiler(): void
     {
         $client = static::createClient();
         $client->enableProfiler();

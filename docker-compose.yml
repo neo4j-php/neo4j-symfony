@@ -3,7 +3,7 @@ networks:
 
 services:
     app:
-        user: ${UID-1000}:${GID-1000}
+        user: root:${UID-1000}:${GID-1000}
         build:
             context: .
         ports:
