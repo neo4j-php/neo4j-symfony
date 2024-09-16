@@ -15,7 +15,7 @@ class PreRunEvent extends Event
         private readonly ?string $alias,
         private readonly Statement $statement,
         private readonly \DateTimeInterface $time,
-        private readonly ?string $scheme
+        private readonly ?string $scheme,
     ) {
     }
 

@@ -28,7 +28,7 @@ class EventHandler
     public function __construct(
         ?EventDispatcherInterface $dispatcher,
         private readonly string $alias,
-        private readonly ?Stopwatch $stopwatch
+        private readonly ?Stopwatch $stopwatch,
     ) {
         $this->dispatcher = $dispatcher;
     }

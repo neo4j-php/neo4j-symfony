@@ -26,7 +26,7 @@ class SymfonyClient implements ClientInterface
      */
     public function __construct(
         private readonly ClientInterface $client,
-        private readonly EventHandler $handler
+        private readonly EventHandler $handler,
     ) {
     }
 
@@ -58,7 +58,7 @@ class SymfonyClient implements ClientInterface
     public function beginTransaction(
         ?iterable $statements = null,
         ?string $alias = null,
-        ?TransactionConfiguration $config = null
+        ?TransactionConfiguration $config = null,
     ): UnmanagedTransactionInterface {
         $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler, $alias);
 
@@ -79,7 +79,7 @@ class SymfonyClient implements ClientInterface
     public function writeTransaction(
         callable $tsxHandler,
         ?string $alias = null,
-        ?TransactionConfiguration $config = null
+        ?TransactionConfiguration $config = null,
     ) {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::READ());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
@@ -93,7 +93,7 @@ class SymfonyClient implements ClientInterface
     public function readTransaction(
         callable $tsxHandler,
         ?string $alias = null,
-        ?TransactionConfiguration $config = null
+        ?TransactionConfiguration $config = null,
     ) {
         $sessionConfig = SessionConfiguration::default()->withAccessMode(AccessMode::WRITE());
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);

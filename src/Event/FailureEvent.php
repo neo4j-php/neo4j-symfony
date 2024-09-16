@@ -19,7 +19,7 @@ class FailureEvent extends Event
         private readonly Statement $statement,
         private readonly Neo4jException $exception,
         private readonly \DateTimeInterface $time,
-        private readonly ?string $scheme
+        private readonly ?string $scheme,
     ) {
     }
 

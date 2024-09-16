@@ -21,7 +21,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     public function __construct(
         private readonly UnmanagedTransactionInterface $tsx,
         private readonly EventHandler $handler,
-        private readonly ?string $alias
+        private readonly ?string $alias,
     ) {
     }
 

@@ -15,7 +15,7 @@ class PostRunEvent extends Event
         private readonly ?string $alias,
         private readonly ResultSummary $result,
         private readonly \DateTimeInterface $time,
-        private readonly ?string $scheme
+        private readonly ?string $scheme,
     ) {
     }
 

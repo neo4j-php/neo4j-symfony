@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class Neo4jDataCollector extends AbstractDataCollector
 {
     public function __construct(
-        private readonly Neo4jProfileListener $subscriber
+        private readonly Neo4jProfileListener $subscriber,
     ) {
     }
 

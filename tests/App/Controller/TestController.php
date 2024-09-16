@@ -11,7 +11,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class TestController extends AbstractController
 {
     public function __construct(
-        private readonly ClientInterface $client
+        private readonly ClientInterface $client,
     ) {
     }
 
