@@ -38,7 +38,7 @@ class SymfonyClient implements ClientInterface
     public function runStatement(Statement $statement, ?string $alias = null): ?SummarizedResult
     {
         return $this->handler->handle(
-            fn(Statement $statement) => $this->client->runStatement($statement, $alias),
+            fn (Statement $statement) => $this->client->runStatement($statement, $alias),
             $statement,
             $alias,
             null
@@ -62,7 +62,7 @@ class SymfonyClient implements ClientInterface
     ): UnmanagedTransactionInterface {
         $tsx = new SymfonyTransaction($this->client->beginTransaction(null, $alias, $config), $this->handler, $alias);
 
-        $runHandler = fn(Statement $statement): CypherList => $tsx->runStatement($statement);
+        $runHandler = fn (Statement $statement): CypherList => $tsx->runStatement($statement);
 
         foreach (($statements ?? []) as $statement) {
             $this->handler->handle($runHandler, $statement, $alias, null);
@@ -85,7 +85,7 @@ class SymfonyClient implements ClientInterface
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn() => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
+            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }
@@ -99,7 +99,7 @@ class SymfonyClient implements ClientInterface
         $session = $this->client->getDriver($alias)->createSession($sessionConfig);
 
         return TransactionHelper::retry(
-            fn() => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
+            fn () => new SymfonyTransaction($session->beginTransaction([], $config), $this->handler, $alias),
             $tsxHandler
         );
     }
