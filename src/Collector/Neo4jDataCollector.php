@@ -70,7 +70,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
         $mergedArray = array_merge($successfulStatements, $failedStatements);
         uasort(
             $mergedArray,
-            static fn (array $a, array $b) => $a['start_time'] <=> $b['timestamp']
+            static fn (array $a, array $b) => $a['start_time'] <=> ($b['timestamp'] ?? $b['start_time'])
         );
         $this->data['statements'] = $mergedArray;
     }
