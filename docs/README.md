@@ -69,7 +69,7 @@ This example configures the client to contain two instances.
 neo4j:
   profiling: true
   default_driver: high-availability
-  connections:
+  drivers:
     - alias: high-availability
       dsn: 'neo4j://core1.mydomain.com:7687'
       authentication:
