@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
+use Laudis\Neo4j\Contracts\DriverInterface;
+use Laudis\Neo4j\Contracts\SessionInterface;
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
@@ -57,6 +59,24 @@ class Neo4jExtension extends Extension
 
         $container->getDefinition('neo4j.driver')
             ->setArgument(0, $defaultAlias);
+
+        foreach ($mergedConfig['drivers'] as $driverConfig) {
+            $container
+                ->setDefinition(
+                    'neo4j.driver.'.$driverConfig['alias'],
+                    (new Definition(DriverInterface::class))
+                        ->setFactory([new Reference('neo4j.client'), 'getDriver'])
+                        ->setArgument(0, $driverConfig['alias'])
+                );
+
+            $container
+                ->setDefinition(
+                    'neo4j.session.'.$driverConfig['alias'],
+                    (new Definition(SessionInterface::class))
+                        ->setFactory([new Reference('neo4j.driver.'.$driverConfig['alias']), 'createSession'])
+                        ->setShared(false)
+                );
+        }
 
         $enabledProfiles = [];
         foreach ($mergedConfig['drivers'] as $driver) {
