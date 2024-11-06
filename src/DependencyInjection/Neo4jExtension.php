@@ -67,7 +67,8 @@ class Neo4jExtension extends Extension
                     (new Definition(DriverInterface::class))
                         ->setFactory([new Reference('neo4j.client'), 'getDriver'])
                         ->setArgument(0, $driverConfig['alias'])
-                );
+                )
+                ->setPublic(true);
 
             $container
                 ->setDefinition(
@@ -75,7 +76,8 @@ class Neo4jExtension extends Extension
                     (new Definition(SessionInterface::class))
                         ->setFactory([new Reference('neo4j.driver.'.$driverConfig['alias']), 'createSession'])
                         ->setShared(false)
-                );
+                )
+                ->setPublic(true);
         }
 
         $enabledProfiles = [];
