@@ -196,6 +196,18 @@ class IntegrationTest extends KernelTestCase
         $this->assertSame($transactionConfig->getTimeout(), 40.0);
     }
 
+    public function testDriverAndSessionTags(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        $this->assertTrue($container->has('neo4j.driver.neo4j-simple'));
+        $this->assertTrue($container->has('neo4j.driver.neo4j-test'));
+
+        $this->assertTrue($container->has('neo4j.session.neo4j-simple'));
+        $this->assertTrue($container->has('neo4j.session.neo4j-test'));
+    }
+
     public function testPriority(): void
     {
         static::bootKernel();

@@ -5,8 +5,6 @@ namespace Neo4j\Neo4jBundle\Tests\App\Controller;
 use Laudis\Neo4j\Contracts\ClientInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class TestController extends AbstractController
 {
@@ -15,7 +13,7 @@ class TestController extends AbstractController
     ) {
     }
 
-    public function __invoke(Profiler $profiler, Stopwatch $stopwatch): Response
+    public function __invoke(): Response
     {
         // Successful statement
         $this->client->run('MATCH (n {foo: $bar}) RETURN n', ['bar' => 'baz']);
