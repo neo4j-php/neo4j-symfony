@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use Laudis\Neo4j\Databags\DriverConfiguration;
+use Psr\Log\LogLevel;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -65,6 +66,10 @@ class Configuration implements ConfigurationInterface
                 ->append($this->decorateDriverConfig())
                 ->append($this->decorateSessionConfig())
                 ->append($this->decorateTransactionConfig())
+                ->scalarNode('log_level')
+                    ->info('Psr log level to use. Default is "error".')
+                    ->defaultValue(LogLevel::ERROR)
+                ->end()
                 ->scalarNode('default_driver')
                     ->info('The default driver to use. Default is the first configured driver.')
                 ->end()

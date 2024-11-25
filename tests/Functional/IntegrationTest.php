@@ -17,8 +17,10 @@ use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Enum\SslMode;
 use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
+use Neo4j\Neo4jBundle\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Psr\Http\Message\UriInterface;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class IntegrationTest extends KernelTestCase
@@ -230,6 +232,24 @@ class IntegrationTest extends KernelTestCase
         $extractedValue = $fallbackDriverQueue->extract();
 
         $this->assertSame($extractedValue['priority'], 1000);
+    }
+
+    public function testDefaultLogLevel(): void
+    {
+        static::bootKernel();
+        $container = static::getContainer();
+
+        /**
+         * @var SymfonyClient $client
+         */
+        $client = $container->get('neo4j.client');
+        /** @var Neo4jDriver $driver */
+        $driver = $client->getDriver('default');
+        /** @var Neo4jConnectionPool $pool */
+        $pool = $this->getPrivateProperty($driver, 'pool');
+        $level = $pool->getLogger()->getLevel();
+
+        $this->assertSame('warning', $level);
     }
 
     /**
