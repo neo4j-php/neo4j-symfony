@@ -20,7 +20,6 @@ use Laudis\Neo4j\Neo4j\Neo4jDriver;
 use Neo4j\Neo4jBundle\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Psr\Http\Message\UriInterface;
-use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class IntegrationTest extends KernelTestCase

@@ -34,9 +34,9 @@ use Psr\Log\LoggerInterface;
 class ClientFactory
 {
     /**
-     * @param DriverConfigArray|null $driverConfig
-     * @param SessionConfigArray|null $sessionConfiguration
-     * @param TransactionConfigArray|null $transactionConfiguration
+     * @param DriverConfigArray|null        $driverConfig
+     * @param SessionConfigArray|null       $sessionConfiguration
+     * @param TransactionConfigArray|null   $transactionConfiguration
      * @param list<DriverRegistrationArray> $connections
      */
     public function __construct(
