@@ -55,7 +55,7 @@ class Neo4jExtension extends Extension
                 8,
                 new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
             )
-            ->setArgument(9, $mergedConfig['log_level'] ?? null)
+            ->setArgument(9, $mergedConfig['min_log_level'] ?? null)
             ->setArgument(10, new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false);
 
