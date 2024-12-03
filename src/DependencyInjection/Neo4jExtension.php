@@ -12,6 +12,7 @@ use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,7 +35,6 @@ class Neo4jExtension extends Extension
         $loader->load('services.php');
 
         $defaultAlias = $mergedConfig['default_driver'] ?? $mergedConfig['drivers'][0]['alias'] ?? 'default';
-
         $container->setDefinition('neo4j.event_handler', new Definition(EventHandler::class))
             ->setAutowired(true)
             ->addTag('neo4j.event_handler')
@@ -55,6 +55,8 @@ class Neo4jExtension extends Extension
                 8,
                 new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
             )
+            ->setArgument(9, $mergedConfig['min_log_level'] ?? null)
+            ->setArgument(10, new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false);
 
         $container->getDefinition('neo4j.driver')

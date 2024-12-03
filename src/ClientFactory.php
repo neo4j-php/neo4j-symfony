@@ -21,6 +21,7 @@ use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * @psalm-import-type SessionConfigArray from Configuration
@@ -48,6 +49,8 @@ class ClientFactory
         private ?ClientInterface $client,
         private ?StreamFactoryInterface $streamFactory,
         private ?RequestFactoryInterface $requestFactory,
+        private ?string $logLevel,
+        private ?LoggerInterface $logger,
     ) {
     }
 
@@ -57,7 +60,9 @@ class ClientFactory
         $builder = ClientBuilder::create();
 
         if (null !== $this->driverConfig) {
-            $builder = $builder->withDefaultDriverConfiguration($this->makeDriverConfig());
+            $builder = $builder->withDefaultDriverConfiguration(
+                $this->makeDriverConfig($this->logLevel, $this->logger)
+            );
         }
 
         if (null !== $this->sessionConfiguration) {
@@ -84,7 +89,7 @@ class ClientFactory
         return new SymfonyClient($builder->build(), $this->eventHandler);
     }
 
-    private function makeDriverConfig(): DriverConfiguration
+    private function makeDriverConfig(?string $logLevel = null, ?LoggerInterface $logger = null): DriverConfiguration
     {
         $config = new DriverConfiguration(
             userAgent: $this->driverConfig['user_agent'] ?? null,
@@ -94,6 +99,8 @@ class ClientFactory
             cache: null,
             acquireConnectionTimeout: $this->driverConfig['acquire_connection_timeout'] ?? null,
             semaphore: null,
+            logLevel: $logLevel,
+            logger: $logger,
         );
 
         $bindings = new HttpPsrBindings();
@@ -145,10 +152,14 @@ class ClientFactory
                 $auth['username'] ?? throw new \InvalidArgumentException('Missing username for basic authentication'),
                 $auth['password'] ?? throw new \InvalidArgumentException('Missing password for basic authentication')
             ),
-            'kerberos' => Authenticate::kerberos($auth['token'] ?? throw new \InvalidArgumentException('Missing token for kerberos authentication')),
+            'kerberos' => Authenticate::kerberos(
+                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for kerberos authentication')
+            ),
             'dsn', null => Authenticate::fromUrl(Uri::create($dsn)),
             'none' => Authenticate::disabled(),
-            'oid' => Authenticate::oidc($auth['token'] ?? throw new \InvalidArgumentException('Missing token for oid authentication')),
+            'oid' => Authenticate::oidc(
+                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for oid authentication')
+            ),
         };
     }
 

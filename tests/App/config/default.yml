@@ -33,6 +33,7 @@ parameters:
   neo4j.dsn.simple: bolt://test:test@localhost
 
 neo4j:
+  min_log_level: warning
   default_driver: neo4j-test
   default_driver_config:
     acquire_connection_timeout: 10
