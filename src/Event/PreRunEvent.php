@@ -16,6 +16,7 @@ class PreRunEvent extends Event
         private readonly Statement $statement,
         private readonly \DateTimeInterface $time,
         private readonly ?string $scheme,
+        private readonly ?string $transactionId,
     ) {
     }
 
@@ -38,5 +39,10 @@ class PreRunEvent extends Event
     public function getScheme(): ?string
     {
         return $this->scheme;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
     }
 }

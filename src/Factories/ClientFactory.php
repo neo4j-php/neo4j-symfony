@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle;
+namespace Neo4j\Neo4jBundle\Factories;
 
 use Laudis\Neo4j\Authentication\Authenticate;
-use Laudis\Neo4j\ClientBuilder;
 use Laudis\Neo4j\Common\Uri;
 use Laudis\Neo4j\Contracts\AuthenticateInterface;
 use Laudis\Neo4j\Databags\DriverConfiguration;
 use Laudis\Neo4j\Databags\HttpPsrBindings;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Laudis\Neo4j\Databags\SslConfiguration;
-use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Databags\TransactionConfiguration;
 use Laudis\Neo4j\Enum\AccessMode;
 use Laudis\Neo4j\Enum\SslMode;
-use Laudis\Neo4j\Types\CypherMap;
+use Neo4j\Neo4jBundle\Builders\ClientBuilder;
+use Neo4j\Neo4jBundle\Decorators\SymfonyClient;
 use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -35,46 +34,43 @@ class ClientFactory
 {
     /**
      * @param DriverConfigArray|null        $driverConfig
-     * @param SessionConfigArray|null       $sessionConfiguration
-     * @param TransactionConfigArray|null   $transactionConfiguration
+     * @param SessionConfigArray|null       $sessionConfig
+     * @param TransactionConfigArray|null   $transactionConfig
      * @param list<DriverRegistrationArray> $connections
      */
     public function __construct(
-        private EventHandler $eventHandler,
-        private ?array $driverConfig,
-        private ?array $sessionConfiguration,
-        private ?array $transactionConfiguration,
-        private array $connections,
-        private ?string $defaultDriver,
-        private ?ClientInterface $client,
-        private ?StreamFactoryInterface $streamFactory,
-        private ?RequestFactoryInterface $requestFactory,
-        private ?string $logLevel,
-        private ?LoggerInterface $logger,
+        private readonly ?array $driverConfig,
+        private readonly ?array $sessionConfig,
+        private readonly ?array $transactionConfig,
+        private readonly array $connections,
+        private readonly ?string $defaultDriver,
+        private readonly ?ClientInterface $client,
+        private readonly ?StreamFactoryInterface $streamFactory,
+        private readonly ?RequestFactoryInterface $requestFactory,
+        private readonly ?string $logLevel,
+        private readonly ?LoggerInterface $logger,
+        private ClientBuilder $builder,
     ) {
     }
 
     public function create(): SymfonyClient
     {
-        /** @var ClientBuilder<SummarizedResult<CypherMap>> $builder */
-        $builder = ClientBuilder::create();
-
         if (null !== $this->driverConfig) {
-            $builder = $builder->withDefaultDriverConfiguration(
+            $this->builder = $this->builder->withDefaultDriverConfiguration(
                 $this->makeDriverConfig($this->logLevel, $this->logger)
             );
         }
 
-        if (null !== $this->sessionConfiguration) {
-            $builder = $builder->withDefaultSessionConfiguration($this->makeSessionConfig());
+        if (null !== $this->sessionConfig) {
+            $this->builder = $this->builder->withDefaultSessionConfiguration($this->makeSessionConfig());
         }
 
-        if (null !== $this->transactionConfiguration) {
-            $builder = $builder->withDefaultTransactionConfiguration($this->makeTransactionConfig());
+        if (null !== $this->transactionConfig) {
+            $this->builder = $this->builder->withDefaultTransactionConfiguration($this->makeTransactionConfig());
         }
 
         foreach ($this->connections as $connection) {
-            $builder = $builder->withDriver(
+            $this->builder = $this->builder->withDriver(
                 $connection['alias'],
                 $connection['dsn'],
                 $this->createAuth($connection['authentication'] ?? null, $connection['dsn']),
@@ -83,10 +79,10 @@ class ClientFactory
         }
 
         if (null !== $this->defaultDriver) {
-            $builder = $builder->withDefaultDriver($this->defaultDriver);
+            $this->builder = $this->builder->withDefaultDriver($this->defaultDriver);
         }
 
-        return new SymfonyClient($builder->build(), $this->eventHandler);
+        return $this->builder->build();
     }
 
     private function makeDriverConfig(?string $logLevel = null, ?LoggerInterface $logger = null): DriverConfiguration
@@ -122,9 +118,9 @@ class ClientFactory
     private function makeSessionConfig(): SessionConfiguration
     {
         return new SessionConfiguration(
-            database: $this->sessionConfiguration['database'] ?? null,
-            fetchSize: $this->sessionConfiguration['fetch_size'] ?? null,
-            accessMode: match ($this->sessionConfiguration['access_mode'] ?? null) {
+            database: $this->sessionConfig['database'] ?? null,
+            fetchSize: $this->sessionConfig['fetch_size'] ?? null,
+            accessMode: match ($this->sessionConfig['access_mode'] ?? null) {
                 'write', null => AccessMode::WRITE(),
                 'read' => AccessMode::READ(),
             },
@@ -134,7 +130,7 @@ class ClientFactory
     private function makeTransactionConfig(): TransactionConfiguration
     {
         return new TransactionConfiguration(
-            timeout: $this->transactionConfiguration['timeout'] ?? null
+            timeout: $this->transactionConfig['timeout'] ?? null
         );
     }
 

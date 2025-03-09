@@ -6,6 +6,7 @@ namespace Neo4j\Neo4jBundle\DependencyInjection;
 
 use Laudis\Neo4j\Contracts\DriverInterface;
 use Laudis\Neo4j\Contracts\SessionInterface;
+use Neo4j\Neo4jBundle\Builders\ClientBuilder;
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
@@ -41,22 +42,23 @@ class Neo4jExtension extends Extension
             ->setArgument(1, $defaultAlias);
 
         $container->getDefinition('neo4j.client_factory')
-            ->setArgument(1, $mergedConfig['default_driver_config'] ?? null)
-            ->setArgument(2, $mergedConfig['default_session_config'] ?? null)
-            ->setArgument(3, $mergedConfig['default_transaction_config'] ?? null)
-            ->setArgument(4, $mergedConfig['drivers'] ?? [])
-            ->setArgument(5, $mergedConfig['default_driver'] ?? null)
-            ->setArgument(6, new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument('$driverConfig', $mergedConfig['default_driver_config'] ?? null)
+            ->setArgument('$sessionConfig', $mergedConfig['default_session_config'] ?? null)
+            ->setArgument('$transactionConfig', $mergedConfig['default_transaction_config'] ?? null)
+            ->setArgument('$connections', $mergedConfig['drivers'] ?? [])
+            ->setArgument('$defaultDriver', $mergedConfig['default_driver'] ?? null)
+            ->setArgument('$builder', new Reference(ClientBuilder::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument('$client', new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setArgument(
-                7,
+                '$streamFactory',
                 new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
             )
             ->setArgument(
-                8,
+                '$requestFactory',
                 new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
             )
-            ->setArgument(9, $mergedConfig['min_log_level'] ?? null)
-            ->setArgument(10, new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
+            ->setArgument('$logLevel', $mergedConfig['min_log_level'] ?? null)
+            ->setArgument('$logger', new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false);
 
         $container->getDefinition('neo4j.driver')

@@ -1,6 +1,12 @@
-test:
-  path: /
-  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController
+run-on-client:
+  path: /client
+  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController::runOnClient
+run-on-session:
+  path: /session
+  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController::runOnSession
+run-on-transaction:
+  path: /transaction
+  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController::runOnTransaction
 
 web_profiler_wdt:
   resource: '@WebProfilerBundle/Resources/config/routing/wdt.xml'

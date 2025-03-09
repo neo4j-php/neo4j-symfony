@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Event;
 
-use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -16,10 +15,10 @@ class FailureEvent extends Event
 
     public function __construct(
         private readonly ?string $alias,
-        private readonly Statement $statement,
         private readonly Neo4jException $exception,
         private readonly \DateTimeInterface $time,
         private readonly ?string $scheme,
+        private readonly ?string $transactionId,
     ) {
     }
 
@@ -49,13 +48,13 @@ class FailureEvent extends Event
         return $this->alias;
     }
 
-    public function getStatement(): Statement
-    {
-        return $this->statement;
-    }
-
     public function getScheme(): ?string
     {
         return $this->scheme;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
     }
 }

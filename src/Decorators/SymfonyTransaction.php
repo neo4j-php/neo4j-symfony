@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle;
+namespace Neo4j\Neo4jBundle\Decorators;
 
 use Laudis\Neo4j\Contracts\UnmanagedTransactionInterface;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
+use Laudis\Neo4j\Enum\TransactionState;
 use Laudis\Neo4j\Types\CypherList;
 use Laudis\Neo4j\Types\CypherMap;
+use Neo4j\Neo4jBundle\EventHandler;
 
 /**
  * @implements UnmanagedTransactionInterface<SummarizedResult<CypherMap>>
@@ -21,7 +23,9 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     public function __construct(
         private readonly UnmanagedTransactionInterface $tsx,
         private readonly EventHandler $handler,
-        private readonly ?string $alias,
+        private readonly string $alias,
+        private readonly string $scheme,
+        private readonly string $transactionId,
     ) {
     }
 
@@ -32,10 +36,11 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
 
     public function runStatement(Statement $statement): SummarizedResult
     {
-        return $this->handler->handle(fn ($statement) => $this->tsx->runStatement($statement),
+        return $this->handler->handleQuery(fn (Statement $statement) => $this->tsx->runStatement($statement),
             $statement,
             $this->alias,
-            null
+            $this->scheme,
+            $this->transactionId
         );
     }
 
@@ -54,16 +59,28 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
 
     public function commit(iterable $statements = []): CypherList
     {
-        $tbr = $this->runStatements($statements);
+        $results = $this->runStatements($statements);
 
-        $this->tsx->commit();
+        $this->handler->handleTransactionAction(
+            TransactionState::COMMITTED,
+            $this->transactionId,
+            fn () => $this->tsx->commit(),
+            $this->alias,
+            $this->scheme,
+        );
 
-        return $tbr;
+        return $results;
     }
 
     public function rollback(): void
     {
-        $this->tsx->rollback();
+        $this->handler->handleTransactionAction(
+            TransactionState::ROLLED_BACK,
+            $this->transactionId,
+            fn () => $this->tsx->commit(),
+            $this->alias,
+            $this->scheme,
+        );
     }
 
     public function isRolledBack(): bool

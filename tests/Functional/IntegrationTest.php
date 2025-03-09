@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
-use Laudis\Neo4j\Client;
 use Laudis\Neo4j\Common\DriverSetupManager;
 use Laudis\Neo4j\Common\SingleThreadedSemaphore;
 use Laudis\Neo4j\Contracts\ClientInterface;
@@ -17,11 +16,14 @@ use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Enum\SslMode;
 use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
-use Neo4j\Neo4jBundle\SymfonyClient;
+use Neo4j\Neo4jBundle\Decorators\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
-use Psr\Http\Message\UriInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
+/**
+ * @psalm-suppress InternalMethod
+ * @psalm-suppress UndefinedInterfaceMethod
+ */
 class IntegrationTest extends KernelTestCase
 {
     protected static function getKernelClass(): string
@@ -78,9 +80,10 @@ class IntegrationTest extends KernelTestCase
          * @var Neo4jDriver $driver
          */
         $driver = $client->getDriver('default');
-        /**
-         * @var UriInterface $uri
-         */
+
+        $driver = $this->getPrivateProperty($driver, 'driver');
+        $driver = $this->getPrivateProperty($driver, 'driver');
+
         $uri = $this->getPrivateProperty($driver, 'parsedUrl');
 
         $this->assertSame($uri->getScheme(), 'neo4j');
@@ -114,6 +117,10 @@ class IntegrationTest extends KernelTestCase
         $client = $container->get('neo4j.client');
         /** @var Neo4jDriver $driver */
         $driver = $client->getDriver('neo4j-auth');
+
+        $driver = $this->getPrivateProperty($driver, 'driver');
+        $driver = $this->getPrivateProperty($driver, 'driver');
+
         /** @var Neo4jConnectionPool $pool */
         $pool = $this->getPrivateProperty($driver, 'pool');
         /** @var ConnectionRequestData $data */
@@ -139,6 +146,10 @@ class IntegrationTest extends KernelTestCase
         $client = $container->get('neo4j.client');
         /** @var Neo4jDriver $driver */
         $driver = $client->getDriver('default');
+
+        $driver = $this->getPrivateProperty($driver, 'driver');
+        $driver = $this->getPrivateProperty($driver, 'driver');
+
         /** @var Neo4jConnectionPool $pool */
         $pool = $this->getPrivateProperty($driver, 'pool');
         /** @var SingleThreadedSemaphore $semaphore */
@@ -174,9 +185,7 @@ class IntegrationTest extends KernelTestCase
          * @var ClientInterface $client
          */
         $client = $container->get('neo4j.client');
-        /** @var Client $innerClient */
-        $innerClient = $this->getPrivateProperty($client, 'client');
-        $sessionConfig = $innerClient->getDefaultSessionConfiguration();
+        $sessionConfig = $client->getDefaultSessionConfiguration();
 
         $this->assertSame($sessionConfig->getFetchSize(), 999);
     }
@@ -190,9 +199,7 @@ class IntegrationTest extends KernelTestCase
          * @var ClientInterface $client
          */
         $client = $container->get('neo4j.client');
-        /** @var Client $innerClient */
-        $innerClient = $this->getPrivateProperty($client, 'client');
-        $transactionConfig = $innerClient->getDefaultTransactionConfiguration();
+        $transactionConfig = $client->getDefaultTransactionConfiguration();
 
         $this->assertSame($transactionConfig->getTimeout(), 40.0);
     }
@@ -218,10 +225,8 @@ class IntegrationTest extends KernelTestCase
          * @var ClientInterface $client
          */
         $client = $container->get('neo4j.client');
-        /** @var Client $innerClient */
-        $innerClient = $this->getPrivateProperty($client, 'client');
         /** @var DriverSetupManager $drivers */
-        $drivers = $this->getPrivateProperty($innerClient, 'driverSetups');
+        $drivers = $this->getPrivateProperty($client, 'driverSetups');
         /** @var array<\SplPriorityQueue<int, DriverSetup>> $fallbackDriverQueue */
         $driverSetups = $this->getPrivateProperty($drivers, 'driverSetups');
         /** @var \SplPriorityQueue<int, DriverSetup> $fallbackDriverQueue */
@@ -244,20 +249,17 @@ class IntegrationTest extends KernelTestCase
         $client = $container->get('neo4j.client');
         /** @var Neo4jDriver $driver */
         $driver = $client->getDriver('default');
+
+        $driver = $this->getPrivateProperty($driver, 'driver');
+        $driver = $this->getPrivateProperty($driver, 'driver');
+
         /** @var Neo4jConnectionPool $pool */
         $pool = $this->getPrivateProperty($driver, 'pool');
-        $level = $pool->getLogger()->getLevel();
+        $level = $pool->getLogger()?->getLevel();
 
         $this->assertSame('warning', $level);
     }
 
-    /**
-     * @template T
-     *
-     * @return T
-     *
-     * @noinspection PhpDocMissingThrowsInspection
-     */
     private function getPrivateProperty(object $object, string $property): mixed
     {
         $reflection = new \ReflectionClass($object);

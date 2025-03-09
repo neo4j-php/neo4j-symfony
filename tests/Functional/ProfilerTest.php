@@ -18,8 +18,49 @@ class ProfilerTest extends WebTestCase
         $client = static::createClient();
         $client->enableProfiler();
 
-        // Calls Neo4j\Neo4jBundle\Tests\App\Controller\TestController::__invoke
-        $client->request('GET', '/');
+        $client->request('GET', '/client');
+
+        if ($profile = $client->getProfile()) {
+            /** @var Neo4jDataCollector $collector */
+            $collector = $profile->getCollector('neo4j');
+            $this->assertEquals(
+                2,
+                $collector->getQueryCount()
+            );
+            $successfulStatements = $collector->getSuccessfulStatements();
+            $failedStatements = $collector->getFailedStatements();
+            $this->assertCount(1, $successfulStatements);
+            $this->assertCount(1, $failedStatements);
+        }
+    }
+
+    public function testProfilerOnSession(): void
+    {
+        $client = static::createClient();
+        $client->enableProfiler();
+
+        $client->request('GET', '/session');
+
+        if ($profile = $client->getProfile()) {
+            /** @var Neo4jDataCollector $collector */
+            $collector = $profile->getCollector('neo4j');
+            $this->assertEquals(
+                2,
+                $collector->getQueryCount()
+            );
+            $successfulStatements = $collector->getSuccessfulStatements();
+            $failedStatements = $collector->getFailedStatements();
+            $this->assertCount(1, $successfulStatements);
+            $this->assertCount(1, $failedStatements);
+        }
+    }
+
+    public function testProfilerOnTransaction(): void
+    {
+        $client = static::createClient();
+        $client->enableProfiler();
+
+        $client->request('GET', '/transaction');
 
         if ($profile = $client->getProfile()) {
             /** @var Neo4jDataCollector $collector */
