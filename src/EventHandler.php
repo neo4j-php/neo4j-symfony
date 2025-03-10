@@ -11,7 +11,12 @@ use Laudis\Neo4j\Exception\Neo4jException;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Neo4j\Neo4jBundle\Event\PreRunEvent;
-use Neo4j\Neo4jBundle\Event\TransactionEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionBeginEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionCommitEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionRollbackEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionBeginEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionCommitEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionRollbackEvent;
 use Neo4j\Neo4jBundle\Factories\StopwatchEventNameFactory;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -92,16 +97,21 @@ class EventHandler
     ): mixed {
         $stopWatchName = $this->nameFactory->createTransactionEventName($alias, $transactionId, $nextTransactionState);
 
-        if (TransactionState::ACTIVE === $nextTransactionState) {
-            $this->dispatchTransactionEvent($alias, $scheme, $transactionId);
-        }
+        [
+            'preEvent' => $preEvent,
+            'preEventId' => $preEventId,
+            'postEvent' => $postEvent,
+            'postEventId' => $postEventId,
+        ] = $this->createPreAndPostEventsAndIds(
+            nextTransactionState: $nextTransactionState,
+            alias: $alias,
+            scheme: $scheme,
+            transactionId: $transactionId
+        );
 
+        $this->dispatcher?->dispatch($preEvent, $preEventId);
         $result = $this->handleAction(runHandler: $runHandler, alias: $alias, scheme: $scheme, stopwatchName: $stopWatchName, transactionId: $transactionId, statement: null);
-
-        if (TransactionState::COMMITTED === $nextTransactionState
-            || TransactionState::ROLLED_BACK === $nextTransactionState) {
-            $this->dispatchTransactionEvent($alias, $scheme, $transactionId);
-        }
+        $this->dispatcher?->dispatch($postEvent, $postEventId);
 
         return $result;
     }
@@ -138,15 +148,79 @@ class EventHandler
         }
     }
 
-    private function dispatchTransactionEvent(?string $alias, string $scheme, string $transactionId): void
-    {
-        $event = new TransactionEvent(
-            alias: $alias,
-            time: new \DateTimeImmutable(),
-            scheme: $scheme,
-            transactionId: $transactionId,
-        );
+    /**
+     * @return array{'preEvent': object, 'preEventId': string, 'postEvent': object, 'postEventId': string}
+     */
+    private function createPreAndPostEventsAndIds(
+        TransactionState $nextTransactionState,
+        string $alias,
+        string $scheme,
+        string $transactionId,
+    ): array {
+        [$preEvent, $preEventId] = match ($nextTransactionState) {
+            TransactionState::ACTIVE => [
+                new PreTransactionBeginEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionBeginEvent::EVENT_ID,
+            ],
+            TransactionState::TERMINATED, TransactionState::ROLLED_BACK => [
+                new PreTransactionRollbackEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionRollbackEvent::EVENT_ID,
+            ],
+            TransactionState::COMMITTED => [
+                new PreTransactionCommitEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionCommitEvent::EVENT_ID,
+            ],
+        };
+        [$postEvent, $postEventId] = match ($nextTransactionState) {
+            TransactionState::ACTIVE => [
+                new PostTransactionBeginEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionBeginEvent::EVENT_ID,
+            ],
+            TransactionState::TERMINATED, TransactionState::ROLLED_BACK => [
+                new PostTransactionRollbackEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionRollbackEvent::EVENT_ID,
+            ],
+            TransactionState::COMMITTED => [
+                new PostTransactionCommitEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionCommitEvent::EVENT_ID,
+            ],
+        };
 
-        $this->dispatcher?->dispatch($event, TransactionEvent::EVENT_ID);
+        return [
+            'preEvent' => $preEvent,
+            'preEventId' => $preEventId,
+            'postEvent' => $postEvent,
+            'postEventId' => $postEventId,
+        ];
     }
 }

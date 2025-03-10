@@ -1,10 +1,10 @@
 <?php
 
-namespace Neo4j\Neo4jBundle\Event;
+namespace Neo4j\Neo4jBundle\Event\Transaction;
 
-class TransactionEvent
+class PostTransactionRollbackEvent
 {
-    public const EVENT_ID = 'neo4j.on_transaction_begin';
+    public const EVENT_ID = 'neo4j.transaction.rollback.post';
 
     public function __construct(
         public readonly ?string $alias,
