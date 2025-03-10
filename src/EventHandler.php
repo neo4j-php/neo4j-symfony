@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle;
 
+use http\Exception\UnexpectedValueException;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Enum\TransactionState;
@@ -167,7 +168,7 @@ class EventHandler
                 ),
                 PreTransactionBeginEvent::EVENT_ID,
             ],
-            TransactionState::TERMINATED, TransactionState::ROLLED_BACK => [
+            TransactionState::ROLLED_BACK => [
                 new PreTransactionRollbackEvent(
                     alias: $alias,
                     time: new \DateTimeImmutable(),
@@ -185,6 +186,7 @@ class EventHandler
                 ),
                 PreTransactionCommitEvent::EVENT_ID,
             ],
+            TransactionState::TERMINATED => throw new UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
         };
         [$postEvent, $postEventId] = match ($nextTransactionState) {
             TransactionState::ACTIVE => [
@@ -196,7 +198,7 @@ class EventHandler
                 ),
                 PostTransactionBeginEvent::EVENT_ID,
             ],
-            TransactionState::TERMINATED, TransactionState::ROLLED_BACK => [
+            TransactionState::ROLLED_BACK => [
                 new PostTransactionRollbackEvent(
                     alias: $alias,
                     time: new \DateTimeImmutable(),
@@ -214,6 +216,7 @@ class EventHandler
                 ),
                 PostTransactionCommitEvent::EVENT_ID,
             ],
+            TransactionState::TERMINATED => throw new UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
         };
 
         return [
