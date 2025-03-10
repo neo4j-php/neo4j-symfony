@@ -32,6 +32,7 @@
         "symfony/stopwatch": "^6.4",
         "symfony/test-pack": "^1.1",
         "symfony/twig-bundle": "^5.4 || ^6.0 || ^7.0",
+        "symfony/uid": "^6.4",
         "symfony/web-profiler-bundle": "^5.4 || ^6.0 || ^7.0",
         "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
         "vimeo/psalm": "^5.15.0"

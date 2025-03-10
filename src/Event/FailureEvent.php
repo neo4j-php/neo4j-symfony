@@ -16,11 +16,17 @@ class FailureEvent extends Event
 
     public function __construct(
         private readonly ?string $alias,
-        private readonly Statement $statement,
+        private readonly ?Statement $statement,
         private readonly Neo4jException $exception,
         private readonly \DateTimeInterface $time,
         private readonly ?string $scheme,
+        private readonly ?string $transactionId,
     ) {
+    }
+
+    public function getStatement(): ?Statement
+    {
+        return $this->statement;
     }
 
     public function getException(): Neo4jException
@@ -49,13 +55,13 @@ class FailureEvent extends Event
         return $this->alias;
     }
 
-    public function getStatement(): Statement
-    {
-        return $this->statement;
-    }
-
     public function getScheme(): ?string
     {
         return $this->scheme;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
     }
 }

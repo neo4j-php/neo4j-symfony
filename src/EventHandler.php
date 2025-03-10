@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle;
 
-use Laudis\Neo4j\Common\Uri;
-use Laudis\Neo4j\Databags\DatabaseInfo;
-use Laudis\Neo4j\Databags\ResultSummary;
-use Laudis\Neo4j\Databags\ServerInfo;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
-use Laudis\Neo4j\Databags\SummaryCounters;
-use Laudis\Neo4j\Enum\ConnectionProtocol;
-use Laudis\Neo4j\Enum\QueryTypeEnum;
+use Laudis\Neo4j\Enum\TransactionState;
 use Laudis\Neo4j\Exception\Neo4jException;
-use Laudis\Neo4j\Types\CypherList;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Neo4j\Neo4jBundle\Event\PreRunEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionBeginEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionCommitEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PostTransactionRollbackEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionBeginEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionCommitEvent;
+use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionRollbackEvent;
+use Neo4j\Neo4jBundle\Factories\StopwatchEventNameFactory;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -27,8 +27,8 @@ class EventHandler
 
     public function __construct(
         ?EventDispatcherInterface $dispatcher,
-        private readonly string $alias,
         private readonly ?Stopwatch $stopwatch,
+        private readonly StopwatchEventNameFactory $nameFactory,
     ) {
         $this->dispatcher = $dispatcher;
     }
@@ -36,60 +36,193 @@ class EventHandler
     /**
      * @template T
      *
-     * @param callable(Statement):SummarizedResult<T> $runHandler
+     * @param callable(Statement):T $runHandler
      *
-     * @return SummarizedResult<T>
+     * @return T
      */
-    public function handle(callable $runHandler, Statement $statement, ?string $alias, ?string $scheme): SummarizedResult
+    public function handleQuery(callable $runHandler, Statement $statement, string $alias, string $scheme, ?string $transactionId): SummarizedResult
     {
-        $stopWatchName = sprintf('neo4j.%s.query', $alias ?? $this->alias);
-        if (null === $this->dispatcher) {
-            $this->stopwatch?->start($stopWatchName);
-            $result = $runHandler($statement);
-            $this->stopwatch?->stop($stopWatchName);
+        $stopwatchName = $this->nameFactory->createQueryEventName($alias, $transactionId);
+
+        $time = new \DateTimeImmutable();
+        $event = new PreRunEvent(
+            alias: $alias,
+            statement: $statement,
+            time: $time,
+            scheme: $scheme,
+            transactionId: $transactionId
+        );
+
+        $this->dispatcher?->dispatch($event, PreRunEvent::EVENT_ID);
+
+        $runHandler = static fn (): mixed => $runHandler($statement);
+        $result = $this->handleAction(
+            runHandler: $runHandler,
+            alias: $alias,
+            scheme: $scheme,
+            stopwatchName: $stopwatchName,
+            transactionId: $transactionId,
+            statement: $statement
+        );
+
+        $event = new PostRunEvent(
+            alias: $alias,
+            result: $result->getSummary(),
+            time: $time,
+            scheme: $scheme,
+            transactionId: $transactionId
+        );
+
+        $this->dispatcher?->dispatch(
+            $event,
+            PostRunEvent::EVENT_ID
+        );
+
+        return $result;
+    }
+
+    /**
+     * @template T
+     *
+     * @param callable():T $runHandler
+     *
+     * @return T
+     */
+    public function handleTransactionAction(
+        TransactionState $nextTransactionState,
+        string $transactionId,
+        callable $runHandler,
+        string $alias,
+        string $scheme,
+    ): mixed {
+        $stopWatchName = $this->nameFactory->createTransactionEventName($alias, $transactionId, $nextTransactionState);
+
+        [
+            'preEvent' => $preEvent,
+            'preEventId' => $preEventId,
+            'postEvent' => $postEvent,
+            'postEventId' => $postEventId,
+        ] = $this->createPreAndPostEventsAndIds(
+            nextTransactionState: $nextTransactionState,
+            alias: $alias,
+            scheme: $scheme,
+            transactionId: $transactionId
+        );
+
+        $this->dispatcher?->dispatch($preEvent, $preEventId);
+        $result = $this->handleAction(runHandler: $runHandler, alias: $alias, scheme: $scheme, stopwatchName: $stopWatchName, transactionId: $transactionId, statement: null);
+        $this->dispatcher?->dispatch($postEvent, $postEventId);
+
+        return $result;
+    }
+
+    /**
+     * @template T
+     *
+     * @param callable():T $runHandler
+     *
+     * @return T
+     */
+    private function handleAction(callable $runHandler, string $alias, string $scheme, string $stopwatchName, ?string $transactionId, ?Statement $statement): mixed
+    {
+        try {
+            $this->stopwatch?->start($stopwatchName, 'database');
+            $result = $runHandler();
+            $this->stopwatch?->stop($stopwatchName);
 
             return $result;
-        }
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
-        $this->dispatcher->dispatch(new PreRunEvent($alias, $statement, $time, $scheme), PreRunEvent::EVENT_ID);
-
-        try {
-            $this->stopwatch?->start($stopWatchName);
-            $tbr = $runHandler($statement);
-            $this->stopwatch?->stop($stopWatchName);
-            $this->dispatcher->dispatch(
-                new PostRunEvent($alias ?? $this->alias, $tbr->getSummary(), $time, $scheme),
-                PostRunEvent::EVENT_ID
-            );
         } catch (Neo4jException $e) {
-            $this->stopwatch?->stop($stopWatchName);
-            /** @noinspection PhpUnhandledExceptionInspection */
-            $time = new \DateTimeImmutable('now', new \DateTimeZone(date_default_timezone_get()));
-            $event = new FailureEvent($alias ?? $this->alias, $statement, $e, $time, $scheme);
-            $event = $this->dispatcher->dispatch($event, FailureEvent::EVENT_ID);
-
-            if ($event->shouldThrowException()) {
-                throw $e;
-            }
-
-            $summary = new ResultSummary(
-                new SummaryCounters(),
-                new DatabaseInfo('n/a'),
-                new CypherList([]),
-                null,
-                null,
-                $statement,
-                QueryTypeEnum::READ_ONLY(),
-                0,
-                0,
-                new ServerInfo(Uri::create(''), ConnectionProtocol::BOLT_V5(), 'n/a'),
+            $this->stopwatch?->stop($stopwatchName);
+            $event = new FailureEvent(
+                alias: $alias,
+                statement: $statement,
+                exception: $e,
+                time: new \DateTimeImmutable('now'),
+                scheme: $scheme,
+                transactionId: $transactionId
             );
 
-            $tbr = new SummarizedResult($summary);
-        }
+            $this->dispatcher?->dispatch($event, FailureEvent::EVENT_ID);
 
-        return $tbr;
+            throw $e;
+        }
+    }
+
+    /**
+     * @return array{'preEvent': object, 'preEventId': string, 'postEvent': object, 'postEventId': string}
+     */
+    private function createPreAndPostEventsAndIds(
+        TransactionState $nextTransactionState,
+        string $alias,
+        string $scheme,
+        string $transactionId,
+    ): array {
+        [$preEvent, $preEventId] = match ($nextTransactionState) {
+            TransactionState::ACTIVE => [
+                new PreTransactionBeginEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionBeginEvent::EVENT_ID,
+            ],
+            TransactionState::ROLLED_BACK => [
+                new PreTransactionRollbackEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionRollbackEvent::EVENT_ID,
+            ],
+            TransactionState::COMMITTED => [
+                new PreTransactionCommitEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PreTransactionCommitEvent::EVENT_ID,
+            ],
+            TransactionState::TERMINATED => throw new \UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
+        };
+        [$postEvent, $postEventId] = match ($nextTransactionState) {
+            TransactionState::ACTIVE => [
+                new PostTransactionBeginEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionBeginEvent::EVENT_ID,
+            ],
+            TransactionState::ROLLED_BACK => [
+                new PostTransactionRollbackEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionRollbackEvent::EVENT_ID,
+            ],
+            TransactionState::COMMITTED => [
+                new PostTransactionCommitEvent(
+                    alias: $alias,
+                    time: new \DateTimeImmutable(),
+                    scheme: $scheme,
+                    transactionId: $transactionId,
+                ),
+                PostTransactionCommitEvent::EVENT_ID,
+            ],
+            TransactionState::TERMINATED => throw new \UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
+        };
+
+        return [
+            'preEvent' => $preEvent,
+            'preEventId' => $preEventId,
+            'postEvent' => $postEvent,
+            'postEventId' => $postEventId,
+        ];
     }
 }

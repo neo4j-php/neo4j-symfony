@@ -28,7 +28,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     /**
      * @var list<array{
      *     exception: Neo4jException,
-     *     statement: Statement,
+     *     statement: ?Statement,
      *     alias: string|null,
      *     time: string,
      *     timestamp: int
@@ -89,7 +89,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     /**
      * @return list<array{
      *     exception: Neo4jException,
-     *     statement: Statement,
+     *     statement: ?Statement,
      *     alias: string|null,
      *     time: string,
      *     timestamp: int

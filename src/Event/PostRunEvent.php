@@ -16,6 +16,7 @@ class PostRunEvent extends Event
         private readonly ResultSummary $result,
         private readonly \DateTimeInterface $time,
         private readonly ?string $scheme,
+        private readonly ?string $transactionId,
     ) {
     }
 
@@ -37,5 +38,10 @@ class PostRunEvent extends Event
     public function getScheme(): ?string
     {
         return $this->scheme;
+    }
+
+    public function getTransactionId(): ?string
+    {
+        return $this->transactionId;
     }
 }
