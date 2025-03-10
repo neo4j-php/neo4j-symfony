@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\EventListener;
 
 use Laudis\Neo4j\Databags\ResultSummary;
+use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
@@ -27,6 +28,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     /**
      * @var list<array{
      *     exception: Neo4jException,
+     *     statement: ?Statement,
      *     alias: string|null,
      *     time: string,
      *     timestamp: int
@@ -71,6 +73,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
             $time = $event->getTime();
             $this->profiledFailures[] = [
                 'exception' => $event->getException(),
+                'statement' => $event->getStatement(),
                 'alias' => $event->getAlias(),
                 'time' => $time->format('Y-m-d H:i:s'),
                 'timestamp' => $time->getTimestamp(),
@@ -86,6 +89,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     /**
      * @return list<array{
      *     exception: Neo4jException,
+     *     statement: ?Statement,
      *     alias: string|null,
      *     time: string,
      *     timestamp: int

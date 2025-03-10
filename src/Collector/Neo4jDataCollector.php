@@ -50,6 +50,9 @@ final class Neo4jDataCollector extends AbstractDataCollector
                 'status' => 'failure',
                 'time' => $x['time'],
                 'timestamp' => $x['timestamp'],
+                'result' => [
+                    'statement' => $x['statement']?->toArray(),
+                ],
                 'exception' => [
                     'code' => $x['exception']->getErrors()[0]->getCode(),
                     'message' => $x['exception']->getErrors()[0]->getMessage(),

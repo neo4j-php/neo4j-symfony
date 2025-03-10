@@ -52,11 +52,12 @@ class EventHandler
 
         $runHandler = static fn (): mixed => $runHandler($statement);
         $result = $this->handleAction(
-            $runHandler,
-            $alias,
-            $scheme,
-            $stopwatchName,
-            $transactionId
+            runHandler: $runHandler,
+            alias: $alias,
+            scheme: $scheme,
+            stopwatchName: $stopwatchName,
+            transactionId: $transactionId,
+            statement: $statement
         );
 
         $event = new PostRunEvent(
@@ -95,7 +96,7 @@ class EventHandler
             $this->dispatchTransactionEvent($alias, $scheme, $transactionId);
         }
 
-        $result = $this->handleAction($runHandler, $alias, $scheme, $stopWatchName, $transactionId);
+        $result = $this->handleAction(runHandler: $runHandler, alias: $alias, scheme: $scheme, stopwatchName: $stopWatchName, transactionId: $transactionId, statement: null);
 
         if (TransactionState::COMMITTED === $nextTransactionState
             || TransactionState::ROLLED_BACK === $nextTransactionState) {
@@ -112,7 +113,7 @@ class EventHandler
      *
      * @return T
      */
-    private function handleAction(callable $runHandler, string $alias, string $scheme, string $stopwatchName, ?string $transactionId): mixed
+    private function handleAction(callable $runHandler, string $alias, string $scheme, string $stopwatchName, ?string $transactionId, ?Statement $statement): mixed
     {
         try {
             $this->stopwatch?->start($stopwatchName, 'database');
@@ -124,6 +125,7 @@ class EventHandler
             $this->stopwatch?->stop($stopwatchName);
             $event = new FailureEvent(
                 alias: $alias,
+                statement: $statement,
                 exception: $e,
                 time: new \DateTimeImmutable('now'),
                 scheme: $scheme,
