@@ -6,3 +6,6 @@ composer.lock
 .php-cs-fixer.cache
 
 composer.origin.json
+
+coverage
+phpunitCoverage.xml

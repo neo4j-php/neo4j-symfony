@@ -57,6 +57,7 @@
         "psalm": "APP_ENV=dev php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
         "fix-cs": "vendor/bin/php-cs-fixer fix",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run",
-        "ci-symfony-install-version": "./.github/scripts/setup-symfony-env.bash"
+        "ci-symfony-install-version": "./.github/scripts/setup-symfony-env.bash",
+        "phpunit-with-coverage" : "XDEBUG_MODE=coverage php -d memory_limit=-1 vendor/bin/phpunit --configuration=phpunitCoverage.xml --testsuite=All --coverage-filter=src tests"
     }
 }

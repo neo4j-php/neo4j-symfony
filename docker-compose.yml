@@ -11,11 +11,11 @@ services:
         volumes:
             - ./:/opt/project
         environment:
-            - NEO4J_HOST=neo4j
+            - NEO4J_HOST=${NEO4J_HOST}
             - NEO4J_DATABASE=neo4j
             - NEO4J_PORT=7687
             - NEO4J_USER=neo4j
-            - NEO4J_PASSWORD=testtest
+            - NEO4J_PASSWORD=${NEO4J_PASSWORD}
             - XDEBUG_CONFIG="client_host=host.docker.internal log=/tmp/xdebug.log"
         working_dir: /opt/project
         extra_hosts:
