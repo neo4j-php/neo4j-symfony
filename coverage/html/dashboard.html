@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /opt/project/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=9.2.32" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/opt/project/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#30">Neo4j\Neo4jBundle\Decorators\SymfonyClient</a></td><td class="text-right">53%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#30">Neo4j\Neo4jBundle\Decorators\SymfonyClient</a></td><td class="text-right">128</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#90"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::getStatements">getStatements</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#112"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::getFailedStatementsCount">getFailedStatementsCount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#118"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::getSuccessfulStatementsCount">getSuccessfulStatementsCount</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#128"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::getTemplate">getTemplate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#110"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::beginTransaction">beginTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#163"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::readTransaction">readTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#182"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::transaction">transaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#187"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::verifyConnectivity">verifyConnectivity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#192"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::hasDriver">hasDriver</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#197"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::bindTransaction">bindTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#205"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::rollbackBoundTransaction">rollbackBoundTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#215"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::popTransactions">popTransactions</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#230"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::commitBoundTransaction">commitBoundTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonySession.php.html#91"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonySession::readTransaction">readTransaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decorators/SymfonySession.php.html#104"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonySession::transaction">transaction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DependencyInjection/Neo4jExtension.php.html#120"><abbr title="Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension::getConfiguration">getConfiguration</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="DependencyInjection/Neo4jExtension.php.html#125"><abbr title="Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension::getAlias">getAlias</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventListener/Neo4jProfileListener.php.html#46"><abbr title="Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener::getSubscribedEvents">getSubscribedEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#133"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::recursiveToArray">recursiveToArray</abbr></a></td><td class="text-right">37%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#144"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::writeTransaction">writeTransaction</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#235"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::getTsxConfig">getTsxConfig</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#215"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::popTransactions">popTransactions</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Collector/Neo4jDataCollector.php.html#133"><abbr title="Neo4j\Neo4jBundle\Collector\Neo4jDataCollector::recursiveToArray">recursiveToArray</abbr></a></td><td class="text-right">7</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#163"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::readTransaction">readTransaction</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#144"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::writeTransaction">writeTransaction</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Decorators/SymfonyClient.php.html#235"><abbr title="Neo4j\Neo4jBundle\Decorators\SymfonyClient::getTsxConfig">getTsxConfig</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.32</a> using <a href="https://secure.php.net/" target="_top">PHP 8.1.31</a> and <a href="https://phpunit.de/">PHPUnit 9.6.22</a> at Wed Mar 12 10:22:45 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=9.2.32" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=9.2.32" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=9.2.32" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,1,0,0,2,5,14], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([18,0,0,0,1,0,0,2,3,3,0,81], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[96.42857142857143,9,"<a href=\"Builders\/ClientBuilder.php.html#17\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder<\/a>"],[85.71428571428571,19,"<a href=\"Collector\/Neo4jDataCollector.php.html#23\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector<\/a>"],[53.333333333333336,31,"<a href=\"Decorators\/SymfonyClient.php.html#30\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient<\/a>"],[100,4,"<a href=\"Decorators\/SymfonyDriver.php.html#19\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyDriver<\/a>"],[92.3076923076923,10,"<a href=\"Decorators\/SymfonySession.php.html#20\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession<\/a>"],[96.7741935483871,10,"<a href=\"Decorators\/SymfonyTransaction.php.html#18\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction<\/a>"],[100,4,"<a href=\"DependencyInjection\/Configuration.php.html#57\">Neo4j\\Neo4jBundle\\DependencyInjection\\Configuration<\/a>"],[97.26027397260275,9,"<a href=\"DependencyInjection\/Neo4jExtension.php.html#28\">Neo4j\\Neo4jBundle\\DependencyInjection\\Neo4jExtension<\/a>"],[100,2,"<a href=\"Event\/FailureEvent.php.html#11\">Neo4j\\Neo4jBundle\\Event\\FailureEvent<\/a>"],[100,1,"<a href=\"Event\/PostRunEvent.php.html#10\">Neo4j\\Neo4jBundle\\Event\\PostRunEvent<\/a>"],[100,1,"<a href=\"Event\/PreRunEvent.php.html#10\">Neo4j\\Neo4jBundle\\Event\\PreRunEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionBeginEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionBeginEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionCommitEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionCommitEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionRollbackEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionRollbackEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionBeginEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionBeginEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionCommitEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionCommitEvent<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionRollbackEvent.php.html#5\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionRollbackEvent<\/a>"],[100,6,"<a href=\"EventHandler.php.html#24\">Neo4j\\Neo4jBundle\\EventHandler<\/a>"],[87.5,9,"<a href=\"EventListener\/Neo4jProfileListener.php.html#15\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener<\/a>"],[91.13924050632912,17,"<a href=\"Factories\/ClientFactory.php.html#33\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory<\/a>"],[100,5,"<a href=\"Factories\/StopwatchEventNameFactory.php.html#7\">Neo4j\\Neo4jBundle\\Factories\\StopwatchEventNameFactory<\/a>"],[100,6,"<a href=\"Factories\/SymfonyDriverFactory.php.html#16\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Builders\/ClientBuilder.php.html#26\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::__construct<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#34\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withDriver<\/a>"],[83.33333333333334,2,"<a href=\"Builders\/ClientBuilder.php.html#43\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withParsedUrl<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#57\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withDefaultDriver<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#65\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::build<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#75\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withDefaultDriverConfiguration<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#84\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withDefaultSessionConfiguration<\/a>"],[100,1,"<a href=\"Builders\/ClientBuilder.php.html#92\">Neo4j\\Neo4jBundle\\Builders\\ClientBuilder::withDefaultTransactionConfiguration<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#25\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::__construct<\/a>"],[100,5,"<a href=\"Collector\/Neo4jDataCollector.php.html#30\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::collect<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#78\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::reset<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#84\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getName<\/a>"],[0,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#90\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getStatements<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#95\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getSuccessfulStatements<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#103\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getFailedStatements<\/a>"],[0,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#112\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getFailedStatementsCount<\/a>"],[0,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#118\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getSuccessfulStatementsCount<\/a>"],[100,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#123\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getQueryCount<\/a>"],[0,1,"<a href=\"Collector\/Neo4jDataCollector.php.html#128\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::getTemplate<\/a>"],[37.5,4,"<a href=\"Collector\/Neo4jDataCollector.php.html#133\">Neo4j\\Neo4jBundle\\Collector\\Neo4jDataCollector::recursiveToArray<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#47\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::__construct<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#55\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getDefaultSessionConfiguration<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#60\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getDefaultTransactionConfiguration<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#65\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::run<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#70\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::runStatement<\/a>"],[80,3,"<a href=\"Decorators\/SymfonyClient.php.html#75\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getRunner<\/a>"],[100,2,"<a href=\"Decorators\/SymfonyClient.php.html#89\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getSession<\/a>"],[75,2,"<a href=\"Decorators\/SymfonyClient.php.html#100\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::runStatements<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#110\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::beginTransaction<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#118\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getDriver<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyClient.php.html#127\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::startSession<\/a>"],[60,2,"<a href=\"Decorators\/SymfonyClient.php.html#144\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::writeTransaction<\/a>"],[0,2,"<a href=\"Decorators\/SymfonyClient.php.html#163\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::readTransaction<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#182\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::transaction<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#187\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::verifyConnectivity<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#192\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::hasDriver<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#197\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::bindTransaction<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#205\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::rollbackBoundTransaction<\/a>"],[0,4,"<a href=\"Decorators\/SymfonyClient.php.html#215\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::popTransactions<\/a>"],[0,1,"<a href=\"Decorators\/SymfonyClient.php.html#230\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::commitBoundTransaction<\/a>"],[66.66666666666666,2,"<a href=\"Decorators\/SymfonyClient.php.html#235\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyClient::getTsxConfig<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyDriver.php.html#21\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyDriver::__construct<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyDriver.php.html#29\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyDriver::createSession<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyDriver.php.html#34\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyDriver::verifyConnectivity<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyDriver.php.html#39\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyDriver::closeConnections<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#22\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::__construct<\/a>"],[100,2,"<a href=\"Decorators\/SymfonySession.php.html#31\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::runStatements<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#41\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::runStatement<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#52\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::run<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#57\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::beginTransaction<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#76\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::writeTransaction<\/a>"],[0,1,"<a href=\"Decorators\/SymfonySession.php.html#91\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::readTransaction<\/a>"],[0,1,"<a href=\"Decorators\/SymfonySession.php.html#104\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::transaction<\/a>"],[100,1,"<a href=\"Decorators\/SymfonySession.php.html#109\">Neo4j\\Neo4jBundle\\Decorators\\SymfonySession::getLastBookmark<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#23\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::__construct<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#32\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::run<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#37\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::runStatement<\/a>"],[75,2,"<a href=\"Decorators\/SymfonyTransaction.php.html#50\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::runStatements<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#60\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::commit<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#75\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::rollback<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#86\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::isRolledBack<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#91\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::isCommitted<\/a>"],[100,1,"<a href=\"Decorators\/SymfonyTransaction.php.html#96\">Neo4j\\Neo4jBundle\\Decorators\\SymfonyTransaction::isFinished<\/a>"],[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#59\">Neo4j\\Neo4jBundle\\DependencyInjection\\Configuration::getConfigTreeBuilder<\/a>"],[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#118\">Neo4j\\Neo4jBundle\\DependencyInjection\\Configuration::decorateSessionConfig<\/a>"],[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#136\">Neo4j\\Neo4jBundle\\DependencyInjection\\Configuration::decorateDriverConfig<\/a>"],[100,1,"<a href=\"DependencyInjection\/Configuration.php.html#171\">Neo4j\\Neo4jBundle\\DependencyInjection\\Configuration::decorateTransactionConfig<\/a>"],[100,7,"<a href=\"DependencyInjection\/Neo4jExtension.php.html#30\">Neo4j\\Neo4jBundle\\DependencyInjection\\Neo4jExtension::load<\/a>"],[0,1,"<a href=\"DependencyInjection\/Neo4jExtension.php.html#120\">Neo4j\\Neo4jBundle\\DependencyInjection\\Neo4jExtension::getConfiguration<\/a>"],[0,1,"<a href=\"DependencyInjection\/Neo4jExtension.php.html#125\">Neo4j\\Neo4jBundle\\DependencyInjection\\Neo4jExtension::getAlias<\/a>"],[100,1,"<a href=\"Event\/FailureEvent.php.html#17\">Neo4j\\Neo4jBundle\\Event\\FailureEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/FailureEvent.php.html#28\">Neo4j\\Neo4jBundle\\Event\\FailureEvent::disableException<\/a>"],[100,1,"<a href=\"Event\/PostRunEvent.php.html#14\">Neo4j\\Neo4jBundle\\Event\\PostRunEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/PreRunEvent.php.html#14\">Neo4j\\Neo4jBundle\\Event\\PreRunEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionBeginEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionBeginEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionCommitEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionCommitEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PostTransactionRollbackEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PostTransactionRollbackEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionBeginEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionBeginEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionCommitEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionCommitEvent::__construct<\/a>"],[100,1,"<a href=\"Event\/Transaction\/PreTransactionRollbackEvent.php.html#9\">Neo4j\\Neo4jBundle\\Event\\Transaction\\PreTransactionRollbackEvent::__construct<\/a>"],[100,1,"<a href=\"EventHandler.php.html#28\">Neo4j\\Neo4jBundle\\EventHandler::__construct<\/a>"],[100,1,"<a href=\"EventHandler.php.html#43\">Neo4j\\Neo4jBundle\\EventHandler::handleQuery<\/a>"],[100,1,"<a href=\"EventHandler.php.html#91\">Neo4j\\Neo4jBundle\\EventHandler::handleTransactionAction<\/a>"],[100,2,"<a href=\"EventHandler.php.html#126\">Neo4j\\Neo4jBundle\\EventHandler::handleAction<\/a>"],[100,1,"<a href=\"EventHandler.php.html#154\">Neo4j\\Neo4jBundle\\EventHandler::createPreAndPostEventsAndIds<\/a>"],[100,1,"<a href=\"EventListener\/Neo4jProfileListener.php.html#42\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::__construct<\/a>"],[0,1,"<a href=\"EventListener\/Neo4jProfileListener.php.html#46\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::getSubscribedEvents<\/a>"],[100,2,"<a href=\"EventListener\/Neo4jProfileListener.php.html#54\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::onPostRun<\/a>"],[100,2,"<a href=\"EventListener\/Neo4jProfileListener.php.html#73\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::onFailure<\/a>"],[100,1,"<a href=\"EventListener\/Neo4jProfileListener.php.html#87\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::getProfiledSummaries<\/a>"],[100,1,"<a href=\"EventListener\/Neo4jProfileListener.php.html#101\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::getProfiledFailures<\/a>"],[100,1,"<a href=\"EventListener\/Neo4jProfileListener.php.html#106\">Neo4j\\Neo4jBundle\\EventListener\\Neo4jProfileListener::reset<\/a>"],[100,1,"<a href=\"Factories\/ClientFactory.php.html#41\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::__construct<\/a>"],[100,6,"<a href=\"Factories\/ClientFactory.php.html#56\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::create<\/a>"],[84.21052631578947,4,"<a href=\"Factories\/ClientFactory.php.html#88\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::makeDriverConfig<\/a>"],[100,1,"<a href=\"Factories\/ClientFactory.php.html#118\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::makeSessionConfig<\/a>"],[100,1,"<a href=\"Factories\/ClientFactory.php.html#130\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::makeTransactionConfig<\/a>"],[100,2,"<a href=\"Factories\/ClientFactory.php.html#140\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::createAuth<\/a>"],[71.42857142857143,2,"<a href=\"Factories\/ClientFactory.php.html#165\">Neo4j\\Neo4jBundle\\Factories\\ClientFactory::makeSslConfig<\/a>"],[100,1,"<a href=\"Factories\/StopwatchEventNameFactory.php.html#9\">Neo4j\\Neo4jBundle\\Factories\\StopwatchEventNameFactory::__construct<\/a>"],[100,2,"<a href=\"Factories\/StopwatchEventNameFactory.php.html#13\">Neo4j\\Neo4jBundle\\Factories\\StopwatchEventNameFactory::createQueryEventName<\/a>"],[100,1,"<a href=\"Factories\/StopwatchEventNameFactory.php.html#22\">Neo4j\\Neo4jBundle\\Factories\\StopwatchEventNameFactory::createTransactionEventName<\/a>"],[100,1,"<a href=\"Factories\/StopwatchEventNameFactory.php.html#32\">Neo4j\\Neo4jBundle\\Factories\\StopwatchEventNameFactory::nextTransactionStateToAction<\/a>"],[100,1,"<a href=\"Factories\/SymfonyDriverFactory.php.html#18\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory::__construct<\/a>"],[100,1,"<a href=\"Factories\/SymfonyDriverFactory.php.html#24\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory::createTransaction<\/a>"],[100,1,"<a href=\"Factories\/SymfonyDriverFactory.php.html#45\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory::createSession<\/a>"],[100,1,"<a href=\"Factories\/SymfonyDriverFactory.php.html#60\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory::createDriver<\/a>"],[100,2,"<a href=\"Factories\/SymfonyDriverFactory.php.html#73\">Neo4j\\Neo4jBundle\\Factories\\SymfonyDriverFactory::generateTransactionId<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

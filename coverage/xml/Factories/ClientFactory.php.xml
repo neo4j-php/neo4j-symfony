@@ -1,0 +1,2688 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <file name="ClientFactory.php" path="/Factories">
+    <totals>
+      <lines total="185" comments="20" code="165" executable="79" executed="72" percent="91.14"/>
+      <methods count="7" tested="5" percent="71.43"/>
+      <functions count="0" tested="0" percent="0"/>
+      <classes count="1" tested="0" percent="0.00"/>
+      <traits count="0" tested="0" percent="0"/>
+    </totals>
+    <class name="Neo4j\Neo4jBundle\Factories\ClientFactory" start="33" executable="79" executed="72" crap="17.2">
+      <namespace name="Neo4j\Neo4jBundle\Factories"/>
+      <method name="__construct" signature="__construct(?array $driverConfig, ?array $sessionConfig, ?array $transactionConfig, array $connections, ?string $defaultDriver, ?Psr\Http\Client\ClientInterface $client, ?Psr\Http\Message\StreamFactoryInterface $streamFactory, ?Psr\Http\Message\RequestFactoryInterface $requestFactory, ?string $logLevel, ?Psr\Log\LoggerInterface $logger, Neo4j\Neo4jBundle\Builders\ClientBuilder $builder)" start="41" end="54" crap="1" executable="1" executed="1" coverage="100"/>
+      <method name="create" signature="create(): Neo4j\Neo4jBundle\Decorators\SymfonyClient" start="56" end="86" crap="6" executable="18" executed="18" coverage="100"/>
+      <method name="makeDriverConfig" signature="makeDriverConfig(?string $logLevel, ?Psr\Log\LoggerInterface $logger): Laudis\Neo4j\Databags\DriverConfiguration" start="88" end="116" crap="4.06" executable="19" executed="16" coverage="84.210526315789"/>
+      <method name="makeSessionConfig" signature="makeSessionConfig(): Laudis\Neo4j\Databags\SessionConfiguration" start="118" end="128" crap="1" executable="8" executed="8" coverage="100"/>
+      <method name="makeTransactionConfig" signature="makeTransactionConfig(): Laudis\Neo4j\Databags\TransactionConfiguration" start="130" end="135" crap="1" executable="3" executed="3" coverage="100"/>
+      <method name="createAuth" signature="createAuth(?array $auth, string $dsn): Laudis\Neo4j\Contracts\AuthenticateInterface" start="140" end="160" crap="2" executable="16" executed="16" coverage="100"/>
+      <method name="makeSslConfig" signature="makeSslConfig(?array $ssl): Laudis\Neo4j\Databags\SslConfiguration" start="165" end="183" crap="2.09" executable="14" executed="10" coverage="71.428571428571"/>
+    </class>
+    <coverage>
+      <line nr="54">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="58">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="59">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="60">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="64">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="65">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="68">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="69">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="72">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="73">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="74">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="75">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="76">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="77">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="81">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="82">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="85">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="90">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="91">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="92">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="93">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="94">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="95">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="96">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="97">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="102">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="103">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="107">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="111">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="115">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="120">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="121">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="122">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="123">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="124">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="125">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="132">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="133">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="142">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="143">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="146">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="147">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="148">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="149">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="151">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="152">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="154">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="155">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="156">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="157">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="167">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="174">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="175">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="176">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="177">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="178">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="179">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="181">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="61">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="78">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="98">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="99">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="100">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="126">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="127">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="134">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="150">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="153">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="158">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="159">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="180">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+      <line nr="182">
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testClient"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriver"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDsn"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDriverAuthentication"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultDriverConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultSessionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultTransactionConfig"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testPriority"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\IntegrationTest::testDefaultLogLevel"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfiler"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnSession"/>
+        <covered by="Neo4j\Neo4jBundle\Tests\Functional\ProfilerTest::testProfilerOnTransaction"/>
+      </line>
+    </coverage>
+    <source>
+      <line no="1">
+        <token name="T_OPEN_TAG">&lt;?php</token>
+      </line>
+      <line no="2"/>
+      <line no="3">
+        <token name="T_DECLARE">declare</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">strict_types</token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_LNUMBER">1</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="4"/>
+      <line no="5">
+        <token name="T_NAMESPACE">namespace</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Neo4j\Neo4jBundle\Factories</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="6"/>
+      <line no="7">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Authentication\Authenticate</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="8">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Common\Uri</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="9">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Contracts\AuthenticateInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="10">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Databags\DriverConfiguration</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="11">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Databags\HttpPsrBindings</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="12">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Databags\SessionConfiguration</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="13">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Databags\SslConfiguration</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="14">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Databags\TransactionConfiguration</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="15">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Enum\AccessMode</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="16">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Laudis\Neo4j\Enum\SslMode</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="17">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Neo4j\Neo4jBundle\Builders\ClientBuilder</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="18">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Neo4j\Neo4jBundle\Decorators\SymfonyClient</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="19">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Neo4j\Neo4jBundle\DependencyInjection\Configuration</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="20">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Psr\Http\Client\ClientInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="21">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Psr\Http\Message\RequestFactoryInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="22">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Psr\Http\Message\StreamFactoryInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="23">
+        <token name="T_USE">use</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_QUALIFIED">Psr\Log\LoggerInterface</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="24"/>
+      <line no="25">
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="26">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type SessionConfigArray from Configuration</token>
+      </line>
+      <line no="27">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type DriverConfigArray from Configuration</token>
+      </line>
+      <line no="28">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type TransactionConfigArray from Configuration</token>
+      </line>
+      <line no="29">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type DriverRegistrationArray from Configuration</token>
+      </line>
+      <line no="30">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type DriverAuthenticationArray from Configuration</token>
+      </line>
+      <line no="31">
+        <token name="T_DOC_COMMENT"> * @psalm-import-type SslConfigArray from Configuration</token>
+      </line>
+      <line no="32">
+        <token name="T_DOC_COMMENT"> */</token>
+      </line>
+      <line no="33">
+        <token name="T_CLASS">class</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ClientFactory</token>
+      </line>
+      <line no="34">
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="35">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="36">
+        <token name="T_DOC_COMMENT">     * @param DriverConfigArray|null        $driverConfig</token>
+      </line>
+      <line no="37">
+        <token name="T_DOC_COMMENT">     * @param SessionConfigArray|null       $sessionConfig</token>
+      </line>
+      <line no="38">
+        <token name="T_DOC_COMMENT">     * @param TransactionConfigArray|null   $transactionConfig</token>
+      </line>
+      <line no="39">
+        <token name="T_DOC_COMMENT">     * @param list&lt;DriverRegistrationArray&gt; $connections</token>
+      </line>
+      <line no="40">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="41">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">__construct</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="42">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$driverConfig</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="43">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$sessionConfig</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="44">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$transactionConfig</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="45">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$connections</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="46">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$defaultDriver</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="47">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">ClientInterface</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$client</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="48">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">StreamFactoryInterface</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$streamFactory</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="49">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">RequestFactoryInterface</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$requestFactory</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="50">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logLevel</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="51">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_READONLY">readonly</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">LoggerInterface</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logger</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="52">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">ClientBuilder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$builder</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="53">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="54">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="55"/>
+      <line no="56">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PUBLIC">public</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">create</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SymfonyClient</token>
+      </line>
+      <line no="57">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="58">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">driverConfig</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="59">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withDefaultDriverConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="60">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">makeDriverConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">logLevel</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">logger</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="61">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="62">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="63"/>
+      <line no="64">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sessionConfig</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="65">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withDefaultSessionConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">makeSessionConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="66">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="67"/>
+      <line no="68">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">transactionConfig</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="69">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withDefaultTransactionConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">makeTransactionConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="70">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="71"/>
+      <line no="72">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_FOREACH">foreach</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">connections</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_AS">as</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="73">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withDriver</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="74">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'alias'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="75">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'dsn'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="76">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">createAuth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'authentication'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'dsn'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="77">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$connection</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'priority'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+      </line>
+      <line no="78">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="79">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="80"/>
+      <line no="81">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_NOT_IDENTICAL">!==</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultDriver</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="82">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withDefaultDriver</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">defaultDriver</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="83">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="84"/>
+      <line no="85">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">builder</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">build</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="86">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="87"/>
+      <line no="88">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">makeDriverConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logLevel</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_STRING">LoggerInterface</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logger</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">DriverConfiguration</token>
+      </line>
+      <line no="89">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="90">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">DriverConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="91">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">userAgent</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">driverConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'user_agent'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="92">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">httpPsrBindings</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="93">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">sslConfig</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">makeSslConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">driverConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'ssl'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="94">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">maxPoolSize</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">driverConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'pool_size'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="95">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">cache</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="96">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">acquireConnectionTimeout</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">driverConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'acquire_connection_timeout'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="97">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">semaphore</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="98">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">logLevel</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logLevel</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="99">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">logger</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$logger</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="100">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="101"/>
+      <line no="102">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_VARIABLE">$bindings</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">HttpPsrBindings</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="103">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">client</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="104">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withHttpPsrBindings</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$bindings</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withClient</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">client</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="105">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="106"/>
+      <line no="107">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">streamFactory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="108">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withHttpPsrBindings</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$bindings</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withStreamFactory</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">streamFactory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="109">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="110"/>
+      <line no="111">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">requestFactory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="112">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EQUAL">=</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withHttpPsrBindings</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$bindings</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">withRequestFactory</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">requestFactory</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="113">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="114"/>
+      <line no="115">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$config</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="116">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="117"/>
+      <line no="118">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">makeSessionConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SessionConfiguration</token>
+      </line>
+      <line no="119">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="120">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SessionConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="121">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">database</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sessionConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'database'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="122">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">fetchSize</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sessionConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'fetch_size'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="123">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">accessMode</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">sessionConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'access_mode'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="124">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'write'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AccessMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">WRITE</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="125">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'read'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AccessMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">READ</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="126">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="127">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="128">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="129"/>
+      <line no="130">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">makeTransactionConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">TransactionConfiguration</token>
+      </line>
+      <line no="131">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="132">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">TransactionConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="133">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">timeout</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$this</token>
+        <token name="T_OBJECT_OPERATOR">-&gt;</token>
+        <token name="T_STRING">transactionConfig</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'timeout'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+      </line>
+      <line no="134">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="135">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="136"/>
+      <line no="137">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="138">
+        <token name="T_DOC_COMMENT">     * @param DriverAuthenticationArray|null $auth</token>
+      </line>
+      <line no="139">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="140">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">createAuth</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">string</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$dsn</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">AuthenticateInterface</token>
+      </line>
+      <line no="141">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="142">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="143">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">fromUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Uri</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">create</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$dsn</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="144">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="145"/>
+      <line no="146">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'type'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="147">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'basic'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">basic</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="148">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'username'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Missing username for basic authentication'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="149">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'password'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Missing password for basic authentication'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="150">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="151">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'kerberos'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">kerberos</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="152">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'token'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Missing token for kerberos authentication'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="153">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="154">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'dsn'</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">fromUrl</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">Uri</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">create</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$dsn</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="155">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'none'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">disabled</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="156">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'oid'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">Authenticate</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">oidc</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="157">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_VARIABLE">$auth</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'token'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_THROW">throw</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NAME_FULLY_QUALIFIED">\InvalidArgumentException</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'Missing token for oid authentication'</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+      </line>
+      <line no="158">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="159">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="160">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="161"/>
+      <line no="162">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_DOC_COMMENT">/**</token>
+      </line>
+      <line no="163">
+        <token name="T_DOC_COMMENT">     * @param SslConfigArray|null $ssl</token>
+      </line>
+      <line no="164">
+        <token name="T_DOC_COMMENT">     */</token>
+      </line>
+      <line no="165">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_PRIVATE">private</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_FUNCTION">function</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">makeSslConfig</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_QUESTION_MARK">?</token>
+        <token name="T_ARRAY">array</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$ssl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslConfiguration</token>
+      </line>
+      <line no="166">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="167">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_IF">if</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_STRING">null</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_VARIABLE">$ssl</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="168">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="169">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">mode</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DISABLE</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="170">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">verifyPeer</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="171">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="172">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="173"/>
+      <line no="174">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_RETURN">return</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_NEW">new</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslConfiguration</token>
+        <token name="T_OPEN_BRACKET">(</token>
+      </line>
+      <line no="175">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">mode</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_MATCH">match</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$ssl</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'mode'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">null</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_OPEN_CURLY">{</token>
+      </line>
+      <line no="176">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_STRING">null</token>
+        <token name="T_COMMA">,</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'disable'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">DISABLE</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="177">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'enable'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">ENABLE</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="178">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'from_url'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">FROM_URL</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="179">
+        <token name="T_WHITESPACE">                </token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'enable_with_self_signed'</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_DOUBLE_ARROW">=&gt;</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">SslMode</token>
+        <token name="T_DOUBLE_COLON">::</token>
+        <token name="T_STRING">ENABLE_WITH_SELF_SIGNED</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="180">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_CLOSE_CURLY">}</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="181">
+        <token name="T_WHITESPACE">            </token>
+        <token name="T_STRING">verifyPeer</token>
+        <token name="T_COLON">:</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_EXCLAMATION_MARK">!</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_OPEN_BRACKET">(</token>
+        <token name="T_VARIABLE">$ssl</token>
+        <token name="T_OPEN_SQUARE">[</token>
+        <token name="T_CONSTANT_ENCAPSED_STRING">'verify_peer'</token>
+        <token name="T_CLOSE_SQUARE">]</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_COALESCE">??</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">true</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_IS_IDENTICAL">===</token>
+        <token name="T_WHITESPACE"> </token>
+        <token name="T_STRING">false</token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_COMMA">,</token>
+      </line>
+      <line no="182">
+        <token name="T_WHITESPACE">        </token>
+        <token name="T_CLOSE_BRACKET">)</token>
+        <token name="T_SEMICOLON">;</token>
+      </line>
+      <line no="183">
+        <token name="T_WHITESPACE">    </token>
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="184">
+        <token name="T_CLOSE_CURLY">}</token>
+      </line>
+      <line no="185"/>
+    </source>
+  </file>
+</phpunit>
