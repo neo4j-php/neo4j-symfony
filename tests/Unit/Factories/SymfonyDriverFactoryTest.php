@@ -92,6 +92,9 @@ class SymfonyDriverFactoryTest extends TestCase
         $this->assertSame('test-uuid', $id);
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function testGenerateTransactionIdWithoutUuidFactory(): void
     {
         $factory = new SymfonyDriverFactory($this->eventHandler, null);

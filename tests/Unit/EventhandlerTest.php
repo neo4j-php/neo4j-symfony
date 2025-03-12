@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\Tests\unit;
+namespace Neo4j\Neo4jBundle\Tests\Unit;
 
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;

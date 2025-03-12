@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Tests\Unit\DependencyInjection;
 
 use Neo4j\Neo4jBundle\DependencyInjection\Neo4jExtension;
-use Neo4j\Neo4jBundle\EventHandler;
-use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
-use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
+
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
+
 
 class Neo4jExtensionTest extends TestCase
 {
     public function testLoad(): void
     {
         $container = new ContainerBuilder();
-        $container->setParameter('kernel.debug', false); // Define missing parameter
+        $container->setParameter('kernel.debug', false);
 
         $extension = new Neo4jExtension();
         $configs = [

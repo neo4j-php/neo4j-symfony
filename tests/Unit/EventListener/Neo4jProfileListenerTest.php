@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\Tests\unit\EventListener;
+namespace Neo4j\Neo4jBundle\Tests\Unit\EventListener;
 
 use Laudis\Neo4j\Databags\ResultSummary;
 use Laudis\Neo4j\Databags\Statement;
@@ -21,8 +21,8 @@ class Neo4jProfileListenerTest extends TestCase
 
         $alias = 'default';
         $resultMock = $this->createMock(ResultSummary::class);
-        $resultMock->method('getResultAvailableAfter')->willReturn(10.0); // Ensure float type
-        $resultMock->method('getResultConsumedAfter')->willReturn(5.0);   // Ensure float type
+        $resultMock->method('getResultAvailableAfter')->willReturn(10.0);
+        $resultMock->method('getResultConsumedAfter')->willReturn(5.0);
 
         $time = new \DateTimeImmutable();
         $scheme = 'bolt';

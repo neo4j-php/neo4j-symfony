@@ -29,22 +29,18 @@ class SymfonyClientTest extends TestCase
 
     protected function setUp(): void
     {
-        // Mocks
         $this->driverSetupManagerMock = $this->createMock(DriverSetupManager::class);
         $this->driverFactoryMock = $this->createMock(SymfonyDriverFactory::class);
         $this->sessionMock = $this->createMock(SymfonySession::class);
         $this->transactionMock = $this->createMock(SymfonyTransaction::class);
 
-        // Use real instances for final classes
         $this->sessionConfig = new SessionConfiguration();
         $this->transactionConfig = new TransactionConfiguration();
 
-        // Setup default alias return value
         $this->driverSetupManagerMock
             ->method('getDefaultAlias')
             ->willReturn('default');
 
-        // Create SymfonyClient instance
         $this->client = new SymfonyClient(
             $this->driverSetupManagerMock,
             $this->sessionConfig,

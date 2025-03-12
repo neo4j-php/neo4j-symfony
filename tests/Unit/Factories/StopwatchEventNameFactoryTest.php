@@ -1,6 +1,6 @@
 <?php
 
-namespace Neo4j\Neo4jBundle\Tests\unit\Factories;
+namespace Neo4j\Neo4jBundle\Tests\Unit\Factories;
 
 use Neo4j\Neo4jBundle\Factories\StopwatchEventNameFactory;
 use Laudis\Neo4j\Enum\TransactionState;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neo4j\Neo4jBundle\Tests\unit\Collector;
+namespace Neo4j\Neo4jBundle\Tests\Unit\Collector;
 
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
@@ -20,8 +20,6 @@ class Neo4jDataCollectorTest extends TestCase
         $this->subscriber = $this->createMock(Neo4jProfileListener::class);
         $this->collector = new Neo4jDataCollector($this->subscriber);
     }
-
-
 
     public function testGetName(): void
     {
@@ -41,7 +39,10 @@ class Neo4jDataCollectorTest extends TestCase
     public function testRecursiveToArray(): void
     {
         $obj = new class {
-            public function toArray(): array { return ['key' => 'value']; }
+            public function toArray(): array
+            {
+                return ['key' => 'value'];
+            }
         };
         $reflection = new \ReflectionClass($this->collector);
         $method = $reflection->getMethod('recursiveToArray');

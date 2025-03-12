@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Neo4j\Neo4jBundle\Decorators;
+namespace Tests\Neo4j\Neo4jBundle\tests\unit\Decorators;
 
 use Laudis\Neo4j\Contracts\UnmanagedTransactionInterface;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Enum\TransactionState;
 use Laudis\Neo4j\Types\CypherList;
-use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\Decorators\SymfonyTransaction;
 use Neo4j\Neo4jBundle\EventHandler;
 use PHPUnit\Framework\TestCase;
