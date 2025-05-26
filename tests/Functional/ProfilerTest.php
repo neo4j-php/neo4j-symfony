@@ -6,8 +6,9 @@ use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProfilerTest extends WebTestCase
+final class ProfilerTest extends WebTestCase
 {
+    #[\Override]
     protected static function getKernelClass(): string
     {
         return TestKernel::class;

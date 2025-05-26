@@ -17,17 +17,9 @@ use Laudis\Neo4j\Enum\AccessMode;
 use Laudis\Neo4j\Types\CypherList;
 use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
+use Override;
 
-/**
- * A collection of drivers with methods to run queries though them.
- *
- * @implements ClientInterface<SummarizedResult<CypherMap>>
- *
- * @psalm-external-mutation-free
- *
- * @psalm-suppress ImpureMethodCall
- */
-class SymfonyClient implements ClientInterface
+final class SymfonyClient implements ClientInterface
 {
     /**
      * @var array<string, list<SymfonyTransaction>>
@@ -42,7 +34,7 @@ class SymfonyClient implements ClientInterface
     /**
      * @psalm-mutation-free
      *
-     * @param DriverSetupManager<mixed> $driverSetups
+     * @param DriverSetupManager $driverSetups
      */
     public function __construct(
         private readonly DriverSetupManager $driverSetups,
@@ -62,11 +54,13 @@ class SymfonyClient implements ClientInterface
         return $this->defaultTransactionConfiguration;
     }
 
+    #[Override]
     public function run(string $statement, iterable $parameters = [], ?string $alias = null): SummarizedResult
     {
         return $this->runStatement(Statement::create($statement, $parameters), $alias);
     }
 
+    #[Override]
     public function runStatement(Statement $statement, ?string $alias = null): SummarizedResult
     {
         return $this->runStatements([$statement], $alias)->first();
@@ -97,6 +91,7 @@ class SymfonyClient implements ClientInterface
         return $this->boundSessions[$alias] = $this->startSession($alias, $this->defaultSessionConfiguration);
     }
 
+    #[Override]
     public function runStatements(iterable $statements, ?string $alias = null): CypherList
     {
         $runner = $this->getRunner($alias);
@@ -107,6 +102,7 @@ class SymfonyClient implements ClientInterface
         return $runner->runStatements($statements);
     }
 
+    #[Override]
     public function beginTransaction(?iterable $statements = null, ?string $alias = null, ?TransactionConfiguration $config = null): SymfonyTransaction
     {
         $session = $this->getSession($alias);
@@ -115,6 +111,7 @@ class SymfonyClient implements ClientInterface
         return $session->beginTransaction($statements, $config);
     }
 
+    #[Override]
     public function getDriver(?string $alias): SymfonyDriver
     {
         return $this->factory->createDriver(
@@ -141,6 +138,7 @@ class SymfonyClient implements ClientInterface
      *
      * @return HandlerResult
      */
+    #[Override]
     public function writeTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null): mixed
     {
         if ($this->defaultSessionConfiguration->getAccessMode() === AccessMode::WRITE()) {
@@ -160,6 +158,7 @@ class SymfonyClient implements ClientInterface
      *
      * @return HandlerResult
      */
+    #[Override]
     public function readTransaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null): mixed
     {
         if ($this->defaultSessionConfiguration->getAccessMode() === AccessMode::READ()) {
@@ -179,21 +178,25 @@ class SymfonyClient implements ClientInterface
      *
      * @return HandlerResult
      */
+    #[Override]
     public function transaction(callable $tsxHandler, ?string $alias = null, ?TransactionConfiguration $config = null)
     {
         return $this->writeTransaction($tsxHandler, $alias, $config);
     }
 
+    #[Override]
     public function verifyConnectivity(?string $driver = null): bool
     {
         return $this->driverSetups->verifyConnectivity($this->defaultSessionConfiguration, $driver);
     }
 
+    #[Override]
     public function hasDriver(string $alias): bool
     {
         return $this->driverSetups->hasDriver($alias);
     }
 
+    #[Override]
     public function bindTransaction(?string $alias = null, ?TransactionConfiguration $config = null): void
     {
         $alias ??= $this->driverSetups->getDefaultAlias();
@@ -202,6 +205,7 @@ class SymfonyClient implements ClientInterface
         $this->boundTransactions[$alias][] = $this->beginTransaction(null, $alias, $config);
     }
 
+    #[Override]
     public function rollbackBoundTransaction(?string $alias = null, int $depth = 1): void
     {
         $this->popTransactions(static fn (SymfonyTransaction $tsx) => $tsx->rollback(), $alias, $depth);
@@ -227,6 +231,7 @@ class SymfonyClient implements ClientInterface
         }
     }
 
+    #[Override]
     public function commitBoundTransaction(?string $alias = null, int $depth = 1): void
     {
         $this->popTransactions(static fn (UnmanagedTransactionInterface $tsx) => $tsx->commit(), $alias, $depth);

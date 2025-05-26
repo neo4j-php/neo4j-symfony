@@ -21,7 +21,7 @@ final class ClientBuilder
     /**
      * @psalm-mutation-free
      *
-     * @param DriverSetupManager<mixed> $driverSetups
+     * @param DriverSetupManager $driverSetups
      */
     public function __construct(
         private SessionConfiguration $defaultSessionConfig,

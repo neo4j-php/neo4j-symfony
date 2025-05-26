@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class TestKernel extends Kernel
 {
+    #[\Override]
     public function registerBundles(): array
     {
         return [
@@ -23,6 +24,7 @@ final class TestKernel extends Kernel
         ];
     }
 
+    #[\Override]
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config/default.yml');

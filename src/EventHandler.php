@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle;
 
+use DateTimeImmutable;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Enum\TransactionState;
@@ -20,8 +21,9 @@ use Neo4j\Neo4jBundle\Event\Transaction\PreTransactionRollbackEvent;
 use Neo4j\Neo4jBundle\Factories\StopwatchEventNameFactory;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use UnexpectedValueException;
 
-class EventHandler
+final class EventHandler
 {
     private ?EventDispatcherInterface $dispatcher;
 
@@ -44,7 +46,7 @@ class EventHandler
     {
         $stopwatchName = $this->nameFactory->createQueryEventName($alias, $transactionId);
 
-        $time = new \DateTimeImmutable();
+        $time = new DateTimeImmutable();
         $event = new PreRunEvent(
             alias: $alias,
             statement: $statement,
@@ -137,7 +139,7 @@ class EventHandler
                 alias: $alias,
                 statement: $statement,
                 exception: $e,
-                time: new \DateTimeImmutable('now'),
+                time: new DateTimeImmutable('now'),
                 scheme: $scheme,
                 transactionId: $transactionId
             );
@@ -161,7 +163,7 @@ class EventHandler
             TransactionState::ACTIVE => [
                 new PreTransactionBeginEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
@@ -170,7 +172,7 @@ class EventHandler
             TransactionState::ROLLED_BACK => [
                 new PreTransactionRollbackEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
@@ -179,19 +181,19 @@ class EventHandler
             TransactionState::COMMITTED => [
                 new PreTransactionCommitEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
                 PreTransactionCommitEvent::EVENT_ID,
             ],
-            TransactionState::TERMINATED => throw new \UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
+            TransactionState::TERMINATED => throw new UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
         };
         [$postEvent, $postEventId] = match ($nextTransactionState) {
             TransactionState::ACTIVE => [
                 new PostTransactionBeginEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
@@ -200,7 +202,7 @@ class EventHandler
             TransactionState::ROLLED_BACK => [
                 new PostTransactionRollbackEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
@@ -209,13 +211,13 @@ class EventHandler
             TransactionState::COMMITTED => [
                 new PostTransactionCommitEvent(
                     alias: $alias,
-                    time: new \DateTimeImmutable(),
+                    time: new DateTimeImmutable(),
                     scheme: $scheme,
                     transactionId: $transactionId,
                 ),
                 PostTransactionCommitEvent::EVENT_ID,
             ],
-            TransactionState::TERMINATED => throw new \UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
+            TransactionState::TERMINATED => throw new UnexpectedValueException('TERMINATED is not a valid transaction state at this point'),
         };
 
         return [

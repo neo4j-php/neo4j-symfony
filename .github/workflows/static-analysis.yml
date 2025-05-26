@@ -14,7 +14,7 @@ jobs:
       - uses: php-actions/composer@v6
         with:
           progress: yes
-          php_version: 8.1
+          php_version: 8.4
           version: 2
       - name: "PHP-CS-Fixer"
         run: composer check-cs

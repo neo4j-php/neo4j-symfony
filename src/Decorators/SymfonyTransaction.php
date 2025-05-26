@@ -11,14 +11,12 @@ use Laudis\Neo4j\Enum\TransactionState;
 use Laudis\Neo4j\Types\CypherList;
 use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\EventHandler;
+use Override;
 
-/**
- * @implements UnmanagedTransactionInterface<SummarizedResult<CypherMap>>
- */
-class SymfonyTransaction implements UnmanagedTransactionInterface
+final class SymfonyTransaction implements UnmanagedTransactionInterface
 {
     /**
-     * @param UnmanagedTransactionInterface<SummarizedResult<CypherMap>> $tsx
+     * @param UnmanagedTransactionInterface $tsx
      */
     public function __construct(
         private readonly UnmanagedTransactionInterface $tsx,
@@ -29,11 +27,13 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     ) {
     }
 
+    #[Override]
     public function run(string $statement, iterable $parameters = []): SummarizedResult
     {
         return $this->runStatement(new Statement($statement, $parameters));
     }
 
+    #[Override]
     public function runStatement(Statement $statement): SummarizedResult
     {
         return $this->handler->handleQuery(fn (Statement $statement) => $this->tsx->runStatement($statement),
@@ -47,6 +47,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
     /**
      * @psalm-suppress InvalidReturnStatement
      */
+    #[Override]
     public function runStatements(iterable $statements): CypherList
     {
         $tbr = [];
@@ -57,6 +58,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
         return CypherList::fromIterable($tbr);
     }
 
+    #[Override]
     public function commit(iterable $statements = []): CypherList
     {
         $results = $this->runStatements($statements);
@@ -72,6 +74,7 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
         return $results;
     }
 
+    #[Override]
     public function rollback(): void
     {
         $this->handler->handleTransactionAction(
@@ -83,16 +86,19 @@ class SymfonyTransaction implements UnmanagedTransactionInterface
         );
     }
 
+    #[Override]
     public function isRolledBack(): bool
     {
         return $this->tsx->isRolledBack();
     }
 
+    #[Override]
     public function isCommitted(): bool
     {
         return $this->tsx->isCommitted();
     }
 
+    #[Override]
     public function isFinished(): bool
     {
         return $this->tsx->isFinished();

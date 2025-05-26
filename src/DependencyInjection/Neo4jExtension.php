@@ -10,9 +10,7 @@ use Neo4j\Neo4jBundle\Builders\ClientBuilder;
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
+use Override;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,8 +23,9 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @psalm-import-type NormalisedDriverConfig from Configuration
  */
-class Neo4jExtension extends Extension
+final class Neo4jExtension extends Extension
 {
+    #[Override]
     public function load(array $configs, ContainerBuilder $container): ContainerBuilder
     {
         $configuration = new Configuration();
@@ -48,15 +47,6 @@ class Neo4jExtension extends Extension
             ->setArgument('$connections', $mergedConfig['drivers'] ?? [])
             ->setArgument('$defaultDriver', $mergedConfig['default_driver'] ?? null)
             ->setArgument('$builder', new Reference(ClientBuilder::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument('$client', new Reference(ClientInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument(
-                '$streamFactory',
-                new Reference(StreamFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
-            )
-            ->setArgument(
-                '$requestFactory',
-                new Reference(RequestFactoryInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE)
-            )
             ->setArgument('$logLevel', $mergedConfig['min_log_level'] ?? null)
             ->setArgument('$logger', new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false);
@@ -117,11 +107,13 @@ class Neo4jExtension extends Extension
         return $container;
     }
 
+    #[Override]
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         return new Configuration();
     }
 
+    #[Override]
     public function getAlias(): string
     {
         return 'neo4j';

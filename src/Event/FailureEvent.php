@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Event;
 
+use DateTimeInterface;
 use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class FailureEvent extends Event
+final class FailureEvent extends Event
 {
     public const EVENT_ID = 'neo4j.on_failure';
 
@@ -18,7 +19,7 @@ class FailureEvent extends Event
         private readonly ?string $alias,
         private readonly ?Statement $statement,
         private readonly Neo4jException $exception,
-        private readonly \DateTimeInterface $time,
+        private readonly DateTimeInterface $time,
         private readonly ?string $scheme,
         private readonly ?string $transactionId,
     ) {
@@ -45,7 +46,7 @@ class FailureEvent extends Event
         return $this->shouldThrowException;
     }
 
-    public function getTime(): \DateTimeInterface
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

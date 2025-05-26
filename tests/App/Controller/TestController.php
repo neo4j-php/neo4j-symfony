@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class TestController extends AbstractController
+final class TestController extends AbstractController
 {
     public function __construct(private readonly LoggerInterface $logger)
     {
