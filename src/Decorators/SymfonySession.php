@@ -13,11 +13,9 @@ use Laudis\Neo4j\Types\CypherList;
 use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
+use Override;
 
-/**
- * @implements SessionInterface<SummarizedResult<CypherMap>>
- */
-class SymfonySession implements SessionInterface
+final class SymfonySession implements SessionInterface
 {
     public function __construct(
         private readonly Session $session,
@@ -28,6 +26,7 @@ class SymfonySession implements SessionInterface
     ) {
     }
 
+    #[Override]
     public function runStatements(iterable $statements, ?TransactionConfiguration $config = null): CypherList
     {
         $tbr = [];
@@ -38,7 +37,8 @@ class SymfonySession implements SessionInterface
         return CypherList::fromIterable($tbr);
     }
 
-    public function runStatement(Statement $statement, ?TransactionConfiguration $config = null)
+    #[Override]
+    public function runStatement(Statement $statement, ?TransactionConfiguration $config = null): SummarizedResult
     {
         return $this->handler->handleQuery(
             runHandler: fn (Statement $statement) => $this->session->runStatement($statement),
@@ -49,11 +49,13 @@ class SymfonySession implements SessionInterface
         );
     }
 
-    public function run(string $statement, iterable $parameters = [], ?TransactionConfiguration $config = null)
+    #[Override]
+    public function run(string $statement, iterable $parameters = [], ?TransactionConfiguration $config = null): SummarizedResult
     {
         return $this->runStatement(new Statement($statement, $parameters));
     }
 
+    #[Override]
     public function beginTransaction(?iterable $statements = null, ?TransactionConfiguration $config = null): SymfonyTransaction
     {
         return $this->factory->createTransaction(
@@ -73,6 +75,7 @@ class SymfonySession implements SessionInterface
      *
      * @psalm-suppress ArgumentTypeCoercion
      */
+    #[Override]
     public function writeTransaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         return TransactionHelper::retry(
@@ -88,6 +91,7 @@ class SymfonySession implements SessionInterface
      *
      * @return HandlerResult
      */
+    #[Override]
     public function readTransaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         // TODO: create read transaction here.
@@ -101,11 +105,13 @@ class SymfonySession implements SessionInterface
      *
      * @return HandlerResult
      */
+    #[Override]
     public function transaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         return $this->writeTransaction($tsxHandler, $config);
     }
 
+    #[Override]
     public function getLastBookmark(): Bookmark
     {
         return $this->session->getLastBookmark();

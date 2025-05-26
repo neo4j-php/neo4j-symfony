@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Event;
 
+use DateTimeInterface;
 use Laudis\Neo4j\Databags\Statement;
 use Symfony\Contracts\EventDispatcher\Event;
 
-class PreRunEvent extends Event
+final class PreRunEvent extends Event
 {
     public const EVENT_ID = 'neo4j.pre_run';
 
     public function __construct(
         private readonly ?string $alias,
         private readonly Statement $statement,
-        private readonly \DateTimeInterface $time,
+        private readonly DateTimeInterface $time,
         private readonly ?string $scheme,
         private readonly ?string $transactionId,
     ) {
@@ -26,7 +27,7 @@ class PreRunEvent extends Event
         return $this->statement;
     }
 
-    public function getTime(): \DateTimeInterface
+    public function getTime(): DateTimeInterface
     {
         return $this->time;
     }

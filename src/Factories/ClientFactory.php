@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Factories;
 
+use InvalidArgumentException;
 use Laudis\Neo4j\Authentication\Authenticate;
 use Laudis\Neo4j\Common\Uri;
 use Laudis\Neo4j\Contracts\AuthenticateInterface;
 use Laudis\Neo4j\Databags\DriverConfiguration;
-use Laudis\Neo4j\Databags\HttpPsrBindings;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Laudis\Neo4j\Databags\SslConfiguration;
 use Laudis\Neo4j\Databags\TransactionConfiguration;
@@ -17,9 +17,6 @@ use Laudis\Neo4j\Enum\SslMode;
 use Neo4j\Neo4jBundle\Builders\ClientBuilder;
 use Neo4j\Neo4jBundle\Decorators\SymfonyClient;
 use Neo4j\Neo4jBundle\DependencyInjection\Configuration;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -30,7 +27,7 @@ use Psr\Log\LoggerInterface;
  * @psalm-import-type DriverAuthenticationArray from Configuration
  * @psalm-import-type SslConfigArray from Configuration
  */
-class ClientFactory
+final class ClientFactory
 {
     /**
      * @param DriverConfigArray|null        $driverConfig
@@ -44,9 +41,6 @@ class ClientFactory
         private readonly ?array $transactionConfig,
         private readonly array $connections,
         private readonly ?string $defaultDriver,
-        private readonly ?ClientInterface $client,
-        private readonly ?StreamFactoryInterface $streamFactory,
-        private readonly ?RequestFactoryInterface $requestFactory,
         private readonly ?string $logLevel,
         private readonly ?LoggerInterface $logger,
         private ClientBuilder $builder,
@@ -87,9 +81,8 @@ class ClientFactory
 
     private function makeDriverConfig(?string $logLevel = null, ?LoggerInterface $logger = null): DriverConfiguration
     {
-        $config = new DriverConfiguration(
+        return new DriverConfiguration(
             userAgent: $this->driverConfig['user_agent'] ?? null,
-            httpPsrBindings: null,
             sslConfig: $this->makeSslConfig($this->driverConfig['ssl'] ?? null),
             maxPoolSize: $this->driverConfig['pool_size'] ?? null,
             cache: null,
@@ -98,21 +91,6 @@ class ClientFactory
             logLevel: $logLevel,
             logger: $logger,
         );
-
-        $bindings = new HttpPsrBindings();
-        if ($this->client) {
-            $config = $config->withHttpPsrBindings($bindings->withClient($this->client));
-        }
-
-        if ($this->streamFactory) {
-            $config = $config->withHttpPsrBindings($bindings->withStreamFactory($this->streamFactory));
-        }
-
-        if ($this->requestFactory) {
-            $config = $config->withHttpPsrBindings($bindings->withRequestFactory($this->requestFactory));
-        }
-
-        return $config;
     }
 
     private function makeSessionConfig(): SessionConfiguration
@@ -145,16 +123,16 @@ class ClientFactory
 
         return match ($auth['type'] ?? null) {
             'basic' => Authenticate::basic(
-                $auth['username'] ?? throw new \InvalidArgumentException('Missing username for basic authentication'),
-                $auth['password'] ?? throw new \InvalidArgumentException('Missing password for basic authentication')
+                $auth['username'] ?? throw new InvalidArgumentException('Missing username for basic authentication'),
+                $auth['password'] ?? throw new InvalidArgumentException('Missing password for basic authentication')
             ),
             'kerberos' => Authenticate::kerberos(
-                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for kerberos authentication')
+                $auth['token'] ?? throw new InvalidArgumentException('Missing token for kerberos authentication')
             ),
             'dsn', null => Authenticate::fromUrl(Uri::create($dsn)),
             'none' => Authenticate::disabled(),
             'oid' => Authenticate::oidc(
-                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for oid authentication')
+                $auth['token'] ?? throw new InvalidArgumentException('Missing token for oid authentication')
             ),
         };
     }

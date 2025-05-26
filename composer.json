@@ -8,11 +8,15 @@
         {
             "name": "Ghlen Nagels",
             "email": "ghlen@nagels.tech"
+        },
+        {
+            "name": "Nabeel Parkar",
+            "email": "nabeel@nagels.tech"
         }
     ],
     "require": {
         "php": ">=8.1",
-        "laudis/neo4j-php-client": "^3.2",
+        "laudis/neo4j-php-client": "^3.3",
         "twig/twig": "^3.0",
         "ext-json": "*",
         "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
@@ -23,7 +27,7 @@
         "kubawerlos/php-cs-fixer-custom-fixers": "^3.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.3 || ^5.0",
         "phpunit/phpunit": "^9.5",
-        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-phpunit": "^0.19.5",
         "psalm/plugin-symfony": "^5.0",
         "symfony/console": "^5.4 || ^6.0 || ^7.0",
         "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
@@ -35,7 +39,7 @@
         "symfony/uid": "^6.4",
         "symfony/web-profiler-bundle": "^5.4 || ^6.0 || ^7.0",
         "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
-        "vimeo/psalm": "^5.15.0"
+        "vimeo/psalm": "^6.11"
     },
     "autoload": {
         "psr-4": {

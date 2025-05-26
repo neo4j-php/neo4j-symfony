@@ -13,7 +13,7 @@ use Neo4j\Neo4jBundle\Decorators\SymfonyTransaction;
 use Neo4j\Neo4jBundle\EventHandler;
 use Symfony\Component\Uid\Factory\UuidFactory;
 
-class SymfonyDriverFactory
+final class SymfonyDriverFactory
 {
     public function __construct(
         private readonly EventHandler $handler,
