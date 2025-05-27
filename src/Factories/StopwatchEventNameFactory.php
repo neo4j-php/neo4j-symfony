@@ -4,7 +4,7 @@ namespace Neo4j\Neo4jBundle\Factories;
 
 use Laudis\Neo4j\Enum\TransactionState;
 
-final class StopwatchEventNameFactory
+class StopwatchEventNameFactory
 {
     public function __construct(
     ) {
