@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Factories;
 
-use InvalidArgumentException;
 use Laudis\Neo4j\Authentication\Authenticate;
 use Laudis\Neo4j\Common\Uri;
 use Laudis\Neo4j\Contracts\AuthenticateInterface;
@@ -123,16 +122,16 @@ final class ClientFactory
 
         return match ($auth['type'] ?? null) {
             'basic' => Authenticate::basic(
-                $auth['username'] ?? throw new InvalidArgumentException('Missing username for basic authentication'),
-                $auth['password'] ?? throw new InvalidArgumentException('Missing password for basic authentication')
+                $auth['username'] ?? throw new \InvalidArgumentException('Missing username for basic authentication'),
+                $auth['password'] ?? throw new \InvalidArgumentException('Missing password for basic authentication')
             ),
             'kerberos' => Authenticate::kerberos(
-                $auth['token'] ?? throw new InvalidArgumentException('Missing token for kerberos authentication')
+                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for kerberos authentication')
             ),
             'dsn', null => Authenticate::fromUrl(Uri::create($dsn)),
             'none' => Authenticate::disabled(),
             'oid' => Authenticate::oidc(
-                $auth['token'] ?? throw new InvalidArgumentException('Missing token for oid authentication')
+                $auth['token'] ?? throw new \InvalidArgumentException('Missing token for oid authentication')
             ),
         };
     }

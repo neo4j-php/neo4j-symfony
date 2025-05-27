@@ -10,7 +10,6 @@ use Neo4j\Neo4jBundle\Builders\ClientBuilder;
 use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
-use Override;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -25,7 +24,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class Neo4jExtension extends Extension
 {
-    #[Override]
+    #[\Override]
     public function load(array $configs, ContainerBuilder $container): ContainerBuilder
     {
         $configuration = new Configuration();
@@ -107,13 +106,13 @@ final class Neo4jExtension extends Extension
         return $container;
     }
 
-    #[Override]
+    #[\Override]
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         return new Configuration();
     }
 
-    #[Override]
+    #[\Override]
     public function getAlias(): string
     {
         return 'neo4j';

@@ -1,7 +1,7 @@
 <?php
 
-
 declare(strict_types=1);
+
 namespace Neo4j\Neo4jBundle\Tests\Functional;
 
 use Laudis\Neo4j\Common\DriverSetupManager;
@@ -16,10 +16,6 @@ use Laudis\Neo4j\Neo4j\Neo4jConnectionPool;
 use Laudis\Neo4j\Neo4j\Neo4jDriver;
 use Neo4j\Neo4jBundle\Decorators\SymfonyClient;
 use Neo4j\Neo4jBundle\Tests\App\TestKernel;
-use Override;
-use ReflectionClass;
-use RuntimeException;
-use SplPriorityQueue;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -28,13 +24,13 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 final class IntegrationTest extends KernelTestCase
 {
-    #[Override]
+    #[\Override]
     protected static function getKernelClass(): string
     {
         return TestKernel::class;
     }
 
-    #[Override]
+    #[\Override]
     public static function setUpBeforeClass(): void
     {
         parent::setUpBeforeClass();
@@ -98,7 +94,7 @@ final class IntegrationTest extends KernelTestCase
         static::bootKernel();
         $container = static::getContainer();
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches(
             "/Cannot connect to any server on alias: neo4j_undefined_configs with Uris: \('bolt:\/\/(localhost|localhostt)'\)/"
         );
@@ -231,11 +227,11 @@ final class IntegrationTest extends KernelTestCase
         $client = $container->get('neo4j.client');
         /** @var DriverSetupManager $drivers */
         $drivers = $this->getPrivateProperty($client, 'driverSetups');
-        /** @var array<SplPriorityQueue<int, DriverSetup>> $fallbackDriverQueue */
+        /** @var array<\SplPriorityQueue<int, DriverSetup>> $fallbackDriverQueue */
         $driverSetups = $this->getPrivateProperty($drivers, 'driverSetups');
-        /** @var SplPriorityQueue<int, DriverSetup> $fallbackDriverQueue */
+        /** @var \SplPriorityQueue<int, DriverSetup> $fallbackDriverQueue */
         $fallbackDriverQueue = $driverSetups['neo4j-fallback-mechanism'];
-        $fallbackDriverQueue->setExtractFlags(SplPriorityQueue::EXTR_BOTH);
+        $fallbackDriverQueue->setExtractFlags(\SplPriorityQueue::EXTR_BOTH);
         /** @var array{data: DriverSetup, priority: int} $extractedValue */
         $extractedValue = $fallbackDriverQueue->extract();
 
@@ -266,7 +262,7 @@ final class IntegrationTest extends KernelTestCase
 
     private function getPrivateProperty(object $object, string $property): mixed
     {
-        $reflection = new ReflectionClass($object);
+        $reflection = new \ReflectionClass($object);
         $property = $reflection->getProperty($property);
 
         return $property->getValue($object);

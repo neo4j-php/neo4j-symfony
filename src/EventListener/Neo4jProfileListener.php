@@ -9,7 +9,6 @@ use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Exception\Neo4jException;
 use Neo4j\Neo4jBundle\Event\FailureEvent;
 use Neo4j\Neo4jBundle\Event\PostRunEvent;
-use Override;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
@@ -44,7 +43,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
     {
     }
 
-    #[Override]
+    #[\Override]
     public static function getSubscribedEvents(): array
     {
         return [
@@ -102,7 +101,7 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
         return $this->profiledFailures;
     }
 
-    #[Override]
+    #[\Override]
     public function reset(): void
     {
         $this->profiledFailures = [];

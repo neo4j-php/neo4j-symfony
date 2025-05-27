@@ -6,7 +6,6 @@ use Laudis\Neo4j\Basic\Driver;
 use Laudis\Neo4j\Contracts\DriverInterface;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
-use Override;
 
 /**
  * @psalm-suppress MissingImmutableAnnotation
@@ -21,19 +20,19 @@ final class SymfonyDriver implements DriverInterface
     ) {
     }
 
-    #[Override]
+    #[\Override]
     public function createSession(?SessionConfiguration $config = null): SymfonySession
     {
         return $this->factory->createSession($this->driver, $config, $this->alias, $this->schema);
     }
 
-    #[Override]
+    #[\Override]
     public function verifyConnectivity(?SessionConfiguration $config = null): bool
     {
         return $this->driver->verifyConnectivity();
     }
 
-    #[Override]
+    #[\Override]
     public function closeConnections(): void
     {
         $this->driver->closeConnections();

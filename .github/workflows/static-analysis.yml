@@ -10,13 +10,25 @@ jobs:
     name: "Lint & Analyse"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: php-actions/composer@v6
         with:
           progress: yes
-          php_version: 8.1
+          php_version: 8.4
           version: 2
-      - name: "PHP-CS-Fixer"
-        run: composer check-cs
-      - name: "PSalm"
-        run: composer psalm
+      - name: Lint & Analyse
+        uses: php-actions/composer@v6
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: "1"
+        with:
+          php_version: "8.4"
+          version: 2
+          command: check-cs
+
+      - name: Run Psalm
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.4"
+          version: 2
+          command: psalm
+
