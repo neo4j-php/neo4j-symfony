@@ -19,8 +19,8 @@
         "laudis/neo4j-php-client": "^3.3",
         "twig/twig": "^3.0",
         "ext-json": "*",
-        "symfony/dependency-injection": "^5.4 || ^6.0 || ^7.0",
-        "symfony/config": "^5.4 || ^6.0 || ^7.0"
+        "symfony/dependency-injection": "^6.4 || ^7.2",
+        "symfony/config": "^6.4 || ^7.2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.75",
@@ -29,16 +29,16 @@
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.19.5",
         "psalm/plugin-symfony": "^5.0",
-        "symfony/console": "^5.4 || ^6.0 || ^7.0",
-        "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/http-kernel": "^5.4 || ^6.0 || ^7.0",
-        "symfony/routing": "^5.4 || ^6.0 || ^7.0",
-        "symfony/stopwatch": "^6.4",
+        "symfony/console": "^6.4 || ^7.2",
+        "symfony/framework-bundle": "^6.4 || ^7.2",
+        "symfony/http-kernel": "^6.4 || ^7.2",
+        "symfony/routing": "^6.4 || ^7.2",
+        "symfony/stopwatch": "^6.4 || ^7.2",
         "symfony/test-pack": "^1.1",
-        "symfony/twig-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/uid": "^6.4",
-        "symfony/web-profiler-bundle": "^5.4 || ^6.0 || ^7.0",
-        "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
+        "symfony/twig-bundle": "^6.4 || ^7.2",
+        "symfony/uid": "^6.4 || ^7.2",
+        "symfony/web-profiler-bundle": "^6.4 || ^7.2",
+        "symfony/yaml": "^6.4 || ^7.2",
         "vimeo/psalm": "^6.11"
     },
     "autoload": {
