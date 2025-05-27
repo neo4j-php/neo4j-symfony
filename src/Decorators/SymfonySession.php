@@ -10,10 +10,8 @@ use Laudis\Neo4j\Databags\Statement;
 use Laudis\Neo4j\Databags\SummarizedResult;
 use Laudis\Neo4j\Databags\TransactionConfiguration;
 use Laudis\Neo4j\Types\CypherList;
-use Laudis\Neo4j\Types\CypherMap;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
-use Override;
 
 final class SymfonySession implements SessionInterface
 {
@@ -26,7 +24,7 @@ final class SymfonySession implements SessionInterface
     ) {
     }
 
-    #[Override]
+    #[\Override]
     public function runStatements(iterable $statements, ?TransactionConfiguration $config = null): CypherList
     {
         $tbr = [];
@@ -37,7 +35,7 @@ final class SymfonySession implements SessionInterface
         return CypherList::fromIterable($tbr);
     }
 
-    #[Override]
+    #[\Override]
     public function runStatement(Statement $statement, ?TransactionConfiguration $config = null): SummarizedResult
     {
         return $this->handler->handleQuery(
@@ -49,13 +47,13 @@ final class SymfonySession implements SessionInterface
         );
     }
 
-    #[Override]
+    #[\Override]
     public function run(string $statement, iterable $parameters = [], ?TransactionConfiguration $config = null): SummarizedResult
     {
         return $this->runStatement(new Statement($statement, $parameters));
     }
 
-    #[Override]
+    #[\Override]
     public function beginTransaction(?iterable $statements = null, ?TransactionConfiguration $config = null): SymfonyTransaction
     {
         return $this->factory->createTransaction(
@@ -75,7 +73,7 @@ final class SymfonySession implements SessionInterface
      *
      * @psalm-suppress ArgumentTypeCoercion
      */
-    #[Override]
+    #[\Override]
     public function writeTransaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         return TransactionHelper::retry(
@@ -91,7 +89,7 @@ final class SymfonySession implements SessionInterface
      *
      * @return HandlerResult
      */
-    #[Override]
+    #[\Override]
     public function readTransaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         // TODO: create read transaction here.
@@ -105,13 +103,13 @@ final class SymfonySession implements SessionInterface
      *
      * @return HandlerResult
      */
-    #[Override]
+    #[\Override]
     public function transaction(callable $tsxHandler, ?TransactionConfiguration $config = null)
     {
         return $this->writeTransaction($tsxHandler, $config);
     }
 
-    #[Override]
+    #[\Override]
     public function getLastBookmark(): Bookmark
     {
         return $this->session->getLastBookmark();

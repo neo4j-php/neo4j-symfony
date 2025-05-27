@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Neo4j\Neo4jBundle\Collector;
 
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
-use Override;
 use Symfony\Bundle\FrameworkBundle\DataCollector\AbstractDataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 /**
  * @var array{
@@ -29,8 +27,8 @@ final class Neo4jDataCollector extends AbstractDataCollector
     ) {
     }
 
-    #[Override]
-    public function collect(Request $request, Response $response, ?Throwable $exception = null): void
+    #[\Override]
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $t = $this;
         $profiledSummaries = $this->subscriber->getProfiledSummaries();
@@ -78,14 +76,14 @@ final class Neo4jDataCollector extends AbstractDataCollector
         $this->data['statements'] = $mergedArray;
     }
 
-    #[Override]
+    #[\Override]
     public function reset(): void
     {
         parent::reset();
         $this->subscriber->reset();
     }
 
-    #[Override]
+    #[\Override]
     public function getName(): string
     {
         return 'neo4j';
@@ -130,7 +128,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
         return count($this->data['statements']);
     }
 
-    #[Override]
+    #[\Override]
     public static function getTemplate(): ?string
     {
         return '@Neo4j/web_profiler.html.twig';

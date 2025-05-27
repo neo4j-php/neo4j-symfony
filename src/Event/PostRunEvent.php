@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Event;
 
-use DateTimeInterface;
 use Laudis\Neo4j\Databags\ResultSummary;
 use Symfony\Contracts\EventDispatcher\Event;
 
@@ -15,7 +14,7 @@ final class PostRunEvent extends Event
     public function __construct(
         private readonly ?string $alias,
         private readonly ResultSummary $result,
-        private readonly DateTimeInterface $time,
+        private readonly \DateTimeInterface $time,
         private readonly ?string $scheme,
         private readonly ?string $transactionId,
     ) {
@@ -26,7 +25,7 @@ final class PostRunEvent extends Event
         return $this->result;
     }
 
-    public function getTime(): DateTimeInterface
+    public function getTime(): \DateTimeInterface
     {
         return $this->time;
     }
