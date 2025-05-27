@@ -11,6 +11,7 @@ use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,7 +47,7 @@ final class Neo4jExtension extends Extension
             ->setArgument('$connections', $mergedConfig['drivers'] ?? [])
             ->setArgument('$defaultDriver', $mergedConfig['default_driver'] ?? null)
             ->setArgument('$builder', new Reference(ClientBuilder::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
-            ->setArgument('$logLevel', $mergedConfig['min_log_level'] ?? null)
+            ->setArgument('$logLevel', $mergedConfig['min_log_level'] ?? 'debug')
             ->setArgument('$logger', new Reference(LoggerInterface::class, ContainerInterface::NULL_ON_INVALID_REFERENCE))
             ->setAbstract(false);
 
