@@ -48,19 +48,13 @@ final class ClientFactory
 
     public function create(): SymfonyClient
     {
-        if (null !== $this->driverConfig) {
-            $this->builder = $this->builder->withDefaultDriverConfiguration(
-                $this->makeDriverConfig($this->logLevel, $this->logger)
-            );
-        }
+        $this->builder = $this->builder->withDefaultDriverConfiguration(
+            $this->makeDriverConfig($this->logLevel, $this->logger)
+        );
 
-        if (null !== $this->sessionConfig) {
-            $this->builder = $this->builder->withDefaultSessionConfiguration($this->makeSessionConfig());
-        }
+        $this->builder = $this->builder->withDefaultSessionConfiguration($this->makeSessionConfig());
 
-        if (null !== $this->transactionConfig) {
-            $this->builder = $this->builder->withDefaultTransactionConfiguration($this->makeTransactionConfig());
-        }
+        $this->builder = $this->builder->withDefaultTransactionConfiguration($this->makeTransactionConfig());
 
         foreach ($this->connections as $connection) {
             $this->builder = $this->builder->withDriver(
