@@ -69,7 +69,7 @@ final class Configuration implements ConfigurationInterface
                 ->append($this->decorateTransactionConfig())
                 ->scalarNode('min_log_level')
                     ->info('Minimum severity the driver will log. Follows Psr LogLevel. Default is "error".')
-                    ->defaultValue(LogLevel::ERROR)
+                    ->defaultValue(LogLevel::DEBUG)
                 ->end()
                 ->scalarNode('default_driver')
                     ->info('The default driver to use. Default is the first configured driver.')
