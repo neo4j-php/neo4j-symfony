@@ -14,6 +14,11 @@ final class TestController extends AbstractController
     {
     }
 
+    public function index(): Response
+    {
+        return $this->render('index.html.twig');
+    }
+
     public function runOnClient(ClientInterface $client): Response
     {
         $client->run('MATCH (n {foo: $bar}) RETURN n', ['bar' => 'baz']);

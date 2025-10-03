@@ -1,3 +1,6 @@
+index:
+  path: /
+  controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController::index
 run-on-client:
   path: /client
   controller: Neo4j\Neo4jBundle\Tests\App\Controller\TestController::runOnClient
