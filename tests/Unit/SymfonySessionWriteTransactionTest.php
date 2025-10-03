@@ -4,56 +4,119 @@ declare(strict_types=1);
 
 namespace Neo4j\Neo4jBundle\Tests\Unit;
 
+use Laudis\Neo4j\Basic\Session;
+use Laudis\Neo4j\Contracts\ConnectionPoolInterface;
 use Laudis\Neo4j\Contracts\CypherSequence;
 use Laudis\Neo4j\Databags\Neo4jError;
+use Laudis\Neo4j\Databags\SessionConfiguration;
+use Laudis\Neo4j\Enum\AccessMode;
 use Laudis\Neo4j\Exception\Neo4jException;
+use Neo4j\Neo4jBundle\Decorators\SymfonySession;
+use Neo4j\Neo4jBundle\Decorators\SymfonyTransaction;
+use Neo4j\Neo4jBundle\EventHandler;
+use Neo4j\Neo4jBundle\Factories\StopwatchEventNameFactory;
+use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Test class for the custom retry logic in SymfonySession writeTransaction method.
  *
- * This test focuses on testing the custom retry logic that replaced
- * the TransactionHelper dependency. We create a testable version of the
- * retry logic to verify its behavior.
+ * This test focuses on testing the actual retryTransaction method from SymfonySession
+ * using reflection to access the private method. This ensures that changes to the
+ * actual implementation are properly tested.
  */
 final class SymfonySessionWriteTransactionTest extends TestCase
 {
-    public function testRetryLogicSuccess(): void
+    private SymfonySession $symfonySession;
+    private Session $sessionMock;
+    private EventHandler $eventHandlerMock;
+    private SymfonyDriverFactory $factoryMock;
+    private MockObject&ConnectionPoolInterface $poolMock;
+
+    #[\Override]
+    protected function setUp(): void
+    {
+        $this->poolMock = $this->createMock(ConnectionPoolInterface::class);
+
+        $this->sessionMock = new Session(
+            session: $this->createMock(\Laudis\Neo4j\Contracts\SessionInterface::class)
+        );
+
+        $this->eventHandlerMock = new EventHandler(
+            dispatcher: null,
+            stopwatch: null,
+            nameFactory: new StopwatchEventNameFactory()
+        );
+
+        $this->factoryMock = new SymfonyDriverFactory(
+            handler: $this->eventHandlerMock,
+            uuidFactory: null
+        );
+
+        $sessionConfig = new SessionConfiguration();
+        $sessionConfig = $sessionConfig->withAccessMode(AccessMode::WRITE());
+
+        $this->symfonySession = new SymfonySession(
+            session: $this->sessionMock,
+            handler: $this->eventHandlerMock,
+            factory: $this->factoryMock,
+            alias: 'test-alias',
+            schema: 'neo4j',
+            config: $sessionConfig,
+            pool: $this->poolMock
+        );
+    }
+
+    /**
+     * Call the private retryTransaction method using reflection.
+     *
+     * @template HandlerResult
+     *
+     * @param callable(SymfonyTransaction):HandlerResult $tsxHandler
+     *
+     * @return HandlerResult
+     */
+    private function callRetryTransaction(callable $tsxHandler, bool $read = false)
+    {
+        $reflection = new \ReflectionClass($this->symfonySession);
+        $method = $reflection->getMethod('retryTransaction');
+        $method->setAccessible(true);
+
+        return $method->invoke($this->symfonySession, $tsxHandler, null, $read);
+    }
+
+    public function testRetryTransactionSuccess(): void
     {
         $expectedResult = 'transaction-result';
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => $expectedResult;
+        $tsxHandler = fn (SymfonyTransaction $tx) => $expectedResult;
 
-        $result = $retryLogic->retryTransaction($tsxHandler);
+        $result = $this->callRetryTransaction($tsxHandler);
 
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testRetryLogicWithCypherSequenceResult(): void
+    public function testRetryTransactionWithCypherSequenceResult(): void
     {
         $cypherSequenceMock = $this->createMock(CypherSequence::class);
         $cypherSequenceMock->expects($this->once())
             ->method('preload');
 
-        $retryLogic = new TestableRetryLogic();
+        $tsxHandler = fn (SymfonyTransaction $tx) => $cypherSequenceMock;
 
-        $tsxHandler = fn () => $cypherSequenceMock;
-
-        $result = $retryLogic->retryTransaction($tsxHandler);
+        $result = $this->callRetryTransaction($tsxHandler);
 
         $this->assertSame($cypherSequenceMock, $result);
     }
 
-    public function testRetryLogicRetryOnTransientError(): void
+    public function testRetryTransactionRetryOnTransientError(): void
     {
         $expectedResult = 'transaction-result';
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
 
-        $retryLogic = new TestableRetryLogic();
-
         $callCount = 0;
-        $tsxHandler = function () use (&$callCount, $transientException, $expectedResult) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult) {
             ++$callCount;
             if (1 === $callCount) {
                 throw $transientException;
@@ -62,90 +125,82 @@ final class SymfonySessionWriteTransactionTest extends TestCase
             return $expectedResult;
         };
 
-        $result = $retryLogic->retryTransaction($tsxHandler);
+        $result = $this->callRetryTransaction($tsxHandler);
 
         $this->assertEquals($expectedResult, $result);
         $this->assertEquals(2, $callCount);
     }
 
-    public function testRetryLogicMaxRetriesExceeded(): void
+    public function testRetryTransactionMaxRetriesExceeded(): void
     {
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => throw $transientException;
+        $tsxHandler = fn (SymfonyTransaction $tx) => throw $transientException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Transient error');
 
-        $retryLogic->retryTransaction($tsxHandler);
+        $this->callRetryTransaction($tsxHandler);
     }
 
-    public function testRetryLogicNotALeaderErrorClosesPool(): void
+    public function testRetryTransactionNotALeaderErrorClosesPool(): void
     {
         $notALeaderException = new Neo4jException([new Neo4jError('ClientError', 'Not a leader', 'ClientError', 'Client', 'NotALeader')]);
 
-        $poolMock = $this->createMock(\Laudis\Neo4j\Contracts\ConnectionPoolInterface::class);
-        $poolMock->expects($this->atLeastOnce())
+        $this->poolMock->expects($this->atLeastOnce())
             ->method('close');
 
-        $retryLogic = new TestableRetryLogic($poolMock);
-
-        $tsxHandler = fn () => throw $notALeaderException;
+        $tsxHandler = fn (SymfonyTransaction $tx) => throw $notALeaderException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Not a leader');
 
-        $retryLogic->retryTransaction($tsxHandler);
+        $this->callRetryTransaction($tsxHandler);
     }
 
-    public function testRetryLogicNonTransientErrorThrownImmediately(): void
+    public function testRetryTransactionNonTransientErrorThrownImmediately(): void
     {
         $clientError = new Neo4jException([new Neo4jError('ClientError', 'Client error', 'ClientError', 'Client', 'ClientError')]);
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => throw $clientError;
+        $tsxHandler = fn (SymfonyTransaction $tx) => throw $clientError;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Client error');
 
-        $retryLogic->retryTransaction($tsxHandler);
+        $this->callRetryTransaction($tsxHandler);
     }
 
-    public function testRetryLogicDatabaseErrorThrownImmediately(): void
+    public function testRetryTransactionDatabaseErrorThrownImmediately(): void
     {
         $databaseError = new Neo4jException([new Neo4jError('DatabaseError', 'Database error', 'DatabaseError', 'Database', 'DatabaseError')]);
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => throw $databaseError;
+        $tsxHandler = fn (SymfonyTransaction $tx) => throw $databaseError;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Database error');
 
-        $retryLogic->retryTransaction($tsxHandler);
+        $this->callRetryTransaction($tsxHandler);
     }
 
-    public function testRetryLogicNoRollbackForNonRollbackClassifications(): void
+    public function testRetryTransactionNoRollbackForNonRollbackClassifications(): void
     {
         $nonRollbackException = new Neo4jException([new Neo4jError('UnknownError', 'Non-rollback error', 'UnknownError', 'Unknown', 'UnknownError')]);
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => throw $nonRollbackException;
+        $tsxHandler = fn (SymfonyTransaction $tx) => throw $nonRollbackException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Non-rollback error');
 
-        $retryLogic->retryTransaction($tsxHandler);
+        $this->callRetryTransaction($tsxHandler);
     }
 
-    public function testRetryLogicMultipleTransientErrors(): void
+    public function testRetryTransactionMultipleTransientErrors(): void
     {
         $expectedResult = 'transaction-result';
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
-        $retryLogic = new TestableRetryLogic();
 
         $callCount = 0;
-        $tsxHandler = function () use (&$callCount, $transientException, $expectedResult) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult) {
             ++$callCount;
             if ($callCount <= 2) {
                 throw $transientException;
@@ -154,19 +209,18 @@ final class SymfonySessionWriteTransactionTest extends TestCase
             return $expectedResult;
         };
 
-        $result = $retryLogic->retryTransaction($tsxHandler);
+        $result = $this->callRetryTransaction($tsxHandler);
 
         $this->assertEquals($expectedResult, $result);
         $this->assertEquals(3, $callCount);
     }
 
-    public function testRetryLogicRetryDelay(): void
+    public function testRetryTransactionRetryDelay(): void
     {
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
-        $retryLogic = new TestableRetryLogic();
 
         $callCount = 0;
-        $tsxHandler = function () use (&$callCount, $transientException) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException) {
             ++$callCount;
             if (1 === $callCount) {
                 throw $transientException;
@@ -177,7 +231,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
 
         $startTime = microtime(true);
 
-        $result = $retryLogic->retryTransaction($tsxHandler);
+        $result = $this->callRetryTransaction($tsxHandler);
 
         $endTime = microtime(true);
         $duration = $endTime - $startTime;
@@ -186,135 +240,25 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $this->assertGreaterThan(0.1, $duration);
     }
 
-    public function testRetryLogicConstants(): void
-    {
-        $this->assertEquals(3, TestableRetryLogic::MAX_RETRIES);
-        $this->assertEquals(['ClientError', 'TransientError', 'DatabaseError'], TestableRetryLogic::ROLLBACK_CLASSIFICATIONS);
-    }
-
-    public function testRetryLogicWithReadTransaction(): void
+    public function testRetryTransactionWithReadTransaction(): void
     {
         $expectedResult = 'read-transaction-result';
-        $retryLogic = new TestableRetryLogic();
 
-        $tsxHandler = fn () => $expectedResult;
+        $tsxHandler = fn (SymfonyTransaction $tx) => $expectedResult;
 
-        $result = $retryLogic->retryTransaction($tsxHandler, read: true);
+        $result = $this->callRetryTransaction($tsxHandler, read: true);
 
         $this->assertEquals($expectedResult, $result);
     }
-}
 
-/**
- * Testable version of the retry logic from SymfonySession.
- * This extracts the retry logic into a testable class that mimics
- * the behavior of the writeTransaction method.
- */
-final class TestableRetryLogic
-{
-    public const MAX_RETRIES = 3;
-    public const ROLLBACK_CLASSIFICATIONS = ['ClientError', 'TransientError', 'DatabaseError'];
-
-    public function __construct(
-        private ?\Laudis\Neo4j\Contracts\ConnectionPoolInterface $pool = null,
-    ) {
-    }
-
-    /**
-     * Testable version of the retry logic from SymfonySession::retryTransaction.
-     *
-     * @template HandlerResult
-     *
-     * @param callable():HandlerResult $tsxHandler
-     * @param bool                     $read       Whether this is a read transaction
-     *
-     * @return HandlerResult
-     */
-    public function retryTransaction(callable $tsxHandler, bool $read = false)
+    public function testRetryTransactionConstants(): void
     {
-        $attempt = 0;
+        $reflection = new \ReflectionClass($this->symfonySession);
 
-        while (true) {
-            ++$attempt;
-            $transaction = null;
+        $maxRetries = $reflection->getConstant('MAX_RETRIES');
+        $rollbackClassifications = $reflection->getConstant('ROLLBACK_CLASSIFICATIONS');
 
-            try {
-                $transaction = $this->createMockTransaction();
-
-                $result = $tsxHandler();
-
-                $this->triggerLazyResult($result);
-                $this->commitTransaction($transaction);
-
-                return $result;
-            } catch (Neo4jException $e) {
-                if ($transaction && !in_array($e->getClassification(), self::ROLLBACK_CLASSIFICATIONS)) {
-                    $this->rollbackTransaction($transaction);
-                }
-
-                if ('NotALeader' === $e->getTitle()) {
-                    $this->pool?->close();
-                } elseif ('TransientError' !== $e->getClassification()) {
-                    throw $e;
-                }
-
-                if ($attempt >= self::MAX_RETRIES) {
-                    throw $e;
-                }
-
-                usleep(100_000);
-            }
-        }
-    }
-
-    private function createMockTransaction(): MockTransaction
-    {
-        return new MockTransaction();
-    }
-
-    private function commitTransaction(MockTransaction $transaction): void
-    {
-        $transaction->commit();
-    }
-
-    private function rollbackTransaction(MockTransaction $transaction): void
-    {
-        $transaction->rollback();
-    }
-
-    private function triggerLazyResult(mixed $tbr): void
-    {
-        if ($tbr instanceof CypherSequence) {
-            $tbr->preload();
-        }
-    }
-}
-
-/**
- * Mock transaction for testing purposes.
- */
-final class MockTransaction
-{
-    private bool $committed = false;
-    private bool $rolledBack = false;
-
-    public function commit(): void
-    {
-        $this->committed = true;
-    }
-
-    public function rollback(): void
-    {
-        $this->rolledBack = true;
-    }
-
-    public function isCommitted(): bool
-    {
-        return $this->committed;
-    }
-
-    public function isRolledBack(): bool
-    {
-        return $this->rolledBack;
+        $this->assertEquals(3, $maxRetries);
+        $this->assertEquals(['ClientError', 'TransientError', 'DatabaseError'], $rollbackClassifications);
     }
 }
