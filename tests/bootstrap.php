@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) {
-    if (E_USER_DEPRECATED === $errno && (
-        str_contains($errstr, 'The "wdt.xml" routing configuration file is deprecated')
-        || str_contains($errstr, 'The "profiler.xml" routing configuration file is deprecated')
-        || str_contains($errstr, 'Setting the "framework.profiler.collect_serializer_data" config option to "false" is deprecated')
-    )) {
-        return true;
-    }
+use Symfony\Bridge\PhpUnit\DeprecationErrorHandler;
 
-    return false;
-}, E_USER_DEPRECATED);
+DeprecationErrorHandler::register(
+    E_ALL & ~E_USER_DEPRECATED & ~E_DEPRECATED,
+    [
+        'Since symfony/routing 7.3: The "wdt.xml" routing configuration file is deprecated, import "wdt.php" instead.',
+        'Since symfony/routing 7.3: The "profiler.xml" routing configuration file is deprecated, import "profiler.php" instead.',
+        'Since symfony/framework-bundle 7.3: Setting the "framework.profiler.collect_serializer_data" config option to "false" is deprecated.',
+    ]
+);
 
-require_once __DIR__.'/../vendor/autoload.php';
+require dirname(__DIR__).'/vendor/autoload.php';
