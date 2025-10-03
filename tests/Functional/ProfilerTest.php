@@ -41,9 +41,9 @@ final class ProfilerTest extends WebTestCase
         // In Docker environments, this is typically 'neo4j'
         $host = $_ENV['NEO4J_HOST'] ?? 'neo4j';
         $port = $_ENV['NEO4J_PORT'] ?? '7687';
-        
+
         // Create a simple TCP connection test
-        $socket = @fsockopen($host, (int)$port, $errno, $errstr, 5);
+        $socket = @fsockopen($host, (int) $port, $errno, $errstr, 5);
         if (!$socket) {
             $this->markTestSkipped(
                 'Neo4j server is not available for testing. '.
@@ -52,34 +52,34 @@ final class ProfilerTest extends WebTestCase
             );
         }
         fclose($socket);
-        
+
         // Additional check: Try to make a simple HTTP request to Neo4j's web interface
         $httpPort = $_ENV['NEO4J_HTTP_PORT'] ?? '7474';
         $context = stream_context_create([
             'http' => [
                 'timeout' => 5,
-                'method' => 'GET'
-            ]
+                'method' => 'GET',
+            ],
         ]);
-        
+
         $httpResponse = @file_get_contents("http://$host:$httpPort", false, $context);
-        if ($httpResponse === false) {
+        if (false === $httpResponse) {
             $this->markTestSkipped(
                 'Neo4j server is not fully available for testing. '.
                 'Please start a Neo4j server to run profiler tests. '.
                 "Error: Cannot connect to Neo4j HTTP interface at $host:$httpPort"
             );
         }
-        
+
         // Final check: Try to create a minimal Neo4j client connection
         try {
             $user = $_ENV['NEO4J_USER'] ?? 'neo4j';
             $password = $_ENV['NEO4J_PASSWORD'] ?? 'testtest';
-            
+
             $client = \Laudis\Neo4j\ClientBuilder::create()
                 ->withDriver('default', "bolt://$user:$password@$host:$port")
                 ->build();
-            
+
             // Try a simple query to verify the connection works
             $result = $client->run('RETURN 1 as test');
         } catch (\Exception $e) {
