@@ -11,7 +11,6 @@ use Neo4j\Neo4jBundle\Collector\Neo4jDataCollector;
 use Neo4j\Neo4jBundle\EventHandler;
 use Neo4j\Neo4jBundle\EventListener\Neo4jProfileListener;
 use Psr\Log\LoggerInterface;
-use Psr\Log\LogLevel;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;

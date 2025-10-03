@@ -8,6 +8,9 @@
         beStrictAboutOutputDuringTests="true"
 >
   <testsuites>
+    <testsuite name="Unit tests">
+      <directory suffix="Test.php">./tests/Unit</directory>
+    </testsuite>
     <testsuite name="Functional tests">
       <directory suffix="Test.php">./tests/Functional</directory>
     </testsuite>

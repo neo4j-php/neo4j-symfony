@@ -54,6 +54,8 @@ final class SymfonyDriverFactory
             factory: $this,
             alias: $alias,
             schema: $schema,
+            config: $config ?? new SessionConfiguration(),
+            pool: $this->getPoolFromDriver($driver),
         );
     }
 
@@ -68,6 +70,21 @@ final class SymfonyDriverFactory
             $alias,
             $schema,
         );
+    }
+
+    private function getPoolFromDriver(Driver $driver): \Laudis\Neo4j\Contracts\ConnectionPoolInterface
+    {
+        // Use reflection to access the private pool property from the underlying driver
+        $reflection = new \ReflectionClass($driver);
+        $driverProperty = $reflection->getProperty('driver');
+        $driverProperty->setAccessible(true);
+        $underlyingDriver = $driverProperty->getValue($driver);
+
+        $underlyingReflection = new \ReflectionClass($underlyingDriver);
+        $poolProperty = $underlyingReflection->getProperty('pool');
+        $poolProperty->setAccessible(true);
+
+        return $poolProperty->getValue($underlyingDriver);
     }
 
     private function generateTransactionId(): string
