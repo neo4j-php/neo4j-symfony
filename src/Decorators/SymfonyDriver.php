@@ -4,6 +4,7 @@ namespace Neo4j\Neo4jBundle\Decorators;
 
 use Laudis\Neo4j\Basic\Driver;
 use Laudis\Neo4j\Contracts\DriverInterface;
+use Laudis\Neo4j\Databags\ServerInfo;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Neo4j\Neo4jBundle\Factories\SymfonyDriverFactory;
 
@@ -29,7 +30,13 @@ final class SymfonyDriver implements DriverInterface
     #[\Override]
     public function verifyConnectivity(?SessionConfiguration $config = null): bool
     {
-        return $this->driver->verifyConnectivity();
+        return $this->driver->verifyConnectivity($config);
+    }
+
+    #[\Override]
+    public function getServerInfo(?SessionConfiguration $config = null): ServerInfo
+    {
+        return $this->driver->getServerInfo($config);
     }
 
     #[\Override]
