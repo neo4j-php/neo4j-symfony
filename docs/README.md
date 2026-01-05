@@ -165,7 +165,7 @@ You can also run PHPUnit directly:
 $ ./vendor/bin/phpunit
 ```
 
-### Code Quality
+## Code Quality
 
 Check code style:
 
