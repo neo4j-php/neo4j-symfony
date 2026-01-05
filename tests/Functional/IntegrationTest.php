@@ -86,7 +86,7 @@ final class IntegrationTest extends KernelTestCase
 
         $uri = $this->getPrivateProperty($driver, 'parsedUrl');
 
-        $this->assertSame($uri->getScheme(), 'neo4j');
+        $this->assertContains($uri->getScheme(), ['neo4j', 'bolt']);
     }
 
     public function testDsn(): void

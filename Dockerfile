@@ -10,6 +10,9 @@ RUN apt-get update \
     && docker-php-ext-enable xdebug \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Configure git to allow the mounted project directory
+RUN git config --global --add safe.directory /opt/project
+
 RUN echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.mode=debug,develop" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
