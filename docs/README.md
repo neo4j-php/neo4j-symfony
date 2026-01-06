@@ -94,10 +94,24 @@ neo4j:
         password: '%neo4j.backup-pass%'
 ```
 
-## Testing
+### Code Quality
 
-``` bash
-$ composer test
+Check code style:
+
+```bash
+$ composer check-cs
+```
+
+Fix code style issues:
+
+```bash
+$ composer fix-cs
+```
+
+Run static analysis:
+
+```bash
+$ composer psalm
 ```
 
 ## Example application
