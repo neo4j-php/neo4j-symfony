@@ -75,7 +75,7 @@ final class SymfonyTransaction implements UnmanagedTransactionInterface
         $this->handler->handleTransactionAction(
             TransactionState::ROLLED_BACK,
             $this->transactionId,
-            fn () => $this->tsx->commit(),
+            fn () => $this->tsx->rollback(),
             $this->alias,
             $this->scheme,
         );

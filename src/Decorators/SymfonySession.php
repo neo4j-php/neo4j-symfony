@@ -167,6 +167,9 @@ final class SymfonySession implements SessionInterface
         }
     }
 
+    /**
+     * @param mixed $tbr
+     */
     private static function triggerLazyResult(mixed $tbr): void
     {
         if ($tbr instanceof CypherSequence) {

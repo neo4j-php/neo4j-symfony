@@ -90,7 +90,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $expectedResult = 'transaction-result';
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => $expectedResult;
+        $tsxHandler = fn (SymfonyTransaction $tx): string => $expectedResult;
 
         $result = $this->callRetryTransaction($tsxHandler);
 
@@ -103,7 +103,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $cypherSequenceMock->expects($this->once())
             ->method('preload');
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => $cypherSequenceMock;
+        $tsxHandler = fn (SymfonyTransaction $tx): \PHPUnit\Framework\MockObject\MockObject&\Laudis\Neo4j\Contracts\CypherSequence => $cypherSequenceMock;
 
         $result = $this->callRetryTransaction($tsxHandler);
 
@@ -116,7 +116,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
 
         $callCount = 0;
-        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult): string {
             ++$callCount;
             if (1 === $callCount) {
                 throw $transientException;
@@ -135,7 +135,10 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => throw $transientException;
+        $tsxHandler = /**
+         * @return never
+         */
+        fn (SymfonyTransaction $tx) => throw $transientException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Transient error');
@@ -150,7 +153,10 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $this->poolMock->expects($this->atLeastOnce())
             ->method('close');
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => throw $notALeaderException;
+        $tsxHandler = /**
+         * @return never
+         */
+        fn (SymfonyTransaction $tx) => throw $notALeaderException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Not a leader');
@@ -162,7 +168,10 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $clientError = new Neo4jException([new Neo4jError('ClientError', 'Client error', 'ClientError', 'Client', 'ClientError')]);
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => throw $clientError;
+        $tsxHandler = /**
+         * @return never
+         */
+        fn (SymfonyTransaction $tx) => throw $clientError;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Client error');
@@ -174,7 +183,10 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $databaseError = new Neo4jException([new Neo4jError('DatabaseError', 'Database error', 'DatabaseError', 'Database', 'DatabaseError')]);
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => throw $databaseError;
+        $tsxHandler = /**
+         * @return never
+         */
+        fn (SymfonyTransaction $tx) => throw $databaseError;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Database error');
@@ -186,7 +198,10 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $nonRollbackException = new Neo4jException([new Neo4jError('UnknownError', 'Non-rollback error', 'UnknownError', 'Unknown', 'UnknownError')]);
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => throw $nonRollbackException;
+        $tsxHandler = /**
+         * @return never
+         */
+        fn (SymfonyTransaction $tx) => throw $nonRollbackException;
 
         $this->expectException(Neo4jException::class);
         $this->expectExceptionMessage('Non-rollback error');
@@ -200,7 +215,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
 
         $callCount = 0;
-        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException, $expectedResult): string {
             ++$callCount;
             if ($callCount <= 2) {
                 throw $transientException;
@@ -220,7 +235,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $transientException = new Neo4jException([new Neo4jError('TransientError', 'Transient error', 'TransientError', 'Transient', 'TransientError')]);
 
         $callCount = 0;
-        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException) {
+        $tsxHandler = function (SymfonyTransaction $tx) use (&$callCount, $transientException): string {
             ++$callCount;
             if (1 === $callCount) {
                 throw $transientException;
@@ -244,7 +259,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
     {
         $expectedResult = 'read-transaction-result';
 
-        $tsxHandler = fn (SymfonyTransaction $tx) => $expectedResult;
+        $tsxHandler = fn (SymfonyTransaction $tx): string => $expectedResult;
 
         $result = $this->callRetryTransaction($tsxHandler, read: true);
 

@@ -41,7 +41,17 @@ final class Neo4jDataCollector extends AbstractDataCollector
                     continue;
                 }
 
-                $statement[$key] = $t->recursiveToArray($value);
+                if ('result' === $key && is_object($value) && method_exists($value, 'getStatement')) {
+                    $resultSummary = $value;
+                    $statementObj = $resultSummary->getStatement();
+                    if (null !== $statementObj) {
+                        $statement['statement'] = $statementObj->toArray();
+                        $statement['parameters'] = $statementObj->getParameters();
+                    }
+                    $statement['result'] = $t->recursiveToArray($value);
+                } else {
+                    $statement[$key] = $t->recursiveToArray($value);
+                }
             }
             $successfulStatements[] = $statement;
         }
@@ -51,6 +61,8 @@ final class Neo4jDataCollector extends AbstractDataCollector
                 'status' => 'failure',
                 'time' => $x['time'],
                 'timestamp' => $x['timestamp'],
+                'statement' => $x['statement']?->toArray(),
+                'parameters' => $x['statement']?->getParameters(),
                 'result' => [
                     'statement' => $x['statement']?->toArray(),
                 ],
@@ -61,6 +73,7 @@ final class Neo4jDataCollector extends AbstractDataCollector
                     'category' => $x['exception']->getErrors()[0]->getCategory(),
                     'title' => $x['exception']->getErrors()[0]->getTitle(),
                 ],
+                'error' => $x['exception']->getErrors()[0]->getMessage(),
                 'alias' => $x['alias'],
             ],
             $this->subscriber->getProfiledFailures()
@@ -97,18 +110,18 @@ final class Neo4jDataCollector extends AbstractDataCollector
 
     public function getSuccessfulStatements(): array
     {
-        return array_filter(
+        return array_values(array_filter(
             $this->data['statements'],
             static fn (array $x) => 'success' === $x['status']
-        );
+        ));
     }
 
     public function getFailedStatements(): array
     {
-        return array_filter(
+        return array_values(array_filter(
             $this->data['statements'],
             static fn (array $x) => 'failure' === $x['status']
-        );
+        ));
     }
 
     /** @api */

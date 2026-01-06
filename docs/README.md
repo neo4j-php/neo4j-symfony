@@ -94,11 +94,54 @@ neo4j:
         password: '%neo4j.backup-pass%'
 ```
 
+### Profiling
+
+The bundle integrates with Symfony's profiler to collect Neo4j query data. Enable profiling by setting `profiling: true` on individual drivers:
+
+```yaml
+neo4j:
+  drivers:
+    - alias: default
+      dsn: 'bolt://neo4j:password@neo4j:7687'
+      profiling: true
+```
+
+When profiling is enabled, the Neo4j data collector will track:
+- Query statements and parameters
+- Execution times
+- Successful and failed queries
+- Driver alias information
+
+Profiling data is available in the Symfony profiler toolbar and can be accessed programmatically:
+
+```php
+$collector = $profile->getCollector('neo4j');
+$successfulStatements = $collector->getSuccessfulStatements();
+$failedStatements = $collector->getFailedStatements();
+$queryCount = $collector->getQueryCount();
+```
+
 ## Testing
 
-``` bash
+Run all tests:
+
+```bash
 $ composer test
 ```
+
+Run only unit tests:
+
+```bash
+$ composer test:unit
+```
+
+Run only functional tests:
+
+```bash
+$ composer test:functional
+```
+
+For functional tests that require a Neo4j server, ensure Neo4j is running and accessible. When running tests in Docker, the Neo4j service name should match your DSN configuration.
 
 ## Example application
 
