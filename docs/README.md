@@ -94,10 +94,46 @@ neo4j:
         password: '%neo4j.backup-pass%'
 ```
 
-## Testing
+### Docker Configuration
 
-``` bash
-$ composer test
+When running in Docker, ensure your Neo4j DSN uses the Docker service name as the hostname:
+
+```yaml
+neo4j:
+  drivers:
+    - alias: default
+      dsn: 'bolt://neo4j:password@neo4j:7687'
+```
+
+Also configure Neo4j to advertise the correct hostname in `docker-compose.yml`:
+
+```yaml
+neo4j:
+  environment:
+    - NEO4J_server_default__advertised__address=neo4j
+    - NEO4J_server_bolt_advertised__address=neo4j:7687
+```
+
+This ensures proper hostname resolution within Docker networks.
+
+### Code Quality
+
+Check code style:
+
+```bash
+$ composer check-cs
+```
+
+Fix code style issues:
+
+```bash
+$ composer fix-cs
+```
+
+Run static analysis:
+
+```bash
+$ composer psalm
 ```
 
 ## Example application
