@@ -12,15 +12,17 @@ use Neo4j\Neo4jBundle\Event\PostRunEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Contracts\Service\ResetInterface;
 
-final class Neo4jProfileListener implements EventSubscriberInterface, ResetInterface
+class Neo4jProfileListener implements EventSubscriberInterface, ResetInterface
 {
     /**
      * @var list<array{
+     *     alias: null|string,
+     *     end_time: float|int,
      *     result: ResultSummary,
-     *     alias: string|null,
-     *     time: string,
      *     start_time: float|int,
-     *     end_time: float|int
+     *     time: string,
+     *     scheme?: null|string,
+     *     transaction_id?: null|string
      * }>
      */
     private array $profiledSummaries = [];
@@ -54,13 +56,16 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
 
     public function onPostRun(PostRunEvent $event): void
     {
-        if (in_array($event->getAlias(), $this->enabledProfiles)) {
-            $time = $event->getTime();
-            $result = $event->getResult();
+        if (in_array($event->alias, $this->enabledProfiles)) {
+            $time = $event->time;
+            $result = $event->result;
             $end_time = $time->getTimestamp() + $result->getResultAvailableAfter() + $result->getResultConsumedAfter();
+
             $this->profiledSummaries[] = [
-                'result' => $event->getResult(),
-                'alias' => $event->getAlias(),
+                'result' => $result,
+                'alias' => $event->alias,
+                'scheme' => $event->scheme,
+                'transaction_id' => $event->transactionId,
                 'time' => $time->format('Y-m-d H:i:s'),
                 'start_time' => $time->getTimestamp(),
                 'end_time' => $end_time,
@@ -70,12 +75,12 @@ final class Neo4jProfileListener implements EventSubscriberInterface, ResetInter
 
     public function onFailure(FailureEvent $event): void
     {
-        if (in_array($event->getAlias(), $this->enabledProfiles)) {
-            $time = $event->getTime();
+        if (in_array($event->alias, $this->enabledProfiles)) {
+            $time = $event->time;
             $this->profiledFailures[] = [
-                'exception' => $event->getException(),
-                'statement' => $event->getStatement(),
-                'alias' => $event->getAlias(),
+                'exception' => $event->exception,
+                'statement' => $event->statement,
+                'alias' => $event->alias,
                 'time' => $time->format('Y-m-d H:i:s'),
                 'timestamp' => $time->getTimestamp(),
             ];
