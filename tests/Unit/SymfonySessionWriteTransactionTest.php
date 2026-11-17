@@ -103,7 +103,7 @@ final class SymfonySessionWriteTransactionTest extends TestCase
         $cypherSequenceMock->expects($this->once())
             ->method('preload');
 
-        $tsxHandler = fn (SymfonyTransaction $tx): \PHPUnit\Framework\MockObject\MockObject&\Laudis\Neo4j\Contracts\CypherSequence => $cypherSequenceMock;
+        $tsxHandler = fn (SymfonyTransaction $tx): MockObject&\Laudis\Neo4j\Contracts\CypherSequence => $cypherSequenceMock;
 
         $result = $this->callRetryTransaction($tsxHandler);
 
