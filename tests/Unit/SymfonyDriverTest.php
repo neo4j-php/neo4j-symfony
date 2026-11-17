@@ -9,20 +9,17 @@ use Laudis\Neo4j\Databags\ServerInfo;
 use Laudis\Neo4j\Databags\SessionConfiguration;
 use Neo4j\Neo4jBundle\Decorators\SymfonyDriver;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionNamedType;
 
 final class SymfonyDriverTest extends TestCase
 {
-    private ReflectionClass $symfonyDriverReflection;
-    private ReflectionClass $driverInterfaceReflection;
+    private \ReflectionClass $symfonyDriverReflection;
+    private \ReflectionClass $driverInterfaceReflection;
 
     #[\Override]
     protected function setUp(): void
     {
-        $this->symfonyDriverReflection = new ReflectionClass(SymfonyDriver::class);
-        $this->driverInterfaceReflection = new ReflectionClass(DriverInterface::class);
+        $this->symfonyDriverReflection = new \ReflectionClass(SymfonyDriver::class);
+        $this->driverInterfaceReflection = new \ReflectionClass(DriverInterface::class);
     }
 
     public function testImplementsDriverInterface(): void
@@ -80,7 +77,7 @@ final class SymfonyDriverTest extends TestCase
         $method = $this->symfonyDriverReflection->getMethod('getServerInfo');
         $returnType = $method->getReturnType();
 
-        $this->assertInstanceOf(ReflectionNamedType::class, $returnType);
+        $this->assertInstanceOf(\ReflectionNamedType::class, $returnType);
         $this->assertSame(ServerInfo::class, $returnType->getName());
     }
 
@@ -94,7 +91,7 @@ final class SymfonyDriverTest extends TestCase
         $this->assertTrue($parameters[0]->allowsNull());
 
         $paramType = $parameters[0]->getType();
-        $this->assertInstanceOf(ReflectionNamedType::class, $paramType);
+        $this->assertInstanceOf(\ReflectionNamedType::class, $paramType);
         $this->assertSame(SessionConfiguration::class, $paramType->getName());
     }
 
@@ -119,7 +116,7 @@ final class SymfonyDriverTest extends TestCase
         }
     }
 
-    private function assertMethodSignatureMatchesInterface(ReflectionMethod $method, string $methodName): void
+    private function assertMethodSignatureMatchesInterface(\ReflectionMethod $method, string $methodName): void
     {
         $interfaceMethod = $this->driverInterfaceReflection->getMethod($methodName);
 

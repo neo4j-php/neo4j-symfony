@@ -58,6 +58,9 @@
         }
     },
     "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test:unit": "vendor/bin/phpunit --testsuite='Unit tests'",
+        "test:functional": "vendor/bin/phpunit --testsuite='Functional tests'",
         "psalm": "APP_ENV=dev php bin/console.php cache:warmup && vendor/bin/psalm --show-info=true",
         "fix-cs": "vendor/bin/php-cs-fixer fix",
         "check-cs": "vendor/bin/php-cs-fixer fix --dry-run",
