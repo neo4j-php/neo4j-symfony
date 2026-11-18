@@ -14,9 +14,6 @@ Make sure Composer is installed globally, as explained in the
 [installation chapter](https://getcomposer.org/doc/00-intro.md)
 of the Composer documentation.
 
-Applications that don't use Symfony Flex
-----------------------------------------
-
 ### Step 1: Download the Bundle
 
 Open a command console, enter your project directory and execute the
@@ -43,10 +40,10 @@ return [
 ## Documentation
 
 The bundle is a convenient way of registering services. We register `Drivers` and one
-`Clients`. You will always have alias for the default services:
+`Client`. You will always have alias for the default services:
 
- * neo4j.driver
- * neo4j.client
+* neo4j.driver
+* neo4j.client
 
 
 ### Minimal configuration
@@ -54,12 +51,19 @@ The bundle is a convenient way of registering services. We register `Drivers` an
 ```yaml
 neo4j:
   drivers:
-    default: ~
+    - alias: default
+```
+
+Or even simpler, if you want to use all defaults:
+
+```yaml
+neo4j:
+  drivers: []
 ```
 
 With the minimal configuration we have services named:
- * neo4j.driver.default
- * neo4j.client
+* neo4j.driver.default
+* neo4j.client
 
 ### Full configuration example
 
@@ -123,25 +127,63 @@ $queryCount = $collector->getQueryCount();
 
 ## Testing
 
+### Prerequisites
+
+Functional tests require a Neo4j instance to be running. The easiest way to set this up is using Docker Compose:
+
+```bash
+$ docker-compose up -d
+```
+
+This will start a Neo4j instance accessible at `bolt://neo4j:testtest@neo4j:7687`.
+
+> **Note:** For single-instance Neo4j setups, use the `bolt://` scheme. The `neo4j://` scheme is intended for clustered setups with routing support.
+
+### Running Tests
+
 Run all tests:
 
 ```bash
 $ composer test
 ```
 
-Run only unit tests:
+Run only unit tests (no Neo4j instance required):
 
 ```bash
 $ composer test:unit
 ```
 
-Run only functional tests:
+Run only functional tests (requires Neo4j instance):
 
 ```bash
 $ composer test:functional
 ```
 
-For functional tests that require a Neo4j server, ensure Neo4j is running and accessible. When running tests in Docker, the Neo4j service name should match your DSN configuration.
+You can also run PHPUnit directly:
+
+```bash
+$ ./vendor/bin/phpunit
+```
+
+## Code Quality
+
+Check code style:
+
+```bash
+$ composer check-cs
+```
+
+Fix code style issues:
+
+```bash
+$ composer fix-cs
+```
+
+Run static analysis:
+
+```bash
+$ composer psalm
+```
 
 ## Example application
 
