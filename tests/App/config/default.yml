@@ -26,7 +26,7 @@ web_profiler:
   intercept_redirects: false
 
 parameters:
-  neo4j.dsn.badname: bolt://localhost
+  neo4j.dsn.badname: bolt://localhostt
   neo4j.dsn.secret: neo4j://neo4j:secret@localhost:7688
   neo4j.dsn.test: neo4j://neo4j:testtest@neo4j
   neo4j.dsn.auth: neo4j://neo4j

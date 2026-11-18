@@ -121,6 +121,21 @@ final class SymfonySession implements SessionInterface
     }
 
     /**
+     * @param array<string, mixed> $parameters
+     */
+    #[\Override]
+    public function executeQuery(string $cypher, array $parameters = []): SummarizedResult
+    {
+        return $this->run($cypher, $parameters);
+    }
+
+    #[\Override]
+    public function close(): void
+    {
+        $this->session->close();
+    }
+
+    /**
      * Custom retry transaction logic to replace TransactionHelper.
      *
      * @template HandlerResult
